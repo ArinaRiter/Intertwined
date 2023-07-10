@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
 
     private CharacterController _characterController;
+    private CharacterStats _characterStats;
     private PlayerInputActions _playerInputActions;
     private float _turnSmoothVelocity;
     private bool _isRunning;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _characterStats = GetComponent<CharacterStats>();
         _playerInputActions = new PlayerInputActions();
     }
 
