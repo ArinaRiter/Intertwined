@@ -8,9 +8,10 @@ public class CharacterStats : MonoBehaviour
 {
     [SerializeField] private StatSO statSo;
     public ReadOnlyDictionary<StatType, Stat> Stats { get; private set; }
-    
+    private List<StatusEffect> _statusEffects = new();
+
     public float Health { get; private set; }
-    public float Stamina { get; private set; }
+    public float Energy { get; private set; }
     public float DamageReduction { get; private set; }
     public bool IsDead { get; private set; }
     public bool IsExhausted { get; private set; }
@@ -30,10 +31,10 @@ public class CharacterStats : MonoBehaviour
             health.ChangedValue += UpdateHealth;
         }
 
-        if (Stats.TryGetValue(StatType.MaxStamina, out var stamina))
+        if (Stats.TryGetValue(StatType.MaxEnergy, out var stamina))
         {
-            Stamina = stamina.Value;
-            stamina.ChangedValue += UpdateStamina;
+            Energy = stamina.Value;
+            stamina.ChangedValue += UpdateEnergy;
         }
         
         if (Stats.TryGetValue(StatType.Armor, out var armor))
@@ -43,14 +44,31 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        foreach (var statusEffect in _statusEffects)
+        {
+            if (statusEffect.Duration <= 0)
+            {
+                if (Stats.TryGetValue(statusEffect.Type, out var stat))
+                {
+                    stat.RemoveModifier(statusEffect.Mod);
+                }
+                _statusEffects.Remove(statusEffect);
+            }
+        }
+    }
+
     public void TakeDamage(DamageType damageType, float damage, float pierce, float breach)
     {
         var totalDamage = CalculateDamage(damageType, damage, pierce, breach);
         Health -= totalDamage;
+        Debug.Log($"Hit, {Health} health remaining");
         if (Health <= 0)
         {
             Health = 0;
             IsDead = true;
+            Debug.Log("Dead");
         }
     }
 
@@ -86,12 +104,12 @@ public class CharacterStats : MonoBehaviour
         }
     }
     
-    private void UpdateStamina(float value)
+    private void UpdateEnergy(float value)
     {
-        if (Stamina > value)
+        if (Energy > value)
         {
-            Stamina = value;
-            IsExhausted = Stamina <= 0;
+            Energy = value;
+            IsExhausted = Energy <= 0;
         }
     }
     
@@ -100,64 +118,14 @@ public class CharacterStats : MonoBehaviour
         DamageReduction = value / (200 + value);
     }
 
-    public IEnumerator ModifierDecay(StatType statType, StatMod statMod, float duration)
+    
+    
+    /*public IEnumerator ModifierDecay(StatType statType, StatMod statMod, float duration)
     {
         yield return new WaitForSeconds(duration);
         if (Stats.TryGetValue(statType, out var stat))
         {
             stat.RemoveModifier(statMod);
         }
-    }
-
-    /*[SerializeField] private StatSO statSo;
-    private readonly Dictionary<StatType, Stat> _statDictionary = new();
-    private bool _isDead;
-
-    private void Awake()
-    {
-        var statList = statSo.Stats;
-        foreach (var statInfo in statList)
-        {
-            _statDictionary.Add(statInfo.StatType, new Stat(statInfo.BaseValue));
-        }
-    }
-
-    private Stat GetStat(StatType statType)
-    {
-        if (_statDictionary.TryGetValue(statType, out var stat))
-        {
-            return stat;
-        }
-        Debug.Log($"No {statType} in {gameObject.name}");
-        return null;
-    }
-
-    public void TakeDamage(float value, ModType modType)
-    {
-        var health = GetStat(StatType.Health);
-        Debug.Log(health.CurrentValue);
-        health.AddModifier(value, modType, false);
-        if (health.CurrentValue == 0)
-        {
-            _isDead = true;
-            Debug.Log("You are dead");
-        }
-    }
-
-    public void ApplyStatModifier(StatType statType, float value, ModType modType, float modifierTime,
-        bool maxValueChange)
-    {
-        var stat = GetStat(statType);
-        stat.AddModifier(value, modType, maxValueChange);
-        if (modifierTime > 0)
-        {
-            StartCoroutine(RemoveModifier(stat, value, modType, modifierTime, maxValueChange));
-        }
-    }
-
-    IEnumerator RemoveModifier(Stat stat, float value, ModType modType, float modifierTime, bool maxValueChange)
-    {
-        yield return new WaitForSeconds(modifierTime);
-        stat.AddModifier(value, modType, maxValueChange);
     }*/
 }

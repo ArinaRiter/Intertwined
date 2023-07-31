@@ -64,69 +64,6 @@ public class Stat
         Value = ((_baseValue + baseMod) * percentAddMod + flatMod) * percentMultMod;
         ChangedValue?.Invoke(Value);
     }
-    
-    /*
-    public float MaxValue { get; private set; }
-    public float CurrentValue { get; private set; }
-    private float _baseValue;
-    private float _flatBaseModifier;
-    private float _flatModifier;
-    private float _percentPrimaryModifier;
-    private float _percentSecondaryModifier;
-
-    public Stat(float baseValue)
-    {
-        _baseValue = baseValue;
-        MaxValue = baseValue;
-        CurrentValue = baseValue;
-    }
-
-    public void ApplyModifier(float value, ModifierType type, bool maxValueChange)
-    {
-        if (maxValueChange)
-        {
-            switch (type)
-            {
-                case ModifierType.Base:
-                    _flatBaseModifier += value;
-                    break;
-                case ModifierType.Flat:
-                    _flatModifier += value;
-                    break;
-                case ModifierType.Primary:
-                    _percentPrimaryModifier += value;
-                    break;
-                case ModifierType.Secondary:
-                    _percentSecondaryModifier += value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-            RecalculateValue();
-        }
-        else
-        {
-            switch (type)
-            {
-                case ModifierType.Flat:
-                    CurrentValue += value;
-                    break;
-                case ModifierType.Primary:
-                    CurrentValue *= 1 + value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-            CurrentValue = Mathf.Clamp(CurrentValue, 0, MaxValue);
-        }
-    }
-
-    private void RecalculateValue()
-    {
-        MaxValue = ((_baseValue + _flatBaseModifier) * (1 + _percentPrimaryModifier) + _flatModifier) * (1 + _percentSecondaryModifier);
-        MaxValue = Mathf.Clamp(MaxValue, 0, Mathf.Infinity);
-        CurrentValue = Mathf.Clamp(CurrentValue, 0, MaxValue);
-    }*/
 }
 
 public struct StatMod
