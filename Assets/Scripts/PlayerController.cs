@@ -45,6 +45,15 @@ public class PlayerController : MonoBehaviour
         _playerInputActions.Player.Disable();
     }
 
+    private void Start()
+    {
+        if (_characterStats.Stats.TryGetValue(StatType.Speed, out var speed))
+        {
+            movementSpeed = speed.Value;
+            speed.ChangedValue += SetMovementSpeed;
+        }
+    }
+
     private void Update()
     {
         if (!_characterController.isGrounded)
@@ -79,5 +88,10 @@ public class PlayerController : MonoBehaviour
     private void OnRun(InputAction.CallbackContext context)
     {
         _isRunning = context.performed;
+    }
+
+    private void SetMovementSpeed(float value)
+    {
+        movementSpeed = value;
     }
 }
