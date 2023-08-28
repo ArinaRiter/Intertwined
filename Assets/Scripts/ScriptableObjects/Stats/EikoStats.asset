@@ -18,10 +18,14 @@ MonoBehaviour:
   - StatType: 1
     BaseValue: 100
   - StatType: 4
-    BaseValue: 5
+    BaseValue: 3
   - StatType: 2
     BaseValue: 50
   - StatType: 3
     BaseValue: 20
   - StatType: 5
     BaseValue: 0.1
+  - StatType: 7
+    BaseValue: 3
+  - StatType: 8
+    BaseValue: 5

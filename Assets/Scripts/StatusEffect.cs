@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StatusEffect : MonoBehaviour
+public class StatusEffect
 {
     private float _duration;
 
