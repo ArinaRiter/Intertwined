@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d87b831fefca54b9eaa1a1b297ee3b, type: 3}
   m_Name: EikoCombo
   m_EditorClassIdentifier: 
+  abilityName: Combo
+  energyCost: 50
+  cooldownTime: 15
+  activeTime: 5

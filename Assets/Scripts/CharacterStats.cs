@@ -11,7 +11,7 @@ public class CharacterStats : MonoBehaviour
     [SerializeField] private AttackSO attackSO;
     public AttackSO AttackSO => attackSO;
     public ReadOnlyDictionary<StatType, Stat> Stats { get; private set; }
-    private List<StatusEffect> _statusEffects = new();
+    private readonly List<StatusEffect> _statusEffects = new();
     private float _health;
     private float _energy;
     private float _energyReplenishTimer;
@@ -84,7 +84,10 @@ public class CharacterStats : MonoBehaviour
                 }
 
                 _statusEffects.Remove(statusEffect);
+                break;
             }
+
+            statusEffect.Duration -= Time.deltaTime;
         }
 
         if (_energyReplenishTimer > 0)
@@ -136,6 +139,12 @@ public class CharacterStats : MonoBehaviour
         }
 
         return damage * (1 - damageResistance * (1 - breach)) * (1 - DamageReduction * (1 - pierce));
+    }
+
+    public void ApplyStatusEffect(StatusEffect statusEffect)
+    {
+        _statusEffects.Add(statusEffect);
+        Stats[statusEffect.Type].AddModifier(statusEffect.Mod);
     }
 
     private void UpdateMaxHealth(float value)

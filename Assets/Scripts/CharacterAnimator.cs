@@ -18,6 +18,9 @@ public class CharacterAnimator : MonoBehaviour
     private readonly int _switchModeHash = Animator.StringToHash("SwitchMode");
     private readonly int _attackHash = Animator.StringToHash("Attack");
     private readonly int _chargedAttackHash = Animator.StringToHash("ChargedAttack");
+    private readonly int _skillOneHash = Animator.StringToHash("Skill1");
+    private readonly int _skillTwoHash = Animator.StringToHash("Skill2");
+    private readonly int _skillThreeHash = Animator.StringToHash("Skill3");
     private readonly int _jumpHash = Animator.StringToHash("Jump");
 
     private void Awake()
@@ -57,6 +60,22 @@ public class CharacterAnimator : MonoBehaviour
     {
         _animator.ResetTrigger(_attackHash);
         _animator.SetTrigger(_chargedAttackHash);
+    }
+
+    public void Skill(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                _animator.SetTrigger(_skillOneHash);
+                break;
+            case 2:
+                _animator.SetTrigger(_skillTwoHash);
+                break;
+            case 3:
+                _animator.SetTrigger(_skillThreeHash);
+                break;
+        }
     }
 
     public void Block(bool isBlocking)

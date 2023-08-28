@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,9 +6,10 @@ public class AbilityHolder : MonoBehaviour
 {
     [SerializeField] private AbilitySO ability;
     [SerializeField] private InputActionReference input;
+    [SerializeField] private int skillIndex;
 
+    private CharacterAnimator _characterAnimator;
     private AbilityState _state = AbilityState.Ready;
-    private float _cost;
     private float _cooldownTime;
 
     public string Name { get; private set; }
@@ -24,6 +26,11 @@ public class AbilityHolder : MonoBehaviour
         input.asset.Disable();
     }
 
+    private void Start()
+    {
+        _characterAnimator = GetComponentInChildren<CharacterAnimator>();
+    }
+
     private void Update()
     {
         if (_state == AbilityState.Cooldown)
@@ -35,20 +42,23 @@ public class AbilityHolder : MonoBehaviour
                 _cooldownTime = 0;
             }
         }
-        else if (_state == AbilityState.Active)
-        {
-            _state = AbilityState.Cooldown;
-        }
     }
 
     private void OnActivate(InputAction.CallbackContext context)
     {
-        Debug.Log("Skill");
         if (_state == AbilityState.Ready)
         {
             ability.Activate(gameObject);
+            _characterAnimator.Skill(skillIndex);
             _state = AbilityState.Active;
             _cooldownTime = ability.CooldownTime;
+            StartCoroutine(ActiveTime(ability.ActiveTime));
         }
+    }
+
+    private IEnumerator ActiveTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _state = AbilityState.Cooldown;
     }
 }
