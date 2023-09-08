@@ -3,7 +3,11 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private DamageType damageType;
+    [SerializeField] [Range(0, 1)] private float pierce;
+    [SerializeField] [Range(0, 1)] private float breach;
     private readonly Dictionary<AttackType, float> _attacks = new();
+    private readonly List<CharacterStats> _hitEnemies = new();
     private CharacterStats _characterStats;
     private float _damage;
     private float _damageMultiplier;
@@ -39,8 +43,15 @@ public class Weapon : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Strike");
-            other.GetComponent<CharacterStats>().TakeDamage(DamageType.Phys, _damage * _damageMultiplier, 0, 0);
+            var enemy = other.GetComponent<CharacterStats>();
+            if (_hitEnemies.Contains(enemy)) return;
+            _hitEnemies.Add(enemy);
+            enemy.TakeDamage(damageType, _damage * _damageMultiplier, pierce, breach);
         }
+    }
+
+    public void ClearHitEnemiesList()
+    {
+        _hitEnemies.Clear();
     }
 }

@@ -103,6 +103,7 @@ public class CharacterAnimator : MonoBehaviour
     public void WeaponDisable()
     {
         weapon.enabled = false;
+        weapon.ClearHitEnemiesList();
     }
 
     public void Arm()
