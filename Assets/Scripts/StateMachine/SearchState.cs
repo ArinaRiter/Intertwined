@@ -1,0 +1,21 @@
+using UnityEngine;
+
+public class SearchState : BaseState
+{
+    public override void EnterState(AIStateMachine aiStateMachine)
+    {
+        Debug.Log("Search state entered");
+    }
+
+    public override void UpdateState(AIStateMachine aiStateMachine)
+    {
+    }
+
+    public override void OnCollisionEnter(AIStateMachine aiStateMachine, Collision collision)
+    {
+    }
+    
+    public override void OnTriggerEnter(AIStateMachine aiStateMachine, Collider collider)
+    {
+    }
+}

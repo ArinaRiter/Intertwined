@@ -2,11 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
-public abstract class PlayerController : MonoBehaviour
+//[RequireComponent(typeof(CharacterController))]
+public abstract class PlayerController : BaseController
 {
     [SerializeField] private float jumpHeight;
-    [SerializeField] private float turnSmoothTime;
+    [SerializeField] private float turnTime;
     [SerializeField] private float airborneTurnTimeModificator;
     [SerializeField] private protected Transform cameraTransform;
     [SerializeField] private Transform groundCheck;
@@ -135,7 +135,7 @@ public abstract class PlayerController : MonoBehaviour
     private Quaternion CalculateLookingDirection(float target)
     {
         var lookingDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, target, ref _turnSmoothVelocity,
-            turnSmoothTime * (IsGrounded ? 1 : airborneTurnTimeModificator));
+            turnTime * (IsGrounded ? 1 : airborneTurnTimeModificator));
         return Quaternion.Euler(0, lookingDirection, 0);
     }
 
