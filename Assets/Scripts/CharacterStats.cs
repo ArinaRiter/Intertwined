@@ -78,7 +78,7 @@ public class CharacterStats : MonoBehaviour
         {
             if (statusEffect.Duration <= 0)
             {
-                if (Stats.TryGetValue(statusEffect.Type, out var stat))
+                if (Stats.TryGetValue(statusEffect.Mod.Stat, out var stat))
                 {
                     stat.RemoveModifier(statusEffect.Mod);
                 }
@@ -144,7 +144,7 @@ public class CharacterStats : MonoBehaviour
     public void ApplyStatusEffect(StatusEffect statusEffect)
     {
         _statusEffects.Add(statusEffect);
-        Stats[statusEffect.Type].AddModifier(statusEffect.Mod);
+        Stats[statusEffect.Mod.Stat].AddModifier(statusEffect.Mod);
     }
 
     private void UpdateMaxHealth(float value)

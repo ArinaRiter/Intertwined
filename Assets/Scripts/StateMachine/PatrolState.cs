@@ -18,4 +18,14 @@ public class PatrolState : BaseState
     public override void OnTriggerEnter(AIStateMachine aiStateMachine, Collider collider)
     {
     }
+
+    public override void OnTriggerStay(AIStateMachine aiStateMachine, Collider collider)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnTriggerExit(AIStateMachine aiStateMachine, Collider collider)
+    {
+        throw new System.NotImplementedException();
+    }
 }

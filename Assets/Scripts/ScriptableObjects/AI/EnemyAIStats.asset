@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989345720771a71459feac8fdca5424a, type: 3}
   m_Name: EnemyAIStats
   m_EditorClassIdentifier: 
-  detectionRange: 0
-  detectionAngle: 0
-  detectionSpeed: 0
+  detectionRange: 5
+  detectionAngle: 90
+  detectionSpeed: 1

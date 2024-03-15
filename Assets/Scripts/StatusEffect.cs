@@ -2,14 +2,14 @@ public class StatusEffect
 {
     public float Duration;
     public readonly string Name;
-    public readonly StatType Type;
+    public readonly bool IsBuff;
     public readonly StatMod Mod;
 
-    public StatusEffect(string name, StatType type, StatMod mod, float duration)
+    public StatusEffect(string name, bool isBuff, float duration, StatMod mod)
     {
         Name = name;
-        Type = type;
         Mod = mod;
         Duration = duration;
+        IsBuff = isBuff;
     }
 }

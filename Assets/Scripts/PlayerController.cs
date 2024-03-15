@@ -2,41 +2,20 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-//[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterController))]
 public abstract class PlayerController : BaseController
 {
-    [SerializeField] private float jumpHeight;
-    [SerializeField] private float turnTime;
-    [SerializeField] private float airborneTurnTimeModificator;
     [SerializeField] private protected Transform cameraTransform;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundDistance;
-    [SerializeField] private LayerMask groundMask;
 
     private CharacterController _characterController;
-    private protected CharacterStats _characterStats;
-    private protected CharacterAnimator _characterAnimator;
     private PlayerInputActions _playerInputActions;
-    private Vector3 _verticalVelocity = Vector3.zero;
-    private float _movementSpeed;
-    private float _turnSmoothVelocity;
-    private float _speedModifier = 1;
-    private bool _fallingForward;
 
     private const float GRAVITY = -9.81f;
 
-    public bool IsMoving { get; private protected set; }
-    public bool IsRunning { get; private protected set; }
-    public bool IsJumping { get; private protected set; }
-    public bool IsFalling { get; private protected set; }
-    public bool IsGrounded { get; private protected set; }
-    public bool IsPeaceful { get; private protected set; }
-    public bool IsFocused { get; private protected set; }
-
-    private void Awake()
+    private protected override void Awake()
     {
+        base.Awake();
         _characterController = GetComponent<CharacterController>();
-        _characterStats = GetComponent<CharacterStats>();
         _playerInputActions = new PlayerInputActions();
     }
 
@@ -62,16 +41,6 @@ public abstract class PlayerController : BaseController
         _playerInputActions.Player.Block.canceled -= OnBlock;
         _playerInputActions.Player.SwitchMode.performed -= OnSwitchMode;
         _playerInputActions.Player.Disable();
-    }
-
-    private void Start()
-    {
-        _characterAnimator = GetComponentInChildren<CharacterAnimator>();
-        if (_characterStats.Stats.TryGetValue(StatType.Speed, out var speed))
-        {
-            _movementSpeed = speed.Value;
-            speed.ChangedValue += SetMovementSpeed;
-        }
     }
 
     private void Update()
@@ -158,11 +127,6 @@ public abstract class PlayerController : BaseController
     private protected abstract void OnBlock(InputAction.CallbackContext obj);
 
     private protected abstract void OnSwitchMode(InputAction.CallbackContext obj);
-
-    private void SetMovementSpeed(float value)
-    {
-        _movementSpeed = value;
-    }
 
     private IEnumerator Jump()
     {

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class AIStateMachine : MonoBehaviour
 {
+    public AIController Context;
+    
     private BaseState _currentState;
     
     public IdleState IdleState = new();
@@ -12,6 +14,7 @@ public class AIStateMachine : MonoBehaviour
 
     private void Start()
     {
+        Context = GetComponent<AIController>();
         _currentState = IdleState;
         _currentState.EnterState(this);
     }
@@ -25,5 +28,25 @@ public class AIStateMachine : MonoBehaviour
     {
         _currentState = state;
         state.EnterState(this);
+    }
+    
+    private void OnCollisionEnter(Collision other)
+    {
+        _currentState.OnCollisionEnter(this, other);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        _currentState.OnTriggerEnter(this, other);
+    }
+    
+    private void OnTriggerStay(Collider other)
+    {
+        _currentState.OnTriggerEnter(this, other);
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        _currentState.OnTriggerEnter(this, other);
     }
 }

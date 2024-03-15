@@ -68,11 +68,13 @@ public class Stat
 
 public struct StatMod
 {
+    public readonly StatType Stat;
     public readonly ModType Type;
     public readonly float Value;
     
-    public StatMod(ModType type, float value)
+    public StatMod(StatType stat, ModType type, float value)
     {
+        Stat = stat;
         Type = type;
         Value = value;
     }
