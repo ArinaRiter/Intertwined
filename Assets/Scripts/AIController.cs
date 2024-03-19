@@ -6,7 +6,7 @@ public class AIController : BaseController
     [SerializeField] private AIStatsSO aiStatsSo;
     [SerializeField] private Transform destination;
 
-    private RichAI _richAI;
+    private AIPath _aiPath;
     private SphereCollider _detectionCollider;
     private Transform _target;
     private float _detectionRange;
@@ -19,7 +19,7 @@ public class AIController : BaseController
         _detectionRange = aiStatsSo.DetectionRange;
         _detectionAngle = aiStatsSo.DetectionAngle;
         _detectionSpeed = aiStatsSo.DetectionSpeed;
-        _richAI = GetComponent<RichAI>();
+        _aiPath = GetComponent<AIPath>();
         _detectionCollider = GetComponent<SphereCollider>();
         _detectionCollider.radius = _detectionRange;
     }
@@ -27,8 +27,8 @@ public class AIController : BaseController
     private protected override void Start()
     {
         base.Start();
-        _richAI.maxSpeed = _movementSpeed;
-        _richAI.rotationSpeed = 90 / turnTime;
+        _aiPath.maxSpeed = _movementSpeed;
+        _aiPath.rotationSpeed = 90 / turnTime;
     }
 
     private void OnTriggerStay(Collider other)
@@ -54,6 +54,6 @@ public class AIController : BaseController
     private protected override void SetMovementSpeed(float value)
     {
         base.SetMovementSpeed(value);
-        _richAI.maxSpeed = _movementSpeed;
+        _aiPath.maxSpeed = _movementSpeed;
     }
 }

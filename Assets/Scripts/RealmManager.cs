@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
+using MongoDB.Bson;
 using UnityEngine;
 using Realms;
 using Debug = UnityEngine.Debug;
@@ -11,101 +13,143 @@ using MongoDB.Bson.IO;
 
 public class RealmManager : MonoBehaviour
 {
-    [SerializeField] private RealmType realmType;
-    
-    private Realm _realm;
-    private readonly string _path = Application.dataPath + "/Realm/";
+    private static Realm _realm;
+    private static readonly string _path = Application.dataPath + "/Realm/";
 
-    public void ReadFromRealm()
+    public static void ReadFromRealm()
     {
-        _realm = Realm.GetInstance(_path + realmType + ".realm");
+        _realm = Realm.GetInstance(_path + "StatMods.realm");
         var item = _realm.All<StatModItem>().ToArray()[0];
         Debug.Log($"{item.Name}");
         _realm.Dispose();
     }
-    
-    public void AddToRealm()
+
+    public static void AddToRealm()
     {
-        _realm = Realm.GetInstance(_path + realmType + ".realm");
+        _realm = Realm.GetInstance(_path + "StatMods.realm");
         var item = new StatModItem();
         _realm.Write(() => { _realm.Add(item); });
         _realm.Dispose();
         Debug.Log("entityName" + " added!");
     }
 
-    public void ImportCollection()
+    public static void ImportCollection()
     {
         ExportJson();
-        var item = (StatModItem)ParseJson();
+        var item = ParseJson();
 
-        var config = new RealmConfiguration(_path + realmType + ".realm");
+        var config = new RealmConfiguration(_path + "StatMods.realm");
         Realm.DeleteRealm(config);
         _realm = Realm.GetInstance(config);
         _realm.Write(() => { _realm.Add(item); });
-        Debug.Log($"{realmType} imported {item.Name}!");
+        Debug.Log($"StatMods imported {item}!");
         _realm.Dispose();
     }
 
-    private void ExportJson()
+    private static void ExportJson()
     {
         var cmdInfo = new ProcessStartInfo
         {
             FileName = "cmd.exe",
-            Arguments = "/c mongoexport --db Intertwined --collection " + realmType + " --out " + _path + realmType + ".json",
+            Arguments = "/c mongoexport --db Intertwined --collection StatMods --out " + _path + "StatMods.json",
             WindowStyle = ProcessWindowStyle.Hidden
         };
         var cmd = Process.Start(cmdInfo);
         cmd?.WaitForExit();
     }
-    
-    private RealmObject ParseJson()
+
+    private static List<RealmObject> ParseJson()
     {
-        using var r = new StreamReader(_path + realmType + ".json");
+        using var r = new StreamReader(_path + "StatMods.json");
         var json = r.ReadToEnd();
         Debug.Log(json);
-        var statusEffectItem = new StatModItem();
+        var realmObjects = new List<RealmObject>();
         using var jsonReader = new JsonReader(json);
-        jsonReader.ReadStartDocument();
-        jsonReader.ReadObjectId();
-        statusEffectItem.Name = jsonReader.ReadString();
-        statusEffectItem.IsBuff = jsonReader.ReadBoolean();
-        statusEffectItem.Duration = jsonReader.ReadInt32();
-        jsonReader.ReadStartArray();
-        jsonReader.ReadBsonType();
-        while (jsonReader.State == BsonReaderState.Value)
+        while (jsonReader.ReadBsonType() == BsonType.Document)
         {
             jsonReader.ReadStartDocument();
-            var stat = jsonReader.ReadString();
-            var mod = Convert.ToString(jsonReader.ReadInt32());
-            var value = Convert.ToString(jsonReader.ReadInt32(), CultureInfo.InvariantCulture);
-            statusEffectItem.StatMods.Add($"{stat} {mod} {value}");
+            jsonReader.ReadObjectId();
+
+            var statModItem = new StatModItem
+            {
+                Name = jsonReader.ReadString(),
+                Rarity = jsonReader.ReadInt32(),
+                IsBuff = jsonReader.ReadBoolean(),
+                IsEntity = jsonReader.ReadBoolean(),
+                IsItem = jsonReader.ReadBoolean()
+            };
+
+            jsonReader.ReadStartArray();
+            while (jsonReader.ReadBsonType() == BsonType.Document)
+            {
+                jsonReader.ReadStartDocument();
+                var stat = jsonReader.ReadString();
+                var mod = Convert.ToString(jsonReader.ReadInt32());
+                var value = jsonReader.ReadBsonType() == BsonType.Int32
+                    ? Convert.ToString(jsonReader.ReadInt32(), CultureInfo.InvariantCulture)
+                    : Convert.ToString(jsonReader.ReadDouble(), CultureInfo.InvariantCulture);
+                statModItem.StatMods.Add($"{stat} {mod} {value}");
+                jsonReader.ReadEndDocument();
+            }
+
+            jsonReader.ReadEndArray();
+
+            realmObjects.Add(statModItem);
             jsonReader.ReadEndDocument();
-            jsonReader.ReadBsonType();
         }
+
         jsonReader.Close();
-        return statusEffectItem;
+        return realmObjects;
+    }
+
+    public static IEnumerable<StatusEffect> QueryRealm(Expression<Func<StatModItem, bool>> expression)
+    {
+        _realm = Realm.GetInstance(_path + "StatMods.realm");
+        var query = _realm.All<StatModItem>().Where(expression);
+        var results = ParseRealm(query);
+        _realm.Dispose();
+        return results;
+    }
+
+    private static IEnumerable<StatusEffect> ParseRealm(IEnumerable<StatModItem> query)
+    {
+        var statusEffects = new List<StatusEffect>();
+        foreach (var item in query)
+        {
+            var statMods = new List<StatMod>();
+            foreach (var statMod in item.StatMods)
+            {
+                var parsed = statMod.Split(' ');
+                statMods.Add(new StatMod(Enum.Parse<StatType>(parsed[0]), (ModType)Convert.ToInt32(parsed[1]),
+                    (float)Convert.ToDouble(parsed[2], CultureInfo.InvariantCulture)));
+            }
+            var statusEffect = new StatusEffect(item.Name, item.IsBuff, 0, statMods);
+            statusEffects.Add(statusEffect);
+        }
+        return statusEffects;
     }
 }
 
 public class StatModItem : RealmObject
 {
     [PrimaryKey] public string Name { get; set; }
+    public int Rarity { get; set; }
     public bool IsBuff { get; set; }
-    public float Duration { get; set; }
+    public bool IsEntity { get; set; }
+    public bool IsItem { get; set; }
     public IList<string> StatMods { get; }
 
-    public StatModItem(){}
-    
-    public StatModItem(string name, bool isBuff, float duration, IList<string> statMods)
+    public StatModItem()
+    {
+    }
+
+    public StatModItem(string name, int rarity, bool isBuff, bool isEntity, bool isItem, IList<string> statMods)
     {
         Name = name;
+        Rarity = rarity;
         IsBuff = isBuff;
-        Duration = duration;
+        IsEntity = isEntity;
+        IsItem = isItem;
         StatMods = statMods;
     }
-}
-
-internal enum RealmType
-{
-    StatusEffects
 }

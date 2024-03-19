@@ -193,12 +193,7 @@ namespace Pathfinding {
 			GridNodeBase[] nodes;
 			// Layers are required when handling LayeredGridGraphs
 			int layers = graph.LayerCount;
-			var layeredGraph = graph as LayerGridGraph;
-			if (layeredGraph != null) {
-				nodes = layeredGraph.nodes;
-			} else {
-				nodes = graph.nodes;
-			}
+			nodes = graph.nodes;
 
 			// Create a temporary buffer required for the calculations
 			if (buffer == null || buffer.Length != width*depth) {

@@ -1,1 +1,0 @@
-{"_id":{"$oid":"65ed87a0bd135f1fde47599e"},"Name":"Empower","IsBuff":true,"Duration":10,"StatMods":[{"Stat":"Power","Type":2,"Value":1},{"Stat":"MaxEnergy","Type":1,"Value":10}]}

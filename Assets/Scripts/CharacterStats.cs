@@ -78,11 +78,14 @@ public class CharacterStats : MonoBehaviour
         {
             if (statusEffect.Duration <= 0)
             {
-                if (Stats.TryGetValue(statusEffect.Mod.Stat, out var stat))
+                foreach (var statMod in statusEffect.StatMods)
                 {
-                    stat.RemoveModifier(statusEffect.Mod);
+                    if (Stats.TryGetValue(statMod.Stat, out var stat))
+                    {
+                        stat.RemoveModifier(statMod);
+                    }
                 }
-
+                
                 _statusEffects.Remove(statusEffect);
                 break;
             }
@@ -125,14 +128,12 @@ public class CharacterStats : MonoBehaviour
                 {
                     damageResistance = physRes.Value;
                 }
-
                 break;
             case DamageType.Fire:
                 if (Stats.TryGetValue(StatType.PhysRes, out var fireRes))
                 {
                     damageResistance = fireRes.Value;
                 }
-
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null);
@@ -144,7 +145,10 @@ public class CharacterStats : MonoBehaviour
     public void ApplyStatusEffect(StatusEffect statusEffect)
     {
         _statusEffects.Add(statusEffect);
-        Stats[statusEffect.Mod.Stat].AddModifier(statusEffect.Mod);
+        foreach (var statMod in statusEffect.StatMods)
+        {
+            Stats[statMod.Stat].AddModifier(statMod);
+        }
     }
 
     private void UpdateMaxHealth(float value)

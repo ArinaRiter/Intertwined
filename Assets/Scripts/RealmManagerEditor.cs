@@ -11,17 +11,17 @@ public class RealmManagerEditor : Editor
         var realmManager = (RealmManager)target;
         if(GUILayout.Button("Add to Realm"))
         {
-            realmManager.AddToRealm();
+            RealmManager.AddToRealm();
         }
         
         if(GUILayout.Button("Read from Realm"))
         {
-            realmManager.ReadFromRealm();
+            RealmManager.ReadFromRealm();
         }
         
         if(GUILayout.Button("Import Collection"))
         {
-            realmManager.ImportCollection();
+            RealmManager.ImportCollection();
         }
     }
 }

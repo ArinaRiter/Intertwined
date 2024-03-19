@@ -1,14 +1,16 @@
+using System.Collections.Generic;
+
 public class StatusEffect
 {
     public float Duration;
     public readonly string Name;
     public readonly bool IsBuff;
-    public readonly StatMod Mod;
+    public readonly List<StatMod> StatMods;
 
-    public StatusEffect(string name, bool isBuff, float duration, StatMod mod)
+    public StatusEffect(string name, bool isBuff, float duration, List<StatMod> statMods)
     {
         Name = name;
-        Mod = mod;
+        StatMods = statMods;
         Duration = duration;
         IsBuff = isBuff;
     }
