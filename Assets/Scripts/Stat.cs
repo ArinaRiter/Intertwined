@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Stat
 {
@@ -62,6 +63,7 @@ public class Stat
         }
 
         Value = ((_baseValue + baseMod) * percentAddMod + flatMod) * percentMultMod;
+        if () Debug.Log(Value);
         ChangedValue?.Invoke(Value);
     }
 }

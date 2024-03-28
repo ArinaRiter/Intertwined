@@ -74,7 +74,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Update()
     {
-        foreach (var statusEffect in _statusEffects)
+        foreach (var statusEffect in _statusEffects.Where(statusEffect => !statusEffect.IsPermanent))
         {
             if (statusEffect.Duration <= 0)
             {

@@ -54,6 +54,7 @@ public class AIController : BaseController
     private protected override void SetMovementSpeed(float value)
     {
         base.SetMovementSpeed(value);
+        Debug.Log("speed changed " + _movementSpeed);
         _aiPath.maxSpeed = _movementSpeed;
     }
 }
