@@ -62,8 +62,7 @@ public class Stat
             }
         }
 
-        Value = ((_baseValue + baseMod) * percentAddMod + flatMod) * percentMultMod;
-        if () Debug.Log(Value);
+        Value = ((_baseValue + baseMod) * percentAddMod + flatMod) * percentMultMod; 
         ChangedValue?.Invoke(Value);
     }
 }
