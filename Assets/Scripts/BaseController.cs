@@ -33,7 +33,7 @@ public abstract class BaseController : MonoBehaviour
     private protected virtual void Start()
     {
         _characterAnimator = GetComponentInChildren<CharacterAnimator>();
-        if (_characterStats.Stats.TryGetValue(StatType.Speed, out var speed))
+        if (_characterStats.Stats.TryGetValue(StatType.MovementSpeed, out var speed))
         {
             _movementSpeed = speed.Value;
             speed.ChangedValue += SetMovementSpeed;

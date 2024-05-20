@@ -1,6 +1,0 @@
-{"_id":{"$oid":"65ed87a0bd135f1fde47599e"},"Name":"Empower","Rarity":2,"IsBuff":true,"IsEntity":true,"IsItem":true,"StatMods":[{"Stat":"Power","Type":2,"Value":1},{"Stat":"MaxEnergy","Type":1,"Value":10}]}
-{"_id":{"$oid":"65f98ebea5c5166429025161"},"Name":"Armored","Rarity":1,"IsBuff":true,"IsEntity":true,"IsItem":true,"StatMods":[{"Stat":"Armor","Type":1,"Value":50},{"Stat":"PhysRes","Type":1,"Value":0.1}]}
-{"_id":{"$oid":"65f98ee8a5c5166429025164"},"Name":"Vitalized","Rarity":0,"IsBuff":true,"IsEntity":true,"IsItem":true,"StatMods":[{"Stat":"MaxHealth","Type":1,"Value":25}]}
-{"_id":{"$oid":"65f98f4ea5c5166429025166"},"Name":"Exhausted","Rarity":1,"IsBuff":false,"IsEntity":true,"IsItem":false,"StatMods":[{"Stat":"Speed","Type":3,"Value":-0.4},{"Stat":"EnergyReplenishRate","Type":1,"Value":-1}]}
-{"_id":{"$oid":"65f98fa1a5c5166429025168"},"Name":"Gilded","Rarity":3,"IsBuff":true,"IsEntity":false,"IsItem":true,"StatMods":[{"Stat":"Power","Type":3,"Value":2},{"Stat":"Speed","Type":3,"Value":1},{"Stat":"FireRes","Type":0,"Value":0.5}]}
-{"_id":{"$oid":"660584043a4a0bb9f1e7da12"},"Name":"Swift","Rarity":3,"IsBuff":true,"IsEntity":true,"IsItem":false,"StatMods":[{"Stat":"Speed","Type":3,"Value":2},{"Stat":"EnergyReplenishRate","Type":0,"Value":1},{"Stat":"EnergyReplenishCooldown","Type":2,"Value":-0.5}]}

@@ -28,11 +28,11 @@ public class CharacterStats : MonoBehaviour
         get => _energy;
         set
         {
-            var maxEnergy = Stats[StatType.MaxEnergy].Value;
+            var maxEnergy = Stats[StatType.MaxStamina].Value;
             if (_energy > value)
             {
                 _isEnergyReplenishing = false;
-                _energyReplenishTimer = Stats[StatType.EnergyReplenishCooldown].Value;
+                _energyReplenishTimer = Stats[StatType.StaminaReplenishCooldown].Value;
             }
             else if (value >= maxEnergy)
             {
@@ -59,7 +59,7 @@ public class CharacterStats : MonoBehaviour
             maxHealth.ChangedValue += UpdateMaxHealth;
         }
 
-        if (Stats.TryGetValue(StatType.MaxEnergy, out var maxEnergy))
+        if (Stats.TryGetValue(StatType.MaxStamina, out var maxEnergy))
         {
             Energy = maxEnergy.Value;
             maxEnergy.ChangedValue += UpdateMaxEnergy;
@@ -124,16 +124,24 @@ public class CharacterStats : MonoBehaviour
         switch (damageType)
         {
             case DamageType.Phys:
-                if (Stats.TryGetValue(StatType.PhysRes, out var physRes))
+                if (Stats.TryGetValue(StatType.PhysDamageResistance, out var physRes))
                 {
                     damageResistance = physRes.Value;
                 }
                 break;
             case DamageType.Fire:
-                if (Stats.TryGetValue(StatType.PhysRes, out var fireRes))
+                if (Stats.TryGetValue(StatType.FireDamageResistance, out var fireRes))
                 {
                     damageResistance = fireRes.Value;
                 }
+                break;
+            case DamageType.Poison:
+                if (Stats.TryGetValue(StatType.FireDamageResistance, out var trueRes))
+                {
+                    damageResistance = trueRes.Value;
+                }
+                break;
+            case DamageType.True:
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null);
@@ -178,7 +186,7 @@ public class CharacterStats : MonoBehaviour
     {
         while (_isEnergyReplenishing)
         {
-            Energy += Stats[StatType.EnergyReplenishRate].Value;
+            Energy += Stats[StatType.StaminaReplenishRate].Value;
             yield return new WaitForSeconds(1f);
         }
     }
