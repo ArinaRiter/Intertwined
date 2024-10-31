@@ -35,7 +35,7 @@ public class AIController : BaseController
     {
         if (_target != null)
         {
-            destination.position = _target.position;
+            //destination.position = _target.position;
         }
         else if (other.TryGetComponent(out BaseController controller))
         {

@@ -9,15 +9,6 @@ public class RealmManagerEditor : Editor
         DrawDefaultInspector();
 
         var realmManager = (RealmManager)target;
-        if(GUILayout.Button("Add to Realm"))
-        {
-            RealmManager.AddToRealm();
-        }
-        
-        if(GUILayout.Button("Read from Realm"))
-        {
-            RealmManager.ReadFromRealm();
-        }
         
         if(GUILayout.Button("Import Collection"))
         {

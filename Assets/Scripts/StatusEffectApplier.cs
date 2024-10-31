@@ -8,18 +8,13 @@ public class StatusEffectApplier : MonoBehaviour
 {
     private void Start()
     {
-        var enemies = FindObjectsOfType<AIController>();
+        var enemies = FindObjectsByType<AIController>(FindObjectsSortMode.None);
         foreach (var enemy in enemies)
         {
-            var value = Random.Range(0, 1f);
-            if (value < 0) return;
-            int rarity;
-            if (value >= 0.95) rarity = 3;
-            else if (value >= 0.8) rarity = 2;
-            else if (value >= 0.5) rarity = 1;
-            else rarity = 0;
+            var rarity = PickRandomRarity();
+            if (rarity < 0) return;
 
-            Expression<Func<StatModItem, bool>> expression = item => item.Rarity == rarity && item.IsEntity;
+            Expression<Func<StatusEffectItem, bool>> expression = item => item.Rarity == rarity && item.IsEntity;
             var statusEffects = RealmManager.QueryRealm(expression);
             while (!statusEffects.Any() && rarity > 0)
             {
@@ -31,7 +26,37 @@ public class StatusEffectApplier : MonoBehaviour
             if (!statusEffects.Any()) return;
             var statusEffect = statusEffects.First();
             enemy.GetComponent<CharacterStats>().ApplyStatusEffect(statusEffect);
-            if (statusEffect.Name == "Swift") Debug.Log($"Applied {statusEffect.Name} to {enemy.name}");
+            Debug.Log($"Applied {statusEffect.Name} to {enemy.name}");
         }
+    }
+
+    public static void ApplyToEntity(CharacterStats character)
+    {
+        var rarity = PickRandomRarity();
+        if (rarity < 0) return;
+
+        Expression<Func<StatusEffectItem, bool>> expression = item => item.Rarity == rarity && item.IsEntity;
+        var statusEffects = RealmManager.QueryRealm(expression);
+        while (!statusEffects.Any() && rarity > 0)
+        {
+            rarity--;
+            expression = item => item.Rarity == rarity && item.IsEntity;
+            statusEffects = RealmManager.QueryRealm(expression);
+        }
+
+        if (!statusEffects.Any()) return;
+        var statusEffect = statusEffects.First();
+        character.ApplyStatusEffect(statusEffect);
+        Debug.Log($"Applied {statusEffect.Name} to {character.name}");
+    }
+
+    private static int PickRandomRarity()
+    {
+        var value = Random.Range(-1f, 1f);
+        if (value >= 0.95f) return 3;
+        if (value >= 0.8f) return 2;
+        if (value >= 0.5f) return 1;
+        if (value >= 0f) return 0;
+        return -1;
     }
 }

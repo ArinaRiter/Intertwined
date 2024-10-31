@@ -155,7 +155,7 @@ public class CharacterStats : MonoBehaviour
         _statusEffects.Add(statusEffect);
         foreach (var statMod in statusEffect.StatMods)
         {
-            Stats[statMod.Stat].AddModifier(statMod);
+            if (Stats.ContainsKey(statMod.Stat)) Stats[statMod.Stat].AddModifier(statMod);
         }
     }
 
@@ -188,6 +188,29 @@ public class CharacterStats : MonoBehaviour
         {
             Energy += Stats[StatType.StaminaReplenishRate].Value;
             yield return new WaitForSeconds(1f);
+        }
+    }
+
+    public void UpdateStats(Dictionary<StatType, Stat> stats)
+    {
+        Stats = new ReadOnlyDictionary<StatType, Stat>(stats);
+        Debug.Log(stats);
+        if (Stats.TryGetValue(StatType.MaxHealth, out var maxHealth))
+        {
+            Health = maxHealth.Value;
+            maxHealth.ChangedValue += UpdateMaxHealth;
+        }
+
+        if (Stats.TryGetValue(StatType.MaxStamina, out var maxEnergy))
+        {
+            Energy = maxEnergy.Value;
+            maxEnergy.ChangedValue += UpdateMaxEnergy;
+        }
+
+        if (Stats.TryGetValue(StatType.Armor, out var armor))
+        {
+            DamageReduction = armor.Value / (200 + armor.Value);
+            armor.ChangedValue += UpdateArmor;
         }
     }
 }
