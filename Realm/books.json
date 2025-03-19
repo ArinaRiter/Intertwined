@@ -1,0 +1,6 @@
+{"_id":{"$oid":"65e7882b6949064b609ace0d"},"title":"Hobbit","author":"Tolkin","pages":500,"genres":["fantasy","adventure"],"rating":12}
+{"_id":{"$oid":"65e788b06949064b609ace0f"},"title":"Hobbit 2","author":"Tolkin","pages":550,"genres":["fantasy","adventure"],"rating":12}
+{"_id":{"$oid":"65e788b06949064b609ace10"},"title":"Hobbit 3","author":"Tolkin","pages":450,"genres":["fantasy","adventure"],"rating":14}
+{"_id":{"$oid":"65e788b06949064b609ace11"},"title":"LotR","author":"Tolkin","pages":500,"genres":["fantasy","adventure"],"rating":14}
+{"_id":{"$oid":"65e788b06949064b609ace12"},"title":"LotR 2","author":"Tolkin","pages":600,"genres":["fantasy","adventure"],"rating":16}
+{"_id":{"$oid":"65e788b06949064b609ace13"},"title":"LotR 3","author":"Tolkin","pages":700,"genres":["fantasy","adventure"],"rating":18}
