@@ -16,6 +16,8 @@ public class CharacterStats : MonoBehaviour
     private float _energy;
     private float _energyReplenishTimer;
     private bool _isEnergyReplenishing;
+    
+    public event Action OnDeath;
 
     public float Health
     {
@@ -114,6 +116,7 @@ public class CharacterStats : MonoBehaviour
         {
             Health = 0;
             IsDead = true;
+            OnDeath?.Invoke();
             Debug.Log("Dead");
         }
     }
