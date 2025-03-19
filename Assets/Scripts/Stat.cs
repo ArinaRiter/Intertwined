@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Stat
 {
@@ -61,18 +62,20 @@ public class Stat
             }
         }
 
-        Value = ((_baseValue + baseMod) * percentAddMod + flatMod) * percentMultMod;
+        Value = ((_baseValue + baseMod) * percentAddMod + flatMod) * percentMultMod; 
         ChangedValue?.Invoke(Value);
     }
 }
 
 public struct StatMod
 {
+    public readonly StatType Stat;
     public readonly ModType Type;
     public readonly float Value;
     
-    public StatMod(ModType type, float value)
+    public StatMod(StatType stat, ModType type, float value)
     {
+        Stat = stat;
         Type = type;
         Value = value;
     }
