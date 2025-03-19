@@ -1,14 +1,15 @@
+using System;
 using Pathfinding;
 using UnityEngine;
 
 public class AIController : BaseController
 {
     [SerializeField] private AIStatsSO aiStatsSo;
-    [SerializeField] private Transform destination;
 
     private AIPath _aiPath;
     private SphereCollider _detectionCollider;
     private Transform _target;
+    private AIDestinationSetter _aiDestinationSetter;
     private float _detectionRange;
     private float _detectionAngle;
     private float _detectionSpeed;
@@ -22,6 +23,7 @@ public class AIController : BaseController
         _aiPath = GetComponent<AIPath>();
         _detectionCollider = GetComponent<SphereCollider>();
         _detectionCollider.radius = _detectionRange;
+        _aiDestinationSetter = GetComponent<AIDestinationSetter>();
     }
 
     private protected override void Start()
@@ -31,11 +33,21 @@ public class AIController : BaseController
         _aiPath.rotationSpeed = 90 / turnTime;
     }
 
+    private void OnEnable()
+    {
+        _characterStats.OnDeath += Die;
+    }
+    
+    private void OnDisable()
+    {
+        _characterStats.OnDeath -= Die;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (_target != null)
         {
-            //destination.position = _target.position;
+            _aiDestinationSetter.target = _target;
         }
         else if (other.TryGetComponent(out BaseController controller))
         {
@@ -48,6 +60,7 @@ public class AIController : BaseController
         if (other.transform == _target)
         {
             _target = null;
+            _aiDestinationSetter.target = null;
         }
     }
 
@@ -56,5 +69,10 @@ public class AIController : BaseController
         base.SetMovementSpeed(value);
         Debug.Log("Speed changed to" + _movementSpeed);
         _aiPath.maxSpeed = _movementSpeed;
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
