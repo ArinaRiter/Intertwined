@@ -1,31 +1,19 @@
-using UnityEngine;
+using System.Collections.Generic;
 
-public class StatusEffect : MonoBehaviour
+public class StatusEffect
 {
-    private float _duration;
-
+    public float Duration;
     public readonly string Name;
-    public readonly StatType Type;
-    public readonly StatMod Mod;
-    public float Duration => _duration;
+    public readonly bool IsBuff;
+    public readonly bool IsPermanent;
+    public readonly List<StatMod> StatMods;
 
-    public StatusEffect(string name, StatType type, StatMod mod, float duration)
+    public StatusEffect(string name, bool isBuff, float duration, List<StatMod> statMods)
     {
         Name = name;
-        Type = type;
-        Mod = mod;
-        _duration = duration;
-    }
-
-    private void Update()
-    {
-        if (_duration > 0)
-        {
-            _duration -= Time.deltaTime;
-        }
-        else
-        {
-            _duration = 0;
-        }
+        StatMods = statMods;
+        Duration = duration;
+        IsPermanent = Duration == 0;
+        IsBuff = isBuff;
     }
 }
