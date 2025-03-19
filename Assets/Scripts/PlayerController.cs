@@ -43,15 +43,6 @@ public abstract class PlayerController : BaseController
         _playerInputActions.Player.Disable();
     }
 
-    private void Start()
-    {
-        if (_characterStats.Stats.TryGetValue(StatType.Speed, out var speed))
-        {
-            movementSpeed = speed.Value;
-            speed.ChangedValue += SetMovementSpeed;
-        }
-    }
-
     private void Update()
     {
         IsGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -143,10 +134,5 @@ public abstract class PlayerController : BaseController
         _verticalVelocity.y = Mathf.Sqrt(jumpHeight * -2 * GRAVITY);
         _characterController.Move(_verticalVelocity * Time.deltaTime);
         IsJumping = false;
-    }
-
-    private void SetMovementSpeed(float value)
-    {
-        movementSpeed = value;
     }
 }
