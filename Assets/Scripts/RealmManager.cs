@@ -12,7 +12,7 @@ using Debug = UnityEngine.Debug;
 using MongoDB.Bson.IO;
 using Random = UnityEngine.Random;
 
-public class RealmManager : MonoBehaviour
+public class RealmManager : MonoBehaviour // А зечем тут монобех?
 {
     private static Realm _realm;
     private static readonly string _path = Application.dataPath + "/Realm/";
