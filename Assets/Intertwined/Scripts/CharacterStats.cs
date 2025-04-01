@@ -197,7 +197,6 @@ public class CharacterStats : MonoBehaviour
     public void UpdateStats(Dictionary<StatType, Stat> stats)
     {
         Stats = new ReadOnlyDictionary<StatType, Stat>(stats);
-        Debug.Log(stats);
         if (Stats.TryGetValue(StatType.MaxHealth, out var maxHealth))
         {
             Health = maxHealth.Value;

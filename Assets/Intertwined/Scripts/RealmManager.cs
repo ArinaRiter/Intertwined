@@ -15,7 +15,7 @@ using Random = UnityEngine.Random;
 public class RealmManager : MonoBehaviour
 {
     private static Realm _realm;
-    private static readonly string _path = Application.dataPath + "/Realm/";
+    private static readonly string _path = Application.dataPath + "/Intertwined/Realm/";
 
     public static void ImportCollection()
     {
