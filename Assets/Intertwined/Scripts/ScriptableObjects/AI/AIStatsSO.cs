@@ -5,9 +5,9 @@ public class AIStatsSO : ScriptableObject
 {
     [SerializeField] private float detectionRange;
     [SerializeField] private float detectionAngle;
-    [SerializeField] private float detectionSpeed;
+    [SerializeField] private float detectionTime;
 
     public float DetectionRange => detectionRange;
     public float DetectionAngle => detectionAngle;
-    public float DetectionSpeed => detectionSpeed;
+    public float DetectionTime => detectionTime;
 }

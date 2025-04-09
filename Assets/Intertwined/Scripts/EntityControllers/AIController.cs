@@ -1,36 +1,27 @@
-using System;
-using Pathfinding;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AIController : BaseController
 {
     [SerializeField] private AIStatsSO aiStatsSo;
 
-    private AIPath _aiPath;
+    private NavMeshAgent _navMeshAgent;
     private SphereCollider _detectionCollider;
     private Transform _target;
-    private AIDestinationSetter _aiDestinationSetter;
     private float _detectionRange;
     private float _detectionAngle;
-    private float _detectionSpeed;
+    private float _detectionTime;
+    private float _detectionTimer;
 
     private protected override void Awake()
     {
         base.Awake();
         _detectionRange = aiStatsSo.DetectionRange;
         _detectionAngle = aiStatsSo.DetectionAngle;
-        _detectionSpeed = aiStatsSo.DetectionSpeed;
-        _aiPath = GetComponent<AIPath>();
+        _detectionTime = aiStatsSo.DetectionTime;
+        _navMeshAgent = GetComponent<NavMeshAgent>();
         _detectionCollider = GetComponent<SphereCollider>();
         _detectionCollider.radius = _detectionRange;
-        _aiDestinationSetter = GetComponent<AIDestinationSetter>();
-    }
-
-    private protected override void Start()
-    {
-        base.Start();
-        _aiPath.maxSpeed = _movementSpeed;
-        _aiPath.rotationSpeed = 90 / turnTime;
     }
 
     private void OnEnable()
@@ -47,9 +38,10 @@ public class AIController : BaseController
     {
         if (_target != null)
         {
-            _aiDestinationSetter.target = _target;
+            if (_detectionTimer < _detectionTime) _detectionTimer += Time.deltaTime;
+            else _navMeshAgent.SetDestination(_target.position);
         }
-        else if (other.TryGetComponent(out BaseController controller))
+        else if (other.TryGetComponent(out PlayerController _))
         {
             _target = other.transform;
         }
@@ -60,15 +52,7 @@ public class AIController : BaseController
         if (other.transform == _target)
         {
             _target = null;
-            _aiDestinationSetter.target = null;
         }
-    }
-
-    private protected override void SetMovementSpeed(float value)
-    {
-        base.SetMovementSpeed(value);
-        Debug.Log("Speed changed to" + _movementSpeed);
-        _aiPath.maxSpeed = _movementSpeed;
     }
 
     private void Die()

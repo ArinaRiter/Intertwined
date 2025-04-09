@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 5
   detectionAngle: 90
-  detectionSpeed: 1
+  detectionTime: 3
