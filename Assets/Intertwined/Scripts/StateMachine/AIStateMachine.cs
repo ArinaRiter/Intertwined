@@ -2,51 +2,44 @@ using UnityEngine;
 
 public class AIStateMachine : MonoBehaviour
 {
-    public AIController Context;
+    [SerializeField] private BaseIdleState idleState;
+    [SerializeField] private BaseTargetAcquiredState targetAcquiredState;
+    [SerializeField] private BaseTargetLostState targetLostState;
+    [SerializeField] private BaseDangerState dangerState;
+    [SerializeField] private BaseAttackState attackState;
     
     private BaseState _currentState;
-    
-    public IdleState IdleState = new();
-    public PatrolState PatrolState = new();
-    public ChaseState ChaseState = new();
-    public AttackState AttackState = new();
-    public AlarmedState AlarmedState = new();
+
+    private void Awake()
+    {
+        idleState = Instantiate(idleState);
+        targetAcquiredState = Instantiate(targetAcquiredState);
+        targetLostState = Instantiate(targetLostState);
+        dangerState = Instantiate(dangerState);
+        attackState = Instantiate(attackState);
+    }
 
     private void Start()
     {
-        Context = GetComponent<AIController>();
-        _currentState = IdleState;
-        _currentState.EnterState(this);
+        idleState.Initialize(this);
+        targetAcquiredState.Initialize(this);
+        targetLostState.Initialize(this);
+        dangerState.Initialize(this);
+        attackState.Initialize(this);
+        
+        _currentState = idleState;
+        _currentState.EnterState();
     }
 
     private void Update()
     {
-        _currentState.UpdateState(this);
+        _currentState.UpdateState();
     }
 
     public void SwitchState(BaseState state)
     {
+        state.ExitState();
         _currentState = state;
-        state.EnterState(this);
-    }
-    
-    private void OnCollisionEnter(Collision other)
-    {
-        _currentState.OnCollisionEnter(this, other);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        _currentState.OnTriggerEnter(this, other);
-    }
-    
-    private void OnTriggerStay(Collider other)
-    {
-        _currentState.OnTriggerEnter(this, other);
-    }
-    
-    private void OnTriggerExit(Collider other)
-    {
-        _currentState.OnTriggerEnter(this, other);
+        state.EnterState();
     }
 }
