@@ -18,6 +18,7 @@ public class CharacterStats : MonoBehaviour
     private bool _isEnergyReplenishing;
     
     public event Action OnDeath;
+    public event Action OnDamageTaken;
 
     public float Health
     {
@@ -111,6 +112,7 @@ public class CharacterStats : MonoBehaviour
     {
         var totalDamage = CalculateDamageTaken(damageType, damage, pierce, breach);
         Health -= totalDamage;
+        OnDamageTaken?.Invoke();
         Debug.Log($"Hit, {Health} health remaining");
         if (Health <= 0)
         {
