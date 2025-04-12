@@ -3,7 +3,6 @@ using UnityEngine.AI;
 
 public class AIController : BaseController
 {
-    [SerializeField] private AIStatsSO aiStatsSo;
 
     private NavMeshAgent _navMeshAgent;
     private SphereCollider _detectionCollider;
@@ -16,12 +15,7 @@ public class AIController : BaseController
     private protected override void Awake()
     {
         base.Awake();
-        _detectionRange = aiStatsSo.DetectionRange;
-        _detectionAngle = aiStatsSo.DetectionAngle;
-        _detectionTime = aiStatsSo.DetectionTime;
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        _detectionCollider = GetComponent<SphereCollider>();
-        _detectionCollider.radius = _detectionRange;
     }
 
     private void OnEnable()

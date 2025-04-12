@@ -1,18 +1,27 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AIStateMachine : MonoBehaviour
 {
+    [Header("States")]
     [SerializeField] private BaseIdleState idleState;
     [SerializeField] private BaseTargetAcquiredState targetAcquiredState;
     [SerializeField] private BaseTargetLostState targetLostState;
     [SerializeField] private BaseDangerState dangerState;
     [SerializeField] private BaseAttackState attackState;
-    [SerializeField] private Detector targetDetector;
-    [SerializeField] private Detector attackDetector;
+    
+    [Header("Detectors")]
+    [SerializeField] private List<Detector> targetDetectors;
+    [SerializeField] private List<Detector> attackDetectors;
+    
+    [Header("Attributes")]
+    [SerializeField] private float detectionAngle;
 
     private BaseState _currentState;
+    private readonly Dictionary<Collider, int> _detectedTargets = new();
+    private readonly Dictionary<Collider, int> _attackableTargets = new();
 
     public BaseIdleState IdleState => idleState;
     public BaseTargetAcquiredState TargetAcquiredState => targetAcquiredState;
@@ -50,49 +59,75 @@ public class AIStateMachine : MonoBehaviour
 
     private void OnEnable()
     {
-        targetDetector.OnTargetsChanged += UpdateDetectedTargets;
-        attackDetector.OnTargetsChanged += UpdateAttackableTargets;
+        foreach (var detector in targetDetectors) detector.OnTargetsChanged += UpdateDetectedTargets;
+        foreach (var detector in attackDetectors) detector.OnTargetsChanged += UpdateAttackableTargets;
     }
 
     private void OnDisable()
     {
-        targetDetector.OnTargetsChanged -= UpdateDetectedTargets;
-        attackDetector.OnTargetsChanged -= UpdateAttackableTargets;
+        foreach (var detector in targetDetectors) detector.OnTargetsChanged -= UpdateDetectedTargets;
+        foreach (var detector in attackDetectors) detector.OnTargetsChanged -= UpdateAttackableTargets;
     }
     
     private void Update()
     {
         _currentState.UpdateState();
     }
-
-    private void UpdateDetectedTargets()
-    {
-        if (targetDetector.Targets.Any())
-        {
-            var minimumDistance = float.MaxValue;
-            foreach (var target in targetDetector.Targets)
-            {
-                var distance = Vector3.Distance(transform.position, target.transform.position);
-                if (distance < minimumDistance)
-                {
-                    minimumDistance = distance;
-                    Target = target;
-                }
-            }
-        }
-        else Target = null;
-        IsTargetAcquired = Target is not null;
-    }
-
-    private void UpdateAttackableTargets()
-    {
-        IsTargetAttackable = attackDetector.Targets.Contains(Target);
-    }
-
+    
     public void SwitchState(BaseState state)
     {
         state.ExitState();
         _currentState = state;
         state.EnterState();
+    }
+
+    private void UpdateDetectedTargets(Collider target, bool detected)
+    {
+        UpdateTargetDictionary(_detectedTargets, target, detected);
+
+        Target = GetClosestTarget(_detectedTargets);
+        IsTargetAcquired = Target is not null;
+    }
+
+    private void UpdateAttackableTargets(Collider target, bool detected)
+    {
+        UpdateTargetDictionary(_attackableTargets, target, detected);
+
+        var attackableTarget = GetClosestTarget(_attackableTargets);
+        if (attackableTarget is not null) Target = attackableTarget;
+        IsTargetAttackable = attackableTarget is not null;
+    }
+
+    private void UpdateTargetDictionary(Dictionary<Collider, int> targets, Collider target, bool detected)
+    {
+        if (detected)
+        {
+            targets.TryAdd(target, 0);
+            targets[target]++;
+        }
+        else
+        {
+            if (targets[target] > 1) targets[target]--;
+            else targets.Remove(target);
+        }
+    }
+    
+    private Collider GetClosestTarget(Dictionary<Collider, int> targets)
+    {
+        if (!targets.Any()) return null;
+        
+        Collider closestTarget = null;
+        var minimumDistance = float.MaxValue;
+        foreach (var target in targets.Keys)
+        {
+            var distance = Vector3.Distance(transform.position, target.transform.position);
+            if (distance < minimumDistance)
+            {
+                minimumDistance = distance;
+                closestTarget = target;
+            }
+        }
+
+        return closestTarget;
     }
 }

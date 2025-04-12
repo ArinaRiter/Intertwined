@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class Detector : MonoBehaviour
 {
-    public readonly List<Collider> Targets = new();
-    
-    public event Action OnTargetsChanged;
+    public event Action<Collider, bool> OnTargetsChanged;
     
     private void OnTriggerEnter(Collider other)
     {
-        Targets.Add(other);
-        OnTargetsChanged?.Invoke();
+        Debug.Log($"OnTriggerEnter: {other.name}");
+        OnTargetsChanged?.Invoke(other, true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Targets.Remove(other);
-        OnTargetsChanged?.Invoke();
+        Debug.Log($"OnTriggerExit: {other.name}");
+        OnTargetsChanged?.Invoke(other, false);
     }
 }
