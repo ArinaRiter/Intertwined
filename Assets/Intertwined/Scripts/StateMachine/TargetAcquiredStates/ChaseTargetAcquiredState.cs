@@ -11,6 +11,6 @@ public class ChaseTargetAcquiredState : BaseTargetAcquiredState
 
     public override bool CanBeInState()
     {
-        return _context.IsTargetAcquired;
+        return _context.Target is not null;
     }
 }

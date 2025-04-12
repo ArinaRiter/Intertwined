@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,11 +18,12 @@ public class AIStateMachine : MonoBehaviour
     [SerializeField] private List<Detector> attackDetectors;
     
     [Header("Attributes")]
-    [SerializeField] private float detectionAngle;
+    [SerializeField] private float memoryTime = 5f;
 
     private BaseState _currentState;
     private readonly Dictionary<Collider, int> _detectedTargets = new();
     private readonly Dictionary<Collider, int> _attackableTargets = new();
+    private Coroutine _loseTargetCoroutine;
 
     public BaseIdleState IdleState => idleState;
     public BaseTargetAcquiredState TargetAcquiredState => targetAcquiredState;
@@ -31,7 +33,6 @@ public class AIStateMachine : MonoBehaviour
     
     public NavMeshAgent NavMeshAgent { get; private set; }
     public Collider Target { get; private set; }
-    public bool IsTargetAcquired { get; private set; }
     public bool IsTargetAttackable { get; private set; }
     
     private void Awake()
@@ -85,8 +86,16 @@ public class AIStateMachine : MonoBehaviour
     {
         UpdateTargetDictionary(_detectedTargets, target, detected);
 
-        Target = GetClosestTarget(_detectedTargets);
-        IsTargetAcquired = Target is not null;
+        var closestTarget = GetClosestTarget(_detectedTargets);
+        if (closestTarget is not null)
+        {
+            Target = closestTarget;
+            if (_loseTargetCoroutine is not null) StopCoroutine(_loseTargetCoroutine);
+        }
+        else
+        {
+            _loseTargetCoroutine = StartCoroutine(LoseTarget());
+        }
     }
 
     private void UpdateAttackableTargets(Collider target, bool detected)
@@ -129,5 +138,11 @@ public class AIStateMachine : MonoBehaviour
         }
 
         return closestTarget;
+    }
+    
+    private IEnumerator LoseTarget()
+    {
+        yield return new WaitForSeconds(memoryTime);
+        Target = null;
     }
 }
