@@ -11,7 +11,6 @@ public class HealthBar : MonoBehaviour
     private float _damageTimer;
     private float _lerpSpeed = 0.01f;
     private const float DAMAGE_INTERVAL = 5f;
-
     void Start()
     {
         if (targetCharacterStats == null)
@@ -26,7 +25,6 @@ public class HealthBar : MonoBehaviour
             easeHealthSlider.maxValue = maxHealth.Value;
             easeHealthSlider.value = targetCharacterStats.Health;
         }
-        
     }
     
     private void OnEnable()
@@ -45,7 +43,7 @@ public class HealthBar : MonoBehaviour
         if (_damageTimer >= DAMAGE_INTERVAL)
         {
             _damageTimer = 0f;
-            targetCharacterStats.TakeDamage(DamageType.Phys, 10f, 0f, 0f);
+            //targetCharacterStats.TakeDamage(DamageType.Phys, 10f, 0f, 0f);
         }
         
         if (!Mathf.Approximately(basicHealthSlider.value, easeHealthSlider.value))

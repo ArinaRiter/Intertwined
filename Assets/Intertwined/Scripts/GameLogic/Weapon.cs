@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -41,12 +42,14 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"{other.gameObject.name} trigger enter");
         if (other.CompareTag("Enemy"))
         {
             var enemy = other.GetComponent<CharacterStats>();
             if (_hitEnemies.Contains(enemy)) return;
             _hitEnemies.Add(enemy);
             enemy.TakeDamage(damageType, _damage * _damageMultiplier, pierce, breach);
+            Debug.Log($"{other.gameObject.name} hit");
         }
     }
 
