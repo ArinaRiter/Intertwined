@@ -11,17 +11,17 @@ public abstract class BaseState: ScriptableObject
 
     public virtual void EnterState()
     {
-        Debug.Log($"{this} Enter State");
+        if (_context.DebugLogging) Debug.Log($"{this} Enter State");
     }
 
     public virtual void UpdateState()
     {
-        Debug.Log($"{this} Update State");
+        if (_context.DebugLogging) Debug.Log($"{this} Update State");
     }
 
     public virtual void ExitState()
     {
-        Debug.Log($"{this} Exit State");
+        if (_context.DebugLogging) Debug.Log($"{this} Exit State");
     }
     
     public abstract bool CanBeInState();

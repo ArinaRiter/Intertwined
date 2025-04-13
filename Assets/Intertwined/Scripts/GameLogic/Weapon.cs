@@ -1,23 +1,49 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private LayerMask targetLayers;
     [SerializeField] private DamageType damageType;
-    [SerializeField] [Range(0, 1)] private float pierce;
-    [SerializeField] [Range(0, 1)] private float breach;
     private readonly Dictionary<AttackType, float> _attacks = new();
-    private readonly List<CharacterStats> _hitEnemies = new();
+    private readonly List<CharacterStats> _hitTargets = new();
     private CharacterStats _characterStats;
-    private float _damage;
-    private float _damageMultiplier;
+    private Stat _powerStat;
+    private Stat _pierceStat;
+    private Stat _breachStat;
+    private Stat _damageBonusStat;
+    private float _damageMultiplier = 1;
+    
+    public Collider Collider { get; private set; }
+
+    private void Awake()
+    {
+        Collider = GetComponent<Collider>();
+    }
 
     private void Start()
     {
         _characterStats = GetComponentInParent<CharacterStats>();
-        if (_characterStats.Stats.TryGetValue(StatType.Power, out Stat power))
+        _characterStats.Stats.TryGetValue(StatType.Power, out _powerStat);
+        _characterStats.Stats.TryGetValue(StatType.Pierce, out _pierceStat);
+        _characterStats.Stats.TryGetValue(StatType.Breach, out _breachStat);
+        switch (damageType)
         {
-            _damage = power.Value;
+            case DamageType.Physical:
+                _characterStats.Stats.TryGetValue(StatType.PhysDamageBonus, out _damageBonusStat);
+                break;
+            case DamageType.Fire:
+                _characterStats.Stats.TryGetValue(StatType.FireDamageBonus, out _damageBonusStat);
+                break;
+            case DamageType.Poison:
+                _characterStats.Stats.TryGetValue(StatType.PoisonDamageBonus, out _damageBonusStat);
+                break;
+            case DamageType.True:
+                _characterStats.Stats.TryGetValue(StatType.TrueDamageBonus, out _damageBonusStat);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
 
         var attacks = _characterStats.AttackSO.Attacks;
@@ -27,9 +53,14 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        ClearHitTargetsList();
+    }
+
     public void SetAttackType(int type)
     {
-        if (_attacks.TryGetValue((AttackType)type, out float multiplier))
+        if (_attacks.TryGetValue((AttackType)type, out var multiplier))
         {
             _damageMultiplier = multiplier;
         }
@@ -41,17 +72,21 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        Debug.Log($"{gameObject.name}: {other.name}");
+        if (Utilities.IsLayerInMask(other.gameObject.layer, targetLayers))
         {
-            var enemy = other.GetComponent<CharacterStats>();
-            if (_hitEnemies.Contains(enemy)) return;
-            _hitEnemies.Add(enemy);
-            enemy.TakeDamage(damageType, _damage * _damageMultiplier, pierce, breach);
+            var target = other.GetComponent<CharacterStats>();
+            if (_hitTargets.Contains(target)) return;
+            var pierce = _pierceStat?.Value ?? 0;
+            var breach = _breachStat?.Value ?? 0;
+            var power = _powerStat?.Value ?? 0;
+            target.TakeDamage(damageType, power * _damageMultiplier, pierce, breach);
+            _hitTargets.Add(target);
         }
     }
 
-    public void ClearHitEnemiesList()
+    public void ClearHitTargetsList()
     {
-        _hitEnemies.Clear();
+        _hitTargets.Clear();
     }
 }

@@ -126,7 +126,7 @@ public class CharacterStats : MonoBehaviour
         float damageResistance = 0;
         switch (damageType)
         {
-            case DamageType.Phys:
+            case DamageType.Physical:
                 if (Stats.TryGetValue(StatType.PhysDamageResistance, out var physRes))
                 {
                     damageResistance = physRes.Value;

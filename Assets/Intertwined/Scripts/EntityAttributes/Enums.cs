@@ -41,7 +41,7 @@ public enum StatType
 
 public enum DamageType
 {
-    Phys,
+    Physical,
     Fire,
     Poison,
     True

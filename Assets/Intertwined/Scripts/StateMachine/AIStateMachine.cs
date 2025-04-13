@@ -19,6 +19,7 @@ public class AIStateMachine : MonoBehaviour
     
     [Header("Attributes")]
     [SerializeField] private float memoryTime = 5f;
+    [SerializeField] private bool debugLogging;
 
     private BaseState _currentState;
     private readonly Dictionary<Collider, int> _detectedTargets = new();
@@ -29,9 +30,11 @@ public class AIStateMachine : MonoBehaviour
     public BaseTargetAcquiredState TargetAcquiredState => targetAcquiredState;
     public BaseTargetLostState TargetLostState => targetLostState;
     public BaseDangerState DangerState => dangerState;
-    public BaseAttackState AttackState => attackState; 
+    public BaseAttackState AttackState => attackState;
+    public bool DebugLogging => debugLogging;
     
     public NavMeshAgent NavMeshAgent { get; private set; }
+    public EntityAnimator EntityAnimator { get; private set; }
     public Collider Target { get; private set; }
     public bool IsTargetAttackable { get; private set; }
     
@@ -44,6 +47,7 @@ public class AIStateMachine : MonoBehaviour
         attackState = Instantiate(attackState);
         
         NavMeshAgent = GetComponent<NavMeshAgent>();
+        EntityAnimator = GetComponent<EntityAnimator>();
     }
 
     private void Start()

@@ -1,0 +1,48 @@
+using UnityEngine;
+
+public class EntityAnimator : MonoBehaviour
+{
+    [SerializeField] private Weapon weapon;
+    
+    private Animator _animator;
+    
+    private static readonly int IsWalking = Animator.StringToHash("IsWalking");
+    private static readonly int IsRunning = Animator.StringToHash("IsRunning");
+    private static readonly int Attack = Animator.StringToHash("Attack");
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
+    public void SetIsWalking(bool isWalking)
+    {
+        _animator.SetBool(IsWalking, isWalking);
+    }
+
+    public void SetIsRunning(bool isRunning)
+    {
+        _animator.SetBool(IsRunning, isRunning);
+    }
+
+    public void SetAttack()
+    {
+        _animator.SetTrigger(Attack);
+    }
+
+    public void ResetAttack()
+    {
+        _animator.ResetTrigger(Attack);
+    }
+
+    public void SetWeaponEnabled()
+    {
+        weapon.Collider.enabled = true;
+    }
+
+    public void SetWeaponDisabled()
+    {
+        weapon.Collider.enabled = false;
+        weapon.ClearHitTargetsList();
+    }
+}

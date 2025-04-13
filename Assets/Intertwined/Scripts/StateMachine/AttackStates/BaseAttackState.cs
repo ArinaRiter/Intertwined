@@ -6,6 +6,7 @@ public abstract class BaseAttackState : BaseState
         if (!CanBeInState())
         {
             if (_context.DangerState.CanBeInState()) _context.SwitchState(_context.DangerState);
+            else if (_context.TargetAcquiredState.CanBeInState()) _context.SwitchState(_context.TargetAcquiredState);
             else if (_context.TargetLostState.CanBeInState()) _context.SwitchState(_context.TargetLostState);
         }
     }
