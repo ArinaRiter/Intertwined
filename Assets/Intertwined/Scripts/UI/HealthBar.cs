@@ -43,7 +43,7 @@ public class HealthBar : MonoBehaviour
         if (_damageTimer >= DAMAGE_INTERVAL)
         {
             _damageTimer = 0f;
-            //targetCharacterStats.TakeDamage(DamageType.Phys, 10f, 0f, 0f);
+            targetCharacterStats.TakeDamage(DamageType.Phys, 50f, 0f, 0f);
         }
         
         if (!Mathf.Approximately(basicHealthSlider.value, easeHealthSlider.value))

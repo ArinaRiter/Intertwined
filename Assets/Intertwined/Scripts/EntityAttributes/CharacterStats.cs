@@ -13,9 +13,9 @@ public class CharacterStats : MonoBehaviour
     public ReadOnlyDictionary<StatType, Stat> Stats { get; private set; }
     private readonly List<StatusEffect> _statusEffects = new();
     private float _health;
-    private float _energy;
-    private float _energyReplenishTimer;
-    private bool _isEnergyReplenishing;
+    private float _stamina;
+    private float _staminaReplenishTimer;
+    private bool _isStaminaReplenishing;
     
     public event Action OnDeath;
     public event Action OnDamageTaken;
@@ -26,23 +26,23 @@ public class CharacterStats : MonoBehaviour
         private set => _health = Mathf.Clamp(value, 0, Stats[StatType.MaxHealth].Value);
     }
 
-    public float Energy
+    public float Stamina
     {
-        get => _energy;
+        get => _stamina;
         set
         {
-            var maxEnergy = Stats[StatType.MaxStamina].Value;
-            if (_energy > value)
+            var maxStamina = Stats[StatType.MaxStamina].Value;
+            if (_stamina > value)
             {
-                _isEnergyReplenishing = false;
-                _energyReplenishTimer = Stats[StatType.StaminaReplenishCooldown].Value;
+                _isStaminaReplenishing = false;
+                _staminaReplenishTimer = Stats[StatType.StaminaReplenishCooldown].Value;
             }
-            else if (value >= maxEnergy)
+            else if (value >= maxStamina)
             {
-                _isEnergyReplenishing = false;
+                _isStaminaReplenishing = false;
             }
 
-            _energy = Mathf.Clamp(value, 0, maxEnergy);
+            _stamina = Mathf.Clamp(value, 0, maxStamina);
         }
     }
 
@@ -62,10 +62,10 @@ public class CharacterStats : MonoBehaviour
             maxHealth.ChangedValue += UpdateMaxHealth;
         }
 
-        if (Stats.TryGetValue(StatType.MaxStamina, out var maxEnergy))
+        if (Stats.TryGetValue(StatType.MaxStamina, out var maxStamina))
         {
-            Energy = maxEnergy.Value;
-            maxEnergy.ChangedValue += UpdateMaxEnergy;
+            Stamina = maxStamina.Value;
+            maxStamina.ChangedValue += UpdateMaxStamina;
         }
 
         if (Stats.TryGetValue(StatType.Armor, out var armor))
@@ -96,14 +96,14 @@ public class CharacterStats : MonoBehaviour
             statusEffect.Duration -= Time.deltaTime;
         }
 
-        if (_energyReplenishTimer > 0)
+        if (_staminaReplenishTimer > 0)
         {
-            _energyReplenishTimer -= Time.deltaTime;
-            if (_energyReplenishTimer < 0)
+            _staminaReplenishTimer -= Time.deltaTime;
+            if (_staminaReplenishTimer < 0)
             {
-                _energyReplenishTimer = 0;
-                _isEnergyReplenishing = true;
-                StartCoroutine(ReplenishEnergy());
+                _staminaReplenishTimer = 0;
+                _isStaminaReplenishing = true;
+                StartCoroutine(ReplenishStamina());
             }
         }
     }
@@ -170,15 +170,16 @@ public class CharacterStats : MonoBehaviour
         {
             Health = value;
             IsDead = _health == 0;
+            if (IsDead) OnDeath?.Invoke();
         }
     }
 
-    private void UpdateMaxEnergy(float value)
+    private void UpdateMaxStamina(float value)
     {
-        if (Energy > value)
+        if (Stamina > value)
         {
-            Energy = value;
-            IsExhausted = _energy == 0;
+            Stamina = value;
+            IsExhausted = _stamina == 0;
         }
     }
 
@@ -187,11 +188,11 @@ public class CharacterStats : MonoBehaviour
         DamageReduction = value / (200 + value);
     }
 
-    private IEnumerator ReplenishEnergy()
+    private IEnumerator ReplenishStamina()
     {
-        while (_isEnergyReplenishing)
+        while (_isStaminaReplenishing)
         {
-            Energy += Stats[StatType.StaminaReplenishRate].Value;
+            Stamina += Stats[StatType.StaminaReplenishRate].Value;
             yield return new WaitForSeconds(1f);
         }
     }
@@ -205,10 +206,10 @@ public class CharacterStats : MonoBehaviour
             maxHealth.ChangedValue += UpdateMaxHealth;
         }
 
-        if (Stats.TryGetValue(StatType.MaxStamina, out var maxEnergy))
+        if (Stats.TryGetValue(StatType.MaxStamina, out var maxStamina))
         {
-            Energy = maxEnergy.Value;
-            maxEnergy.ChangedValue += UpdateMaxEnergy;
+            Stamina = maxStamina.Value;
+            maxStamina.ChangedValue += UpdateMaxStamina;
         }
 
         if (Stats.TryGetValue(StatType.Armor, out var armor))

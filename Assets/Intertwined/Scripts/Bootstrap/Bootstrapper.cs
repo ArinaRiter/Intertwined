@@ -13,6 +13,6 @@ public static class Bootstrapper
 
     private static void LoadGameScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
 }

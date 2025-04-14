@@ -19,9 +19,9 @@ public class EikoController : PlayerController
             {
                 _characterAnimator.Attack();
             }
-            else if (obj.interaction is HoldInteraction && _characterStats.Energy > chargedAttackCost)
+            else if (obj.interaction is HoldInteraction && _characterStats.Stamina > chargedAttackCost)
             {
-                _characterStats.Energy -= chargedAttackCost;
+                _characterStats.Stamina -= chargedAttackCost;
                 _characterAnimator.ChargedAttack();
             }
         }
