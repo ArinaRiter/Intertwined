@@ -4,15 +4,24 @@ using UnityEngine;
 public class SearchTargetLostState : BaseTargetLostState
 {
     [SerializeField] private float searchTime = 10f;
+    [SerializeField] private float searchRange = 10f;
+    [SerializeField] private float stoppingDistance = 2f;
     
     private float _searchTimer;
-    
+
+    public override void EnterState()
+    {
+        base.EnterState();
+        _context.EntityAnimator.SetIsWalking(true);
+    }
+
     public override void UpdateState()
     {
         base.UpdateState();
-        if (_context.NavMeshAgent.remainingDistance < _context.NavMeshAgent.stoppingDistance)
+        if (_exitedState) return;
+        if (_context.NavMeshAgent.remainingDistance < stoppingDistance)
         {
-            var targetPoint = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+            var targetPoint = new Vector3(Random.Range(-searchRange, searchRange), 0f, Random.Range(-searchRange, searchRange));
             _context.NavMeshAgent.destination = _context.transform.position + targetPoint;
         }
         
@@ -23,6 +32,7 @@ public class SearchTargetLostState : BaseTargetLostState
     {
         base.ExitState();
         _searchTimer = 0f;
+        _context.EntityAnimator.SetIsWalking(false);
     }
 
     public override bool CanBeInState()

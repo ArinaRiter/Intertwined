@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MeleeAttackState", menuName = "AI State Machine/Attack States/MeleeAttackState")]
-public class MeleeAttackState : BaseAttackState
+[CreateAssetMenu(fileName = "RangedAttackState", menuName = "AI State Machine/Attack States/RangedAttackState")]
+public class RangedAttackState : BaseAttackState
 {
     [SerializeField] private float attackAngle = 90;
 

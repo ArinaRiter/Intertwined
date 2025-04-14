@@ -306,7 +306,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 360
+  m_AngularSpeed: 720
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -330,14 +330,14 @@ MonoBehaviour:
   idleState: {fileID: 11400000, guid: cde32db5ec4ccb94cb0e4b8538981d84, type: 2}
   targetAcquiredState: {fileID: 11400000, guid: 25a6f8b0f1d4344499657ae89437f4af, type: 2}
   targetLostState: {fileID: 11400000, guid: cfa9d67db44ff0b4ebf0fd773a45da33, type: 2}
-  dangerState: {fileID: 11400000, guid: e3ad1a7dbd3c9f24bb487e808221dc2e, type: 2}
+  dangerState: {fileID: 11400000, guid: 97d87f77f66af2d41b0db5dd7fdf5fdb, type: 2}
   attackState: {fileID: 11400000, guid: 6f9f2eec015184149be9b62ffd4bc964, type: 2}
   targetDetectors:
   - {fileID: 5670033128172701561}
   - {fileID: 4744096661132086099}
   attackDetectors:
   - {fileID: 1822580139200297280}
-  memoryTime: 0
+  memoryTime: 3
   debugLogging: 0
 --- !u!114 &7894119190546810964
 MonoBehaviour:

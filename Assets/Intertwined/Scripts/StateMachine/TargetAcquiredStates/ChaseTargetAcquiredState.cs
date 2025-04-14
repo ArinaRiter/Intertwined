@@ -12,7 +12,14 @@ public class ChaseTargetAcquiredState : BaseTargetAcquiredState
     public override void UpdateState()
     {
         base.UpdateState();
-        if (_context.Target is not null) _context.NavMeshAgent.destination = _context.Target.transform.position;
+        if (_exitedState) return;
+        if (_context.Target is not null)
+        {
+            if (Vector3.Angle(_context.transform.forward, _context.Target.transform.position - _context.transform.position) < 90f)
+            {
+                _context.NavMeshAgent.destination = _context.Target.transform.position;
+            }
+        }
     }
 
     public override void ExitState()

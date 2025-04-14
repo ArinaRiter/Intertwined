@@ -25,6 +25,7 @@ public class AIStateMachine : MonoBehaviour
     private readonly Dictionary<Collider, int> _detectedTargets = new();
     private readonly Dictionary<Collider, int> _attackableTargets = new();
     private Coroutine _loseTargetCoroutine;
+    private bool _isLosingTarget;
 
     public BaseIdleState IdleState => idleState;
     public BaseTargetAcquiredState TargetAcquiredState => targetAcquiredState;
@@ -81,34 +82,22 @@ public class AIStateMachine : MonoBehaviour
     
     public void SwitchState(BaseState state)
     {
-        state.ExitState();
+        _currentState.ExitState();
         _currentState = state;
-        state.EnterState();
+        _currentState.EnterState();
+        _currentState.UpdateState();
     }
 
     private void UpdateDetectedTargets(Collider target, bool detected)
     {
         UpdateTargetDictionary(_detectedTargets, target, detected);
-
-        var closestTarget = GetClosestTarget(_detectedTargets);
-        if (closestTarget is not null)
-        {
-            Target = closestTarget;
-            if (_loseTargetCoroutine is not null) StopCoroutine(_loseTargetCoroutine);
-        }
-        else
-        {
-            _loseTargetCoroutine = StartCoroutine(LoseTarget());
-        }
+        UpdateTarget();
     }
 
     private void UpdateAttackableTargets(Collider target, bool detected)
     {
         UpdateTargetDictionary(_attackableTargets, target, detected);
-
-        var attackableTarget = GetClosestTarget(_attackableTargets);
-        if (attackableTarget is not null) Target = attackableTarget;
-        IsTargetAttackable = attackableTarget is not null;
+        UpdateTarget();
     }
 
     private void UpdateTargetDictionary(Dictionary<Collider, int> targets, Collider target, bool detected)
@@ -124,14 +113,47 @@ public class AIStateMachine : MonoBehaviour
             else targets.Remove(target);
         }
     }
-    
-    private Collider GetClosestTarget(Dictionary<Collider, int> targets)
+
+    private void UpdateTarget()
     {
-        if (!targets.Any()) return null;
+        if (_detectedTargets.Any())
+        {
+            var detectedAttackableTargets = _attackableTargets.Keys.Intersect(_detectedTargets.Keys).ToList();
+            if (detectedAttackableTargets.Any())
+            {
+                Target = GetClosestTarget(detectedAttackableTargets);
+                IsTargetAttackable = true;
+            }
+            else
+            {
+                Target = GetClosestTarget(_detectedTargets.Keys);
+                IsTargetAttackable = false;
+            }
+
+            if (_isLosingTarget)
+            {
+                StopCoroutine(_loseTargetCoroutine);
+                _isLosingTarget = false;
+            }
+        }
+        else {
+            IsTargetAttackable = false;
+            if (!_isLosingTarget)
+            {
+                _loseTargetCoroutine = StartCoroutine(LoseTarget());
+                _isLosingTarget = true;
+            }
+        }
+    }
+    
+    private Collider GetClosestTarget(IEnumerable<Collider> targets)
+    {
+        var targetList = targets.ToList();
+        if (!targetList.Any()) return null;
         
         Collider closestTarget = null;
         var minimumDistance = float.MaxValue;
-        foreach (var target in targets.Keys)
+        foreach (var target in targetList)
         {
             var distance = Vector3.Distance(transform.position, target.transform.position);
             if (distance < minimumDistance)
@@ -148,5 +170,6 @@ public class AIStateMachine : MonoBehaviour
     {
         yield return new WaitForSeconds(memoryTime);
         Target = null;
+        _isLosingTarget = false;
     }
 }

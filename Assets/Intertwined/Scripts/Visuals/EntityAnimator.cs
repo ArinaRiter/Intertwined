@@ -8,7 +8,7 @@ public class EntityAnimator : MonoBehaviour
     
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
-    private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
 
     private void Awake()
     {
@@ -25,14 +25,9 @@ public class EntityAnimator : MonoBehaviour
         _animator.SetBool(IsRunning, isRunning);
     }
 
-    public void SetAttack()
+    public void SetIsAttacking(bool isAttacking)
     {
-        _animator.SetTrigger(Attack);
-    }
-
-    public void ResetAttack()
-    {
-        _animator.ResetTrigger(Attack);
+        _animator.SetBool(IsAttacking, isAttacking);
     }
 
     public void SetWeaponEnabled()

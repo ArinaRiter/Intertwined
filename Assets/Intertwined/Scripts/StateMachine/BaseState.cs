@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class BaseState: ScriptableObject
 {
     private protected AIStateMachine _context;
+    private protected bool _exitedState;
 
     public void Initialize(AIStateMachine context)
     {
@@ -12,6 +13,7 @@ public abstract class BaseState: ScriptableObject
     public virtual void EnterState()
     {
         if (_context.DebugLogging) Debug.Log($"{this} Enter State");
+        _exitedState = false;
     }
 
     public virtual void UpdateState()
@@ -22,6 +24,7 @@ public abstract class BaseState: ScriptableObject
     public virtual void ExitState()
     {
         if (_context.DebugLogging) Debug.Log($"{this} Exit State");
+        _exitedState = true;
     }
     
     public abstract bool CanBeInState();

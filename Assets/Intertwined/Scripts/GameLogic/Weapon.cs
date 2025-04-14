@@ -72,7 +72,6 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{gameObject.name}: {other.name}");
         if (Utilities.IsLayerInMask(other.gameObject.layer, targetLayers))
         {
             var target = other.GetComponent<CharacterStats>();
