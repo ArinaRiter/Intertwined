@@ -17,17 +17,17 @@ MonoBehaviour:
     BaseValue: 100
   - StatType: 1
     BaseValue: 100
-  - StatType: 4
-    BaseValue: 3
   - StatType: 2
     BaseValue: 50
   - StatType: 3
     BaseValue: 20
-  - StatType: 5
-    BaseValue: 0.1
   - StatType: 7
     BaseValue: 10
-  - StatType: 8
-    BaseValue: 5
   - StatType: 9
     BaseValue: 3
+  - StatType: 6
+    BaseValue: 50
+  - StatType: 15
+    BaseValue: 0.1
+  - StatType: 16
+    BaseValue: 0.1

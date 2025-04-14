@@ -9,6 +9,8 @@ public class EntityAnimator : MonoBehaviour
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
     private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
+    private static readonly int IsStaggered = Animator.StringToHash("IsStaggered");
+    private static readonly int IsDead = Animator.StringToHash("IsDead");
 
     private void Awake()
     {

@@ -258,7 +258,7 @@ Animator:
   m_GameObject: {fileID: 1444438355032453064}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9035850883732af4daf57c888e1fefce, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4e3376cfde2045644af216979fecbd03, type: 2}
+  m_Controller: {fileID: 9100000, guid: fd3c734f5d0d4ef43a122bd8a734566e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statSO: {fileID: 11400000, guid: 98a4cc5af23143048a4d6611a54c17aa, type: 2}
-  attackSO: {fileID: 11400000, guid: 090d867cdb45ce94ebe8127ae8b8495e, type: 2}
+  attackSO: {fileID: 0}
 --- !u!114 &-8636452529477236621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 6386270047575572792}
   - component: {fileID: 9183682466331056829}
   - component: {fileID: 9144962399682162524}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RightSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -843,7 +843,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 887
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

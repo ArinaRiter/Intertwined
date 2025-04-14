@@ -127,21 +127,21 @@ public class CharacterStats : MonoBehaviour
         switch (damageType)
         {
             case DamageType.Physical:
-                if (Stats.TryGetValue(StatType.PhysDamageResistance, out var physRes))
+                if (Stats.TryGetValue(StatType.PhysDamageResistance, out var physResistance))
                 {
-                    damageResistance = physRes.Value;
+                    damageResistance = physResistance.Value;
                 }
                 break;
             case DamageType.Fire:
-                if (Stats.TryGetValue(StatType.FireDamageResistance, out var fireRes))
+                if (Stats.TryGetValue(StatType.FireDamageResistance, out var fireResistance))
                 {
-                    damageResistance = fireRes.Value;
+                    damageResistance = fireResistance.Value;
                 }
                 break;
             case DamageType.Poison:
-                if (Stats.TryGetValue(StatType.FireDamageResistance, out var trueRes))
+                if (Stats.TryGetValue(StatType.PoisonDamageResistance, out var poisonResistance))
                 {
-                    damageResistance = trueRes.Value;
+                    damageResistance = poisonResistance.Value;
                 }
                 break;
             case DamageType.True:

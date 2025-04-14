@@ -21,9 +21,9 @@ public class AIStateMachine : MonoBehaviour
     [SerializeField] private float memoryTime = 5f;
     [SerializeField] private bool debugLogging;
 
-    private BaseState _currentState;
     private readonly Dictionary<Collider, int> _detectedTargets = new();
     private readonly Dictionary<Collider, int> _attackableTargets = new();
+    private BaseState _currentState;
     private Coroutine _loseTargetCoroutine;
     private bool _isLosingTarget;
 
