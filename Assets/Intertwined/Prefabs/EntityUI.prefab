@@ -809,7 +809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicHealthSlider: {fileID: 212633199658181288}
   easeHealthSlider: {fileID: 3279766803537042732}
-  targetCharacterStats: {fileID: 7894119190546810964}
+  characterStats: {fileID: 7894119190546810964}
 --- !u!114 &1723035194911240209
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,8 @@ public class CharacterStats : MonoBehaviour
     
     public event Action OnDeath;
     public event Action OnDamageTaken;
+    
+    public event Action OnStaminaChanged;
 
     public float Health
     {
@@ -193,6 +195,7 @@ public class CharacterStats : MonoBehaviour
         while (_isStaminaReplenishing)
         {
             Stamina += Stats[StatType.StaminaReplenishRate].Value;
+            OnStaminaChanged?.Invoke();
             yield return new WaitForSeconds(1f);
         }
     }
