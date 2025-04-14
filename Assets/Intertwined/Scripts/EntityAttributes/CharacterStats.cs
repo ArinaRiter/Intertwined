@@ -9,15 +9,20 @@ public class CharacterStats : MonoBehaviour
 {
     [SerializeField] private StatSO statSO;
     [SerializeField] private AttackSO attackSO;
+    
     public AttackSO AttackSO => attackSO;
+    
     public ReadOnlyDictionary<StatType, Stat> Stats { get; private set; }
+    
     private readonly List<StatusEffect> _statusEffects = new();
     private float _health;
     private float _energy;
     private float _energyReplenishTimer;
     private bool _isEnergyReplenishing;
+    private Stat _stability;
     
     public event Action OnDeath;
+    public event Action OnStagger;
 
     public float Health
     {
@@ -72,6 +77,8 @@ public class CharacterStats : MonoBehaviour
             DamageReduction = armor.Value / (200 + armor.Value);
             armor.ChangedValue += UpdateArmor;
         }
+        
+        _stability = Stats.TryGetValue(StatType.Stability, out var stability) ? stability : new Stat(0);
     }
 
     private void Update()
@@ -119,6 +126,7 @@ public class CharacterStats : MonoBehaviour
             OnDeath?.Invoke();
             Debug.Log("Dead");
         }
+        else if (totalDamage >= _stability.Value) OnStagger?.Invoke();
     }
 
     private float CalculateDamageTaken(DamageType damageType, float damage, float pierce, float breach)

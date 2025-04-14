@@ -21,13 +21,13 @@ MonoBehaviour:
     BaseValue: 50
   - StatType: 3
     BaseValue: 20
-  - StatType: 7
+  - StatType: 8
     BaseValue: 10
-  - StatType: 9
+  - StatType: 10
     BaseValue: 3
   - StatType: 6
     BaseValue: 50
-  - StatType: 15
-    BaseValue: 0.1
   - StatType: 16
+    BaseValue: 0.1
+  - StatType: 17
     BaseValue: 0.1

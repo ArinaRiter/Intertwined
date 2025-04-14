@@ -258,7 +258,7 @@ Animator:
   m_GameObject: {fileID: 1444438355032453064}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9035850883732af4daf57c888e1fefce, type: 3}
-  m_Controller: {fileID: 9100000, guid: fd3c734f5d0d4ef43a122bd8a734566e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 83357b2ae3b91244c81898a689ad7746, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -332,6 +332,7 @@ MonoBehaviour:
   targetLostState: {fileID: 11400000, guid: cfa9d67db44ff0b4ebf0fd773a45da33, type: 2}
   dangerState: {fileID: 11400000, guid: 97d87f77f66af2d41b0db5dd7fdf5fdb, type: 2}
   attackState: {fileID: 11400000, guid: 6f9f2eec015184149be9b62ffd4bc964, type: 2}
+  incapacitatedState: {fileID: 11400000, guid: 0732b477623b5f143b9c00a7cc976ac5, type: 2}
   targetDetectors:
   - {fileID: 5670033128172701561}
   - {fileID: 4744096661132086099}

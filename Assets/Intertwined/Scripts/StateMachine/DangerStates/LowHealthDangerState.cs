@@ -3,7 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LowHealthDangerState", menuName = "AI State Machine/Danger States/LowHealthDangerState")]
 public class LowHealthDangerState : BaseDangerState
 {
-    [SerializeField] private float dangerHealth = 20;
+    [SerializeField] private float dangerHealthLevel = 0.2f;
+    
+    private Stat _maxHealth;
 
     public override void EnterState()
     {
@@ -29,6 +31,7 @@ public class LowHealthDangerState : BaseDangerState
 
     public override bool CanBeInState()
     {
-        return _context.Target is not null && _context.GetComponent<CharacterStats>().Health <= dangerHealth;
+        if (_maxHealth is null && !_context.CharacterStats.Stats.TryGetValue(StatType.MaxHealth, out _maxHealth)) _maxHealth = new Stat(0);
+        return _context.Target is not null && _context.CharacterStats.Health <= _maxHealth.Value * dangerHealthLevel;
     }
 }

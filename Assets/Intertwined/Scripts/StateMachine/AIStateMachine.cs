@@ -12,6 +12,7 @@ public class AIStateMachine : MonoBehaviour
     [SerializeField] private BaseTargetLostState targetLostState;
     [SerializeField] private BaseDangerState dangerState;
     [SerializeField] private BaseAttackState attackState;
+    [SerializeField] private BaseIncapacitatedState incapacitatedState;
     
     [Header("Detectors")]
     [SerializeField] private List<Detector> targetDetectors;
@@ -32,11 +33,14 @@ public class AIStateMachine : MonoBehaviour
     public BaseTargetLostState TargetLostState => targetLostState;
     public BaseDangerState DangerState => dangerState;
     public BaseAttackState AttackState => attackState;
+    public BaseIncapacitatedState IncapacitatedState => incapacitatedState;
     public bool DebugLogging => debugLogging;
     
     public NavMeshAgent NavMeshAgent { get; private set; }
     public EntityAnimator EntityAnimator { get; private set; }
+    public CharacterStats CharacterStats { get; private set; }
     public Collider Target { get; private set; }
+    public EntityStatus EntityStatus { get; private set; }
     public bool IsTargetAttackable { get; private set; }
     
     private void Awake()
@@ -46,9 +50,11 @@ public class AIStateMachine : MonoBehaviour
         targetLostState = Instantiate(targetLostState);
         dangerState = Instantiate(dangerState);
         attackState = Instantiate(attackState);
+        incapacitatedState = Instantiate(incapacitatedState);
         
         NavMeshAgent = GetComponent<NavMeshAgent>();
         EntityAnimator = GetComponent<EntityAnimator>();
+        CharacterStats = GetComponent<CharacterStats>();
     }
 
     private void Start()
@@ -58,6 +64,7 @@ public class AIStateMachine : MonoBehaviour
         targetLostState.Initialize(this);
         dangerState.Initialize(this);
         attackState.Initialize(this);
+        incapacitatedState.Initialize(this);
         
         _currentState = idleState;
         _currentState.EnterState();
@@ -67,12 +74,16 @@ public class AIStateMachine : MonoBehaviour
     {
         foreach (var detector in targetDetectors) detector.OnTargetsChanged += UpdateDetectedTargets;
         foreach (var detector in attackDetectors) detector.OnTargetsChanged += UpdateAttackableTargets;
+        CharacterStats.OnStagger += OnStagger;
+        CharacterStats.OnDeath += OnDeath;
     }
 
     private void OnDisable()
     {
         foreach (var detector in targetDetectors) detector.OnTargetsChanged -= UpdateDetectedTargets;
         foreach (var detector in attackDetectors) detector.OnTargetsChanged -= UpdateAttackableTargets;
+        CharacterStats.OnStagger -= OnStagger;
+        CharacterStats.OnDeath -= OnDeath;
     }
     
     private void Update()
@@ -171,5 +182,22 @@ public class AIStateMachine : MonoBehaviour
         yield return new WaitForSeconds(memoryTime);
         Target = null;
         _isLosingTarget = false;
+    }
+
+    private void OnStagger()
+    {
+        EntityStatus = EntityStatus.Staggered;
+        SwitchState(IncapacitatedState);
+    }
+
+    private void OnDeath()
+    {
+        EntityStatus = EntityStatus.Dead;
+        SwitchState(IncapacitatedState);
+    }
+
+    public void ClearStatus()
+    {
+        EntityStatus = EntityStatus.Clear;
     }
 }
