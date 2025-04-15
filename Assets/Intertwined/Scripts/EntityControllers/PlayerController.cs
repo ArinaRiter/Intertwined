@@ -17,6 +17,7 @@ public abstract class PlayerController : BaseController
         base.Awake();
         _characterController = GetComponent<CharacterController>();
         _playerInputActions = new PlayerInputActions();
+        _characterController = GetComponent<CharacterController>();
     }
 
     private void OnEnable()
@@ -29,6 +30,7 @@ public abstract class PlayerController : BaseController
         _playerInputActions.Player.Block.performed += OnBlock;
         _playerInputActions.Player.Block.canceled += OnBlock;
         _playerInputActions.Player.SwitchMode.performed += OnSwitchMode;
+        _characterStats.OnDeath += OnDie;
     }
 
     private void OnDisable()
@@ -41,6 +43,7 @@ public abstract class PlayerController : BaseController
         _playerInputActions.Player.Block.canceled -= OnBlock;
         _playerInputActions.Player.SwitchMode.performed -= OnSwitchMode;
         _playerInputActions.Player.Disable();
+        _characterStats.OnDeath -= OnDie;
     }
 
     private void Update()
@@ -134,5 +137,11 @@ public abstract class PlayerController : BaseController
         _verticalVelocity.y = Mathf.Sqrt(jumpHeight * -2 * GRAVITY);
         _characterController.Move(_verticalVelocity * Time.deltaTime);
         IsJumping = false;
+    }
+
+    private void OnDie()
+    {
+        enabled = false;
+        
     }
 }

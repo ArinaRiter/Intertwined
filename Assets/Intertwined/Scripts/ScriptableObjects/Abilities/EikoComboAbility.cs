@@ -9,7 +9,7 @@ public class EikoComboAbility : AbilitySO
         var empower = new StatusEffect("Empower", true, 10, statMods);
         Debug.Log(empower.Name);
         var characterStats = parent.GetComponent<CharacterStats>();
-        characterStats.Energy -= energyCost;
+        characterStats.Stamina -= energyCost;
         characterStats.ApplyStatusEffect(empower);
     }
 }

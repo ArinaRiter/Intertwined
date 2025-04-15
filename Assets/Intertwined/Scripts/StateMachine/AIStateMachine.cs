@@ -1,52 +1,203 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AIStateMachine : MonoBehaviour
 {
-    public AIController Context;
+    [Header("States")]
+    [SerializeField] private BaseIdleState idleState;
+    [SerializeField] private BaseTargetAcquiredState targetAcquiredState;
+    [SerializeField] private BaseTargetLostState targetLostState;
+    [SerializeField] private BaseDangerState dangerState;
+    [SerializeField] private BaseAttackState attackState;
+    [SerializeField] private BaseIncapacitatedState incapacitatedState;
     
+    [Header("Detectors")]
+    [SerializeField] private List<Detector> targetDetectors;
+    [SerializeField] private List<Detector> attackDetectors;
+    
+    [Header("Attributes")]
+    [SerializeField] private float memoryTime = 5f;
+    [SerializeField] private bool debugLogging;
+
+    private readonly Dictionary<Collider, int> _detectedTargets = new();
+    private readonly Dictionary<Collider, int> _attackableTargets = new();
     private BaseState _currentState;
+    private Coroutine _loseTargetCoroutine;
+    private bool _isLosingTarget;
+
+    public BaseIdleState IdleState => idleState;
+    public BaseTargetAcquiredState TargetAcquiredState => targetAcquiredState;
+    public BaseTargetLostState TargetLostState => targetLostState;
+    public BaseDangerState DangerState => dangerState;
+    public BaseAttackState AttackState => attackState;
+    public BaseIncapacitatedState IncapacitatedState => incapacitatedState;
+    public bool DebugLogging => debugLogging;
     
-    public IdleState IdleState = new();
-    public PatrolState PatrolState = new();
-    public ChaseState ChaseState = new();
-    public AttackState AttackState = new();
-    public AlarmedState AlarmedState = new();
+    public NavMeshAgent NavMeshAgent { get; private set; }
+    public EntityAnimator EntityAnimator { get; private set; }
+    public CharacterStats CharacterStats { get; private set; }
+    public Collider Target { get; private set; }
+    public EntityStatus EntityStatus { get; private set; }
+    public bool IsTargetAttackable { get; private set; }
+    
+    private void Awake()
+    {
+        idleState = Instantiate(idleState);
+        targetAcquiredState = Instantiate(targetAcquiredState);
+        targetLostState = Instantiate(targetLostState);
+        dangerState = Instantiate(dangerState);
+        attackState = Instantiate(attackState);
+        incapacitatedState = Instantiate(incapacitatedState);
+        
+        NavMeshAgent = GetComponent<NavMeshAgent>();
+        EntityAnimator = GetComponent<EntityAnimator>();
+        CharacterStats = GetComponent<CharacterStats>();
+    }
 
     private void Start()
     {
-        Context = GetComponent<AIController>();
-        _currentState = IdleState;
-        _currentState.EnterState(this);
+        idleState.Initialize(this);
+        targetAcquiredState.Initialize(this);
+        targetLostState.Initialize(this);
+        dangerState.Initialize(this);
+        attackState.Initialize(this);
+        incapacitatedState.Initialize(this);
+        
+        _currentState = idleState;
+        _currentState.EnterState();
     }
 
+    private void OnEnable()
+    {
+        foreach (var detector in targetDetectors) detector.OnTargetsChanged += UpdateDetectedTargets;
+        foreach (var detector in attackDetectors) detector.OnTargetsChanged += UpdateAttackableTargets;
+        CharacterStats.OnStagger += OnStagger;
+        CharacterStats.OnDeath += OnDeath;
+    }
+
+    private void OnDisable()
+    {
+        foreach (var detector in targetDetectors) detector.OnTargetsChanged -= UpdateDetectedTargets;
+        foreach (var detector in attackDetectors) detector.OnTargetsChanged -= UpdateAttackableTargets;
+        CharacterStats.OnStagger -= OnStagger;
+        CharacterStats.OnDeath -= OnDeath;
+    }
+    
     private void Update()
     {
-        _currentState.UpdateState(this);
+        _currentState.UpdateState();
     }
-
+    
     public void SwitchState(BaseState state)
     {
+        _currentState.ExitState();
         _currentState = state;
-        state.EnterState(this);
-    }
-    
-    private void OnCollisionEnter(Collision other)
-    {
-        _currentState.OnCollisionEnter(this, other);
+        _currentState.EnterState();
+        _currentState.UpdateState();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void UpdateDetectedTargets(Collider target, bool detected)
     {
-        _currentState.OnTriggerEnter(this, other);
+        UpdateTargetDictionary(_detectedTargets, target, detected);
+        UpdateTarget();
+    }
+
+    private void UpdateAttackableTargets(Collider target, bool detected)
+    {
+        UpdateTargetDictionary(_attackableTargets, target, detected);
+        UpdateTarget();
+    }
+
+    private void UpdateTargetDictionary(Dictionary<Collider, int> targets, Collider target, bool detected)
+    {
+        if (detected)
+        {
+            targets.TryAdd(target, 0);
+            targets[target]++;
+        }
+        else
+        {
+            if (targets[target] > 1) targets[target]--;
+            else targets.Remove(target);
+        }
+    }
+
+    private void UpdateTarget()
+    {
+        if (_detectedTargets.Any())
+        {
+            var detectedAttackableTargets = _attackableTargets.Keys.Intersect(_detectedTargets.Keys).ToList();
+            if (detectedAttackableTargets.Any())
+            {
+                Target = GetClosestTarget(detectedAttackableTargets);
+                IsTargetAttackable = true;
+            }
+            else
+            {
+                Target = GetClosestTarget(_detectedTargets.Keys);
+                IsTargetAttackable = false;
+            }
+
+            if (_isLosingTarget)
+            {
+                StopCoroutine(_loseTargetCoroutine);
+                _isLosingTarget = false;
+            }
+        }
+        else {
+            IsTargetAttackable = false;
+            if (!_isLosingTarget)
+            {
+                _loseTargetCoroutine = StartCoroutine(LoseTarget());
+                _isLosingTarget = true;
+            }
+        }
     }
     
-    private void OnTriggerStay(Collider other)
+    private Collider GetClosestTarget(IEnumerable<Collider> targets)
     {
-        _currentState.OnTriggerEnter(this, other);
+        var targetList = targets.ToList();
+        if (!targetList.Any()) return null;
+        
+        Collider closestTarget = null;
+        var minimumDistance = float.MaxValue;
+        foreach (var target in targetList)
+        {
+            var distance = Vector3.Distance(transform.position, target.transform.position);
+            if (distance < minimumDistance)
+            {
+                minimumDistance = distance;
+                closestTarget = target;
+            }
+        }
+
+        return closestTarget;
     }
     
-    private void OnTriggerExit(Collider other)
+    private IEnumerator LoseTarget()
     {
-        _currentState.OnTriggerEnter(this, other);
+        yield return new WaitForSeconds(memoryTime);
+        Target = null;
+        _isLosingTarget = false;
+    }
+
+    private void OnStagger()
+    {
+        EntityStatus = EntityStatus.Staggered;
+        SwitchState(IncapacitatedState);
+    }
+
+    private void OnDeath()
+    {
+        EntityStatus = EntityStatus.Dead;
+        SwitchState(IncapacitatedState);
+    }
+
+    public void ClearStatus()
+    {
+        EntityStatus = EntityStatus.Clear;
     }
 }

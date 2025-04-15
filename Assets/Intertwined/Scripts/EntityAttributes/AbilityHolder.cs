@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class AbilityHolder : MonoBehaviour
 {
@@ -10,9 +12,15 @@ public class AbilityHolder : MonoBehaviour
 
     private CharacterAnimator _characterAnimator;
     private AbilityState _state = AbilityState.Ready;
-    private float _cooldownTime;
 
+    public float MaxCooldownTime { get; private set; }
+    public float CooldownTime { get; private set; }
     public string Name { get; private set; }
+
+    private void Awake()
+    {
+        MaxCooldownTime = ability.CooldownTime;
+    }
 
     private void OnEnable()
     {
@@ -29,17 +37,18 @@ public class AbilityHolder : MonoBehaviour
     private void Start()
     {
         _characterAnimator = GetComponentInChildren<CharacterAnimator>();
+        
     }
 
     private void Update()
     {
         if (_state == AbilityState.Cooldown)
         {
-            _cooldownTime -= Time.deltaTime;
-            if (_cooldownTime <= 0)
+            CooldownTime -= Time.deltaTime;
+            if (CooldownTime <= 0)
             {
                 _state = AbilityState.Ready;
-                _cooldownTime = 0;
+                CooldownTime = 0;
             }
         }
     }
@@ -51,7 +60,7 @@ public class AbilityHolder : MonoBehaviour
             ability.Activate(gameObject);
             _characterAnimator.Skill(skillIndex);
             _state = AbilityState.Active;
-            _cooldownTime = ability.CooldownTime;
+            CooldownTime = ability.CooldownTime;
             StartCoroutine(ActiveTime(ability.ActiveTime));
         }
     }
