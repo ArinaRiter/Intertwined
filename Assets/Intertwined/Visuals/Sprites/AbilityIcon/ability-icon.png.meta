@@ -1,0 +1,751 @@
+fileFormatVersion: 2
+guid: 1faffcde7e13d5b488b8dd18013b969d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ability-icon_0
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 737
+        width: 207
+        height: 205
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e8397c44daa58409c086f680bfe742
+      internalID: 806830472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_1
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 740
+        width: 204
+        height: 202
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff8bd7c079c78224391489b7e32aa603
+      internalID: -1456989723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 739
+        width: 202
+        height: 202
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5cb5aaa9a3131145a3c5ad9c715211b
+      internalID: -1018742387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_3
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 739
+        width: 204
+        height: 203
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75b9571c171d1ff49b9762f86cf9a7c5
+      internalID: 716344105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_4
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 739
+        width: 206
+        height: 203
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92145e337d93b5147bfc7eb49c515bc8
+      internalID: 1798369856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_5
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 737
+        width: 207
+        height: 205
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e731d5f861409164bbba9748880fd459
+      internalID: -355411577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_6
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 508
+        width: 198
+        height: 202
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5863aacdeb9857c46897ebedf46af51d
+      internalID: 1842743998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_7
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 508
+        width: 202
+        height: 200
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b75139fde4e50c4e9e428e58afd3e74
+      internalID: -225843267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_8
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 508
+        width: 206
+        height: 206
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cc4f7f92279cfa42b99d7181cf89a9f
+      internalID: -970102486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_9
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 507
+        width: 206
+        height: 206
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c0ce38a6d5b33549a1c6e665e7bc759
+      internalID: -1408937281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_10
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 507
+        width: 206
+        height: 206
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e40b759ac18d3bc43a3a24d920d85803
+      internalID: -597162801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_11
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 507
+        width: 207
+        height: 205
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e7fa2a9d7517d042a5cb78c5218088e
+      internalID: -1435057127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_12
+      rect:
+        serializedVersion: 2
+        x: 1454
+        y: 507
+        width: 205
+        height: 206
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a208bbd28109fac43ac689c5b7fe4002
+      internalID: -166813466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_13
+      rect:
+        serializedVersion: 2
+        x: 1685
+        y: 517
+        width: 206
+        height: 207
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab315a05636bdd84fa83a54e75f79f03
+      internalID: 2065913544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_14
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 284
+        width: 205
+        height: 202
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c9a0360b58914b4d861b40b1763cc87
+      internalID: -1947684584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_15
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 282
+        width: 208
+        height: 205
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d29966d651dc8ee43b46e3fe8d418991
+      internalID: -72356277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_16
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 282
+        width: 208
+        height: 205
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29e636f550306fc44adc4b1a5648fa60
+      internalID: 1366473534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_17
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 282
+        width: 208
+        height: 206
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 298ff23c91e4960459cd47b9993e7596
+      internalID: -1311060669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_18
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 281
+        width: 207
+        height: 207
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fcfcfa337ed5104f93f906e7a4aca87
+      internalID: -458002025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_19
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 284
+        width: 207
+        height: 206
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e218dd55b12ef74199c1d263c0a0ad2
+      internalID: 898897321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_20
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 285
+        width: 207
+        height: 207
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29d7343f20240b1409016c9d50892ed1
+      internalID: -1447512835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_21
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 49
+        width: 205
+        height: 203
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9a48897c588d8847805e5770771f39b
+      internalID: 836218564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_22
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 48
+        width: 208
+        height: 205
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72d436c31f6bd7442907c5a3a8ba81c5
+      internalID: -1656957990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_23
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 48
+        width: 207
+        height: 205
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4766acfc410d48844b69258fa9a6bda1
+      internalID: -1314558674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_24
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 49
+        width: 206
+        height: 207
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa8d4bee4638875409e859076e175ae0
+      internalID: 315802592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_25
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 51
+        width: 208
+        height: 206
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f207cad0219b5ce4f95c78d235578983
+      internalID: -399836439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ability-icon_26
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 47
+        width: 207
+        height: 206
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5acd9c196a112f4987616c0af4e4a8a
+      internalID: -661916526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b75e535a3f707874ba40445c5f7b1c81
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ability-icon_0: 806830472
+      ability-icon_1: -1456989723
+      ability-icon_10: -597162801
+      ability-icon_11: -1435057127
+      ability-icon_12: -166813466
+      ability-icon_13: 2065913544
+      ability-icon_14: -1947684584
+      ability-icon_15: -72356277
+      ability-icon_16: 1366473534
+      ability-icon_17: -1311060669
+      ability-icon_18: -458002025
+      ability-icon_19: 898897321
+      ability-icon_2: -1018742387
+      ability-icon_20: -1447512835
+      ability-icon_21: 836218564
+      ability-icon_22: -1656957990
+      ability-icon_23: -1314558674
+      ability-icon_24: 315802592
+      ability-icon_25: -399836439
+      ability-icon_26: -661916526
+      ability-icon_3: 716344105
+      ability-icon_4: 1798369856
+      ability-icon_5: -355411577
+      ability-icon_6: 1842743998
+      ability-icon_7: -225843267
+      ability-icon_8: -970102486
+      ability-icon_9: -1408937281
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

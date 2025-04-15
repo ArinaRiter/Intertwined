@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
@@ -31,6 +32,16 @@ public class CharacterAnimator : MonoBehaviour
     private void Start()
     {
         _controller = GetComponentInParent<CharacterController>();
+    }
+
+    private void OnEnable()
+    {
+        playerController.GetComponent<CharacterStats>().OnDeath += Die;
+    }
+
+    private void OnDisable()
+    {
+        playerController.GetComponent<CharacterStats>().OnDeath -= Die;
     }
 
     private void Update()
@@ -118,4 +129,10 @@ public class CharacterAnimator : MonoBehaviour
     {
         weapon.transform.SetParent(transform);
     }
+
+    private void Die()
+    {
+        _animator.enabled = false;
+    }
+    
 }
