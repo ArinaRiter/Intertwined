@@ -22,7 +22,7 @@ MonoBehaviour:
   - StatType: 2
     BaseValue: 50
   - StatType: 3
-    BaseValue: 20
+    BaseValue: 50
   - StatType: 5
     BaseValue: 0.1
   - StatType: 7
@@ -31,3 +31,7 @@ MonoBehaviour:
     BaseValue: 5
   - StatType: 9
     BaseValue: 3
+  - StatType: 13
+    BaseValue: 3
+  - StatType: 6
+    BaseValue: 2

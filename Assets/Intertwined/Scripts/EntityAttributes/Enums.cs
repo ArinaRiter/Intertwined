@@ -9,7 +9,11 @@ public enum ModType
 public enum StatType
 {
     MaxHealth,
+    Health,
     MaxStamina,
+    Stamina,
+    MaxEnergy,
+    Energy,
     StaminaReplenishCooldown,
     StaminaReplenishRate,
     CooldownReduction,

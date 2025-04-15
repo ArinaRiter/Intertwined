@@ -5,8 +5,8 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Intertwined/Scenes/Bootstrap.unity
-    guid: 76d4cf7cc570e8a45a02ee19f82d9d0e
+  - enabled: 1
+    path: Assets/Intertwined/Scenes/Main.unity
+    guid: 9c2699fdc2384314db4955c3794ccd4f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
