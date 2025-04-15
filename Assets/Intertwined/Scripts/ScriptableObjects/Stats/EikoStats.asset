@@ -20,20 +20,14 @@ MonoBehaviour:
   - StatType: 2
     BaseValue: 50
   - StatType: 3
-    BaseValue: 50
-  - StatType: 6
-    BaseValue: 2
-  - StatType: 7
+    BaseValue: 20
+  - StatType: 8
     BaseValue: 10
   - StatType: 10
-    BaseValue: 50
-  - StatType: 11
-    BaseValue: 5
-  - StatType: 12
-    BaseValue: 10
-  - StatType: 14
     BaseValue: 3
-  - StatType: 20
+  - StatType: 6
+    BaseValue: 50
+  - StatType: 16
     BaseValue: 0.1
-  - StatType: 21
+  - StatType: 17
     BaseValue: 0.1

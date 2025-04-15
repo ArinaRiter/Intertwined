@@ -14,16 +14,12 @@ public class Weapon : MonoBehaviour
     private Stat _breachStat;
     private Stat _damageBonusStat;
     private float _damageMultiplier = 1;
-    private Vector3 _previousPosition;
-    private Quaternion _previousRotation;
-    private bool _isFirstAttackFrame;
-    private readonly RaycastHit[] _hits = new RaycastHit[5];
     
-    public CapsuleCollider WeaponCollider { get; private set; }
+    public Collider Collider { get; private set; }
 
     private void Awake()
     {
-        WeaponCollider = GetComponent<CapsuleCollider>();
+        Collider = GetComponent<Collider>();
     }
 
     private void Start()
@@ -50,45 +46,16 @@ public class Weapon : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
 
-        if (_characterStats.AttackSO is not null)
+        var attacks = _characterStats.AttackSO.Attacks;
+        foreach (var attack in attacks)
         {
-            var attacks = _characterStats.AttackSO.Attacks;
-            foreach (var attack in attacks)
-            {
-                _attacks.Add(attack.Type, attack.Multiplier);
-            }
+            _attacks.Add(attack.Type, attack.Multiplier);
         }
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        if (WeaponCollider.enabled)
-        {
-            if (_isFirstAttackFrame)
-            {
-                _previousRotation = transform.rotation;
-                _previousPosition = _previousRotation * WeaponCollider.center + transform.position;
-                _isFirstAttackFrame = false;
-                return;
-            }
-            var rotation = Quaternion.Lerp(_previousRotation, transform.rotation, 0.5f);
-            var centerPoint = rotation * WeaponCollider.center + _previousPosition;
-            var centerOffset = rotation * Vector3.up * (WeaponCollider.height / 2 - WeaponCollider.radius);
-            var point1 = centerPoint + centerOffset;
-            var point2 = centerPoint - centerOffset;
-            var currentPosition = transform.rotation * WeaponCollider.center + transform.position;
-            var direction = currentPosition - _previousPosition;
-            
-            var hitCount = Physics.CapsuleCastNonAlloc(point1, point2, WeaponCollider.radius, direction.normalized, _hits, direction.magnitude, targetLayers, QueryTriggerInteraction.Collide);
-            for (var i = 0; i < hitCount; i++)
-            {
-                Strike(_hits[i].collider);
-            }
-            
-            _previousRotation = transform.rotation;
-            _previousPosition = currentPosition;
-        }
-        else _isFirstAttackFrame = true;
+        ClearHitTargetsList();
     }
 
     public void SetAttackType(int type)
@@ -105,21 +72,15 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Strike(other);
-    }
-
-    private void Strike(Collider target)
-    {
-        if (Utilities.IsLayerInMask(target.gameObject.layer, targetLayers))
+        if (Utilities.IsLayerInMask(other.gameObject.layer, targetLayers))
         {
-            var targetStats = target.GetComponent<CharacterStats>();
-            if (_hitTargets.Contains(targetStats)) return;
+            var target = other.GetComponent<CharacterStats>();
+            if (_hitTargets.Contains(target)) return;
             var pierce = _pierceStat?.Value ?? 0;
             var breach = _breachStat?.Value ?? 0;
             var power = _powerStat?.Value ?? 0;
-            var damageBonus = _damageBonusStat?.Value ?? 0;
-            targetStats.TakeDamage(damageType, power * (1 + damageBonus) * _damageMultiplier, pierce, breach);
-            _hitTargets.Add(targetStats);
+            target.TakeDamage(damageType, power * _damageMultiplier, pierce, breach);
+            _hitTargets.Add(target);
         }
     }
 

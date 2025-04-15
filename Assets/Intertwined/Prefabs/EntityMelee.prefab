@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 215717916640853939, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: dangerState
+      value: 
+      objectReference: {fileID: 11400000, guid: 97d87f77f66af2d41b0db5dd7fdf5fdb, type: 2}
     - target: {fileID: 1444438355032453064, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: m_Name
       value: EntityMelee
@@ -57,12 +61,20 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6386270047575572792, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6386270047575572792, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7033808144600685672, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 83357b2ae3b91244c81898a689ad7746, type: 2}
+    - target: {fileID: 7521972012003802207, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894119190546810964, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: attackSO
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

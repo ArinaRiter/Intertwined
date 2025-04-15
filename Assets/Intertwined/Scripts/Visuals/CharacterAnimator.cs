@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Weapon weapon;
     [SerializeField] private Transform rightHand;
@@ -12,20 +11,18 @@ public class CharacterAnimator : MonoBehaviour
     private Animator _animator;
     private Vector3 _speedVector = Vector3.zero;
 
-    private static readonly int SpeedHash = Animator.StringToHash("Speed");
-    private static readonly int RunningHash = Animator.StringToHash("IsRunning");
-    private static readonly int FallingHash = Animator.StringToHash("IsFalling");
-    private static readonly int BlockingHash = Animator.StringToHash("IsBlocking");
-    private static readonly int PeacefulHash = Animator.StringToHash("IsPeaceful");
-    private static readonly int SwitchModeHash = Animator.StringToHash("SwitchMode");
-    private static readonly int AttackHash = Animator.StringToHash("Attack");
-    private static readonly int ChargedAttackHash = Animator.StringToHash("ChargedAttack");
-    private static readonly int SkillOneHash = Animator.StringToHash("Skill1");
-    private static readonly int SkillTwoHash = Animator.StringToHash("Skill2");
-    private static readonly int SkillThreeHash = Animator.StringToHash("Skill3");
-    private static readonly int JumpHash = Animator.StringToHash("Jump");
-    private static readonly int IsDead = Animator.StringToHash("IsDead");
-    private static readonly int Stagger = Animator.StringToHash("Stagger");
+    private readonly int _speedHash = Animator.StringToHash("Speed");
+    private readonly int _runningHash = Animator.StringToHash("IsRunning");
+    private readonly int _fallingHash = Animator.StringToHash("IsFalling");
+    private readonly int _blockingHash = Animator.StringToHash("IsBlocking");
+    private readonly int _peacefulHash = Animator.StringToHash("IsPeaceful");
+    private readonly int _switchModeHash = Animator.StringToHash("SwitchMode");
+    private readonly int _attackHash = Animator.StringToHash("Attack");
+    private readonly int _chargedAttackHash = Animator.StringToHash("ChargedAttack");
+    private readonly int _skillOneHash = Animator.StringToHash("Skill1");
+    private readonly int _skillTwoHash = Animator.StringToHash("Skill2");
+    private readonly int _skillThreeHash = Animator.StringToHash("Skill3");
+    private readonly int _jumpHash = Animator.StringToHash("Jump");
 
     private void Awake()
     {
@@ -39,14 +36,12 @@ public class CharacterAnimator : MonoBehaviour
 
     private void OnEnable()
     {
-        playerController.GetComponent<CharacterStats>().OnDeath += OnDie;
-        playerController.GetComponent<CharacterStats>().OnStagger += OnStagger;
+        playerController.GetComponent<CharacterStats>().OnDeath += Die;
     }
 
     private void OnDisable()
     {
-        playerController.GetComponent<CharacterStats>().OnDeath -= OnDie;
-        playerController.GetComponent<CharacterStats>().OnStagger -= OnStagger;
+        playerController.GetComponent<CharacterStats>().OnDeath -= Die;
     }
 
     private void Update()
@@ -55,27 +50,27 @@ public class CharacterAnimator : MonoBehaviour
         {
             _speedVector = _controller.velocity;
             var horizontalVector = new Vector2(_speedVector.x, _speedVector.z);
-            _animator.SetFloat(SpeedHash, horizontalVector.magnitude);
+            _animator.SetFloat(_speedHash, horizontalVector.magnitude);
         }
         else if (!playerController.IsMoving)
         {
-            _animator.SetFloat(SpeedHash, 0);
+            _animator.SetFloat(_speedHash, 0);
         }
 
-        _animator.SetBool(RunningHash, playerController.IsRunning);
-        _animator.SetBool(FallingHash, playerController.IsFalling);
+        _animator.SetBool(_runningHash, playerController.IsRunning);
+        _animator.SetBool(_fallingHash, playerController.IsFalling);
     }
 
     public void Attack()
     {
-        _animator.ResetTrigger(ChargedAttackHash);
-        _animator.SetTrigger(AttackHash);
+        _animator.ResetTrigger(_chargedAttackHash);
+        _animator.SetTrigger(_attackHash);
     }
     
     public void ChargedAttack()
     {
-        _animator.ResetTrigger(AttackHash);
-        _animator.SetTrigger(ChargedAttackHash);
+        _animator.ResetTrigger(_attackHash);
+        _animator.SetTrigger(_chargedAttackHash);
     }
 
     public void Skill(int index)
@@ -83,42 +78,42 @@ public class CharacterAnimator : MonoBehaviour
         switch (index)
         {
             case 1:
-                _animator.SetTrigger(SkillOneHash);
+                _animator.SetTrigger(_skillOneHash);
                 break;
             case 2:
-                _animator.SetTrigger(SkillTwoHash);
+                _animator.SetTrigger(_skillTwoHash);
                 break;
             case 3:
-                _animator.SetTrigger(SkillThreeHash);
+                _animator.SetTrigger(_skillThreeHash);
                 break;
         }
     }
 
     public void Block(bool isBlocking)
     {
-        _animator.SetBool(BlockingHash, isBlocking);
+        _animator.SetBool(_blockingHash, isBlocking);
     }
 
     public void Jump()
     {
-        _animator.SetTrigger(JumpHash);
+        _animator.SetTrigger(_jumpHash);
     }
 
     public void SwitchMode(bool isPeaceful)
     {
-        _animator.SetBool(PeacefulHash, isPeaceful);
-        _animator.SetTrigger(SwitchModeHash);
+        _animator.SetBool(_peacefulHash, isPeaceful);
+        _animator.SetTrigger(_switchModeHash);
     }
     
     public void WeaponEnable(int attackType)
     {
-        weapon.WeaponCollider.enabled = true;
+        weapon.Collider.enabled = true;
         weapon.SetAttackType(attackType);
     }
     
     public void WeaponDisable()
     {
-        weapon.WeaponCollider.enabled = false;
+        weapon.Collider.enabled = false;
         weapon.ClearHitTargetsList();
     }
 
@@ -135,13 +130,9 @@ public class CharacterAnimator : MonoBehaviour
         weapon.transform.SetParent(transform);
     }
 
-    private void OnDie()
+    private void Die()
     {
-        _animator.SetBool(IsDead, true);
+        _animator.enabled = false;
     }
-
-    private void OnStagger()
-    {
-        _animator.SetTrigger(Stagger);
-    }
+    
 }

@@ -44,12 +44,12 @@ public class EntityAnimator : MonoBehaviour
 
     public void SetWeaponEnabled()
     {
-        weapon.WeaponCollider.enabled = true;
+        weapon.Collider.enabled = true;
     }
 
     public void SetWeaponDisabled()
     {
-        weapon.WeaponCollider.enabled = false;
+        weapon.Collider.enabled = false;
         weapon.ClearHitTargetsList();
     }
 }
