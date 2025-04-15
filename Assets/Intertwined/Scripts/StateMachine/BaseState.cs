@@ -1,11 +1,31 @@
 using UnityEngine;
 
-public abstract class BaseState
+public abstract class BaseState: ScriptableObject
 {
-    public abstract void EnterState(AIStateMachine aiStateMachine);
-    public abstract void UpdateState(AIStateMachine aiStateMachine);
-    public abstract void OnCollisionEnter(AIStateMachine aiStateMachine, Collision collision);
-    public abstract void OnTriggerEnter(AIStateMachine aiStateMachine, Collider collider);
-    public abstract void OnTriggerStay(AIStateMachine aiStateMachine, Collider collider);
-    public abstract void OnTriggerExit(AIStateMachine aiStateMachine, Collider collider);
+    private protected AIStateMachine _context;
+    private protected bool _exitedState;
+
+    public void Initialize(AIStateMachine context)
+    {
+        if (_context == null) _context = context;
+    }
+
+    public virtual void EnterState()
+    {
+        if (_context.DebugLogging) Debug.Log($"{this} Enter State");
+        _exitedState = false;
+    }
+
+    public virtual void UpdateState()
+    {
+        if (_context.DebugLogging) Debug.Log($"{this} Update State");
+    }
+
+    public virtual void ExitState()
+    {
+        if (_context.DebugLogging) Debug.Log($"{this} Exit State");
+        _exitedState = true;
+    }
+    
+    public abstract bool CanBeInState();
 }

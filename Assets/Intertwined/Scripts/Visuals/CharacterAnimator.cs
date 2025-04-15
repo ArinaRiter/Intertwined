@@ -107,14 +107,14 @@ public class CharacterAnimator : MonoBehaviour
     
     public void WeaponEnable(int attackType)
     {
-        weapon.enabled = true;
+        weapon.Collider.enabled = true;
         weapon.SetAttackType(attackType);
     }
     
     public void WeaponDisable()
     {
-        weapon.enabled = false;
-        weapon.ClearHitEnemiesList();
+        weapon.Collider.enabled = false;
+        weapon.ClearHitTargetsList();
     }
 
     public void Arm()

@@ -9,18 +9,22 @@ public class CharacterStats : MonoBehaviour
 {
     [SerializeField] private StatSO statSO;
     [SerializeField] private AttackSO attackSO;
+    
     public AttackSO AttackSO => attackSO;
+    
     public ReadOnlyDictionary<StatType, Stat> Stats { get; private set; }
+    
     private readonly List<StatusEffect> _statusEffects = new();
     private float _health;
     private float _stamina;
     private float _staminaReplenishTimer;
     private bool _isStaminaReplenishing;
+    private Stat _stability;
     
     public event Action OnDeath;
     public event Action OnDamageTaken;
-    
     public event Action OnStaminaChanged;
+    public event Action OnStagger;
 
     public float Health
     {
@@ -75,6 +79,8 @@ public class CharacterStats : MonoBehaviour
             DamageReduction = armor.Value / (200 + armor.Value);
             armor.ChangedValue += UpdateArmor;
         }
+        
+        _stability = Stats.TryGetValue(StatType.Stability, out var stability) ? stability : new Stat(0);
     }
 
     private void Update()
@@ -123,6 +129,7 @@ public class CharacterStats : MonoBehaviour
             OnDeath?.Invoke();
             Debug.Log("Dead");
         }
+        else if (totalDamage >= _stability.Value) OnStagger?.Invoke();
     }
 
     private float CalculateDamageTaken(DamageType damageType, float damage, float pierce, float breach)
@@ -130,22 +137,22 @@ public class CharacterStats : MonoBehaviour
         float damageResistance = 0;
         switch (damageType)
         {
-            case DamageType.Phys:
-                if (Stats.TryGetValue(StatType.PhysDamageResistance, out var physRes))
+            case DamageType.Physical:
+                if (Stats.TryGetValue(StatType.PhysDamageResistance, out var physResistance))
                 {
-                    damageResistance = physRes.Value;
+                    damageResistance = physResistance.Value;
                 }
                 break;
             case DamageType.Fire:
-                if (Stats.TryGetValue(StatType.FireDamageResistance, out var fireRes))
+                if (Stats.TryGetValue(StatType.FireDamageResistance, out var fireResistance))
                 {
-                    damageResistance = fireRes.Value;
+                    damageResistance = fireResistance.Value;
                 }
                 break;
             case DamageType.Poison:
-                if (Stats.TryGetValue(StatType.FireDamageResistance, out var trueRes))
+                if (Stats.TryGetValue(StatType.PoisonDamageResistance, out var poisonResistance))
                 {
-                    damageResistance = trueRes.Value;
+                    damageResistance = poisonResistance.Value;
                 }
                 break;
             case DamageType.True:
