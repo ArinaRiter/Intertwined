@@ -15,9 +15,11 @@ MonoBehaviour:
   stats:
   - StatType: 0
     BaseValue: 100
-  - StatType: 8
-    BaseValue: 5
-  - StatType: 6
+  - StatType: 1
+    BaseValue: 100
+  - StatType: 10
     BaseValue: 25
-  - StatType: 11
+  - StatType: 12
+    BaseValue: 10
+  - StatType: 15
     BaseValue: 0.1
