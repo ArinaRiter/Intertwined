@@ -1,12 +1,19 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveController : MonoBehaviour
 {
+    private static bool _loadGame;
+
     private void Start()
     {
-        LoadGame();
+        if (_loadGame)
+        {
+            LoadGame();
+            _loadGame = false;
+        }
     }
-    
+
     [ContextMenu("Save Game")]
     public void SaveGame()
     {
@@ -15,6 +22,7 @@ public class SaveController : MonoBehaviour
         SaveModel.SaveData();
     }
 
+    [ContextMenu("Load Game")]
     public void LoadGame()
     {
         SaveModel.LoadData();
@@ -26,5 +34,12 @@ public class SaveController : MonoBehaviour
             var data = SaveModel.GetData(guid);
             entity.LoadData(data);
         }
+    }
+
+    public void PromptLoadGame()
+    {
+        _loadGame = true;
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Main");
     }
 }

@@ -1,10 +1,15 @@
+using System;
 using UnityEngine;
 using Unity.Cinemachine; 
 
 public class CameraSensitivityApplier : MonoBehaviour
 {
-    private CinemachineInputAxisController _freeLookCamera;
-    private const string SENSITIVITY_KEY = "MouseSensitivity";
+    private CinemachineInputAxisController _cameraInputAxisController;
+
+    private void Awake()
+    {
+        _cameraInputAxisController = GetComponent<CinemachineInputAxisController>();
+    }
 
     private void Start()
     {
@@ -13,11 +18,13 @@ public class CameraSensitivityApplier : MonoBehaviour
 
     private void ApplySensitivity()
     {
-        var sensitivity = PlayerPrefs.GetFloat(SENSITIVITY_KEY);
-        
-        if (_freeLookCamera is not null)
+        var axis = Enum.GetNames(typeof(SensitivityAxis));
+        for (var i = 0; i < axis.Length; i++)
         {
-            GetComponent<CinemachineInputAxisController>().Controllers[0].Input.Gain = sensitivity;
+            var sensitivity = PlayerPrefs.GetFloat(axis[i], 0);
+            if (sensitivity == 0) continue;
+            if (i == 1) sensitivity *= -1; 
+            _cameraInputAxisController.Controllers[i].Input.Gain = sensitivity;
         }
     }
 }
