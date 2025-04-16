@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +21,11 @@ public abstract class PlayerController : BaseController
         _characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
+    }
+
+    private void OnDestroy()
+    {
+        Cursor.visible = true;
     }
 
     private void OnEnable()
