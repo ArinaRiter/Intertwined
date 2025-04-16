@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour
+public class EntityStats : MonoBehaviour, ISaveable
 {
     [SerializeField] private StatSO statSO;
     [SerializeField] private AttackSO attackSO;
@@ -19,8 +19,9 @@ public class CharacterStats : MonoBehaviour
     private float _stamina;
     private float _staminaReplenishTimer;
     private bool _isStaminaReplenishing;
+    private bool _isDead;
     private Stat _stability;
-    
+
     public event Action OnDeath;
     public event Action OnDamageTaken;
     public event Action OnStaminaChanged;
@@ -29,7 +30,11 @@ public class CharacterStats : MonoBehaviour
     public float Health
     {
         get => _health;
-        private set => _health = Mathf.Clamp(value, 0, Stats[StatType.MaxHealth].Value);
+        private set
+        {
+            _health = Mathf.Clamp(value, 0, Stats[StatType.MaxHealth].Value);
+            if (_health == 0) IsDead = true;
+        }
     }
 
     public float Stamina
@@ -53,7 +58,20 @@ public class CharacterStats : MonoBehaviour
     }
 
     public float DamageReduction { get; private set; }
-    public bool IsDead { get; private set; }
+
+    public bool IsDead
+    {
+        get => _isDead;
+        private set
+        {
+            if (_isDead != value)
+            {
+                _isDead = value;
+                if (_isDead) OnDeath?.Invoke();
+            }
+        }
+    }
+
     public bool IsExhausted { get; private set; }
 
     private void Awake()
@@ -122,14 +140,7 @@ public class CharacterStats : MonoBehaviour
         Health -= totalDamage;
         OnDamageTaken?.Invoke();
         Debug.Log($"Hit, {Health} health remaining");
-        if (Health <= 0)
-        {
-            Health = 0;
-            IsDead = true;
-            OnDeath?.Invoke();
-            Debug.Log("Dead");
-        }
-        else if (totalDamage >= _stability.Value) OnStagger?.Invoke();
+        if (!IsDead && totalDamage >= _stability.Value) OnStagger?.Invoke();
     }
 
     private float CalculateDamageTaken(DamageType damageType, float damage, float pierce, float breach)
@@ -178,8 +189,6 @@ public class CharacterStats : MonoBehaviour
         if (Health > value)
         {
             Health = value;
-            IsDead = _health == 0;
-            if (IsDead) OnDeath?.Invoke();
         }
     }
 
@@ -227,5 +236,21 @@ public class CharacterStats : MonoBehaviour
             DamageReduction = armor.Value / (200 + armor.Value);
             armor.ChangedValue += UpdateArmor;
         }
+    }
+
+    public SaveData SaveData()
+    {
+        var guid = GetComponent<GloballyUniqueIdentifier>().GUID;
+        var saveData = new EntityData(guid, transform.position, transform.rotation, Health, Stamina);
+        return saveData;
+    }
+
+    public void LoadData(SaveData data)
+    {
+        var saveData = (EntityData)data;
+        transform.position = data.position;
+        transform.rotation = data.rotation;
+        Health = saveData.health;
+        Stamina = saveData.stamina;
     }
 }
