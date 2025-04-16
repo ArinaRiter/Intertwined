@@ -3,8 +3,6 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using System.Threading.Tasks;
 
 public class Menu : MonoBehaviour
