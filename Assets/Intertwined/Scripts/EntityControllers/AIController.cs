@@ -20,12 +20,12 @@ public class AIController : BaseController
 
     private void OnEnable()
     {
-        _characterStats.OnDeath += Die;
+        EntityStats.OnDeath += Die;
     }
     
     private void OnDisable()
     {
-        _characterStats.OnDeath -= Die;
+        EntityStats.OnDeath -= Die;
     }
 
     private void OnTriggerStay(Collider other)

@@ -21,9 +21,9 @@ public class EikoController : PlayerController
             {
                 _characterAnimator.Attack();
             }
-            else if (obj.interaction is HoldInteraction && _characterStats.Stamina > chargedAttackCost)
+            else if (obj.interaction is HoldInteraction && EntityStats.Stamina > chargedAttackCost)
             {
-                _characterStats.Stamina -= chargedAttackCost;
+                EntityStats.Stamina -= chargedAttackCost;
                 OnStaminaChanged?.Invoke();
                 _characterAnimator.ChargedAttack();
             }

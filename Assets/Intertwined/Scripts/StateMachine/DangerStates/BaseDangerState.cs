@@ -3,7 +3,8 @@ public abstract class BaseDangerState : BaseState
     public override void UpdateState()
     {
         base.UpdateState();
-        if (!CanBeInState())
+        if (_context.IncapacitatedState.CanBeInState()) _context.SwitchState(_context.IncapacitatedState);
+        else if (!CanBeInState())
         {
             if (_context.AttackState.CanBeInState()) _context.SwitchState(_context.AttackState);
             else if (_context.TargetAcquiredState.CanBeInState()) _context.SwitchState(_context.TargetAcquiredState);

@@ -9,7 +9,7 @@ public abstract class BaseController : MonoBehaviour
     [SerializeField] private protected float groundDistance;
     [SerializeField] private protected LayerMask groundMask;
     
-    private protected CharacterStats _characterStats;
+    private protected EntityStats EntityStats;
     private protected CharacterAnimator _characterAnimator;
     private protected Vector3 _verticalVelocity = Vector3.zero;
     private protected float _movementSpeed;
@@ -27,13 +27,13 @@ public abstract class BaseController : MonoBehaviour
 
     private protected virtual void Awake()
     {
-        _characterStats = GetComponent<CharacterStats>();
+        EntityStats = GetComponent<EntityStats>();
     }
     
     private protected virtual void Start()
     {
         _characterAnimator = GetComponentInChildren<CharacterAnimator>();
-        if (_characterStats.Stats.TryGetValue(StatType.MovementSpeed, out var speed))
+        if (EntityStats.Stats.TryGetValue(StatType.MovementSpeed, out var speed))
         {
             _movementSpeed = speed.Value;
             speed.ChangedValue += SetMovementSpeed;
