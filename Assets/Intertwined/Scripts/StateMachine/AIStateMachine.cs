@@ -38,7 +38,7 @@ public class AIStateMachine : MonoBehaviour
     
     public NavMeshAgent NavMeshAgent { get; private set; }
     public EntityAnimator EntityAnimator { get; private set; }
-    public CharacterStats CharacterStats { get; private set; }
+    public EntityStats EntityStats { get; private set; }
     public Collider EntityCollider { get; private set; }
     public Collider Target { get; private set; }
     public EntityStatus EntityStatus { get; private set; }
@@ -55,7 +55,7 @@ public class AIStateMachine : MonoBehaviour
         
         NavMeshAgent = GetComponent<NavMeshAgent>();
         EntityAnimator = GetComponent<EntityAnimator>();
-        CharacterStats = GetComponent<CharacterStats>();
+        EntityStats = GetComponent<EntityStats>();
         EntityCollider = GetComponent<Collider>();
     }
 
@@ -76,16 +76,16 @@ public class AIStateMachine : MonoBehaviour
     {
         foreach (var detector in targetDetectors) detector.OnTargetsChanged += UpdateDetectedTargets;
         foreach (var detector in attackDetectors) detector.OnTargetsChanged += UpdateAttackableTargets;
-        CharacterStats.OnStagger += OnStagger;
-        CharacterStats.OnDeath += OnDeath;
+        EntityStats.OnStagger += OnStagger;
+        EntityStats.OnDeath += OnDeath;
     }
 
     private void OnDisable()
     {
         foreach (var detector in targetDetectors) detector.OnTargetsChanged -= UpdateDetectedTargets;
         foreach (var detector in attackDetectors) detector.OnTargetsChanged -= UpdateAttackableTargets;
-        CharacterStats.OnStagger -= OnStagger;
-        CharacterStats.OnDeath -= OnDeath;
+        EntityStats.OnStagger -= OnStagger;
+        EntityStats.OnDeath -= OnDeath;
     }
     
     private void Update()
@@ -189,13 +189,11 @@ public class AIStateMachine : MonoBehaviour
     private void OnStagger()
     {
         EntityStatus = EntityStatus.Staggered;
-        SwitchState(IncapacitatedState);
     }
 
     private void OnDeath()
     {
         EntityStatus = EntityStatus.Dead;
-        SwitchState(IncapacitatedState);
     }
 
     public void ClearStatus()

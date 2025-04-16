@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.TryGetComponent(out CharacterStats characterStats))
+        if (other.gameObject.TryGetComponent(out EntityStats characterStats))
         {
             characterStats.TakeDamage(_damageType, _damage, _pierce, _breach);
             AudioManagerSO.Play(impactSound, transform.position);
