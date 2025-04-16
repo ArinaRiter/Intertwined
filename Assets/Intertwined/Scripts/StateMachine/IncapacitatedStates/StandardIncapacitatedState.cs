@@ -16,6 +16,7 @@ public class StandardIncapacitatedState : BaseIncapacitatedState
                 break;
             case EntityStatus.Dead:
                 _context.EntityAnimator.SetIsDead(true);
+                _context.EntityCollider.enabled = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -27,6 +28,7 @@ public class StandardIncapacitatedState : BaseIncapacitatedState
     {
         base.ExitState();
         _context.NavMeshAgent.updateRotation = true;
+        _context.EntityCollider.enabled = true;
     }
 
     public override bool CanBeInState()
