@@ -4,6 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Intertwined/Scenes/Menu.unity
+    guid: 9a257e0adb95b654d82eca0e1df64b20
+  - enabled: 1
+    path: Assets/Intertwined/Scenes/Main.unity
+    guid: 14fbfb507c8cbda4e93712ee7b8d1d6b
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: da36b70fc1dd29f4d87892b78350ac42, type: 2}
   m_UseUCBPForAssetBundles: 0

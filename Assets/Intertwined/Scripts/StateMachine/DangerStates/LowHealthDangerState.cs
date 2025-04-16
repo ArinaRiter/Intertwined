@@ -31,7 +31,7 @@ public class LowHealthDangerState : BaseDangerState
 
     public override bool CanBeInState()
     {
-        if (_maxHealth is null && !_context.CharacterStats.Stats.TryGetValue(StatType.MaxHealth, out _maxHealth)) _maxHealth = new Stat(0);
-        return _context.Target is not null && _context.CharacterStats.Health <= _maxHealth.Value * dangerHealthLevel;
+        if (_maxHealth is null && !_context.EntityStats.Stats.TryGetValue(StatType.MaxHealth, out _maxHealth)) _maxHealth = new Stat(0);
+        return _context.Target is not null && _context.EntityStats.Health <= _maxHealth.Value * dangerHealthLevel;
     }
 }

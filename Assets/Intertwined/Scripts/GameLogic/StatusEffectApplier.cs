@@ -25,12 +25,12 @@ public class StatusEffectApplier : MonoBehaviour
 
             if (!statusEffects.Any()) return;
             var statusEffect = statusEffects.First();
-            enemy.GetComponent<CharacterStats>().ApplyStatusEffect(statusEffect);
+            enemy.GetComponent<EntityStats>().ApplyStatusEffect(statusEffect);
             Debug.Log($"Applied {statusEffect.Name} to {enemy.name}");
         }
     }
 
-    public static void ApplyToEntity(CharacterStats character)
+    public static void ApplyToEntity(EntityStats entity)
     {
         var rarity = PickRandomRarity();
         if (rarity < 0) return;
@@ -46,8 +46,8 @@ public class StatusEffectApplier : MonoBehaviour
 
         if (!statusEffects.Any()) return;
         var statusEffect = statusEffects.First();
-        character.ApplyStatusEffect(statusEffect);
-        Debug.Log($"Applied {statusEffect.Name} to {character.name}");
+        entity.ApplyStatusEffect(statusEffect);
+        Debug.Log($"Applied {statusEffect.Name} to {entity.name}");
     }
 
     private static int PickRandomRarity()

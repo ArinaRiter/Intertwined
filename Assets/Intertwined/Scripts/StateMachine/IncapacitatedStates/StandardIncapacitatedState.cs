@@ -4,9 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StandardIncapacitatedState", menuName = "AI State Machine/Incapacitated States/StandardIncapacitatedState")]
 public class StandardIncapacitatedState : BaseIncapacitatedState
 {
+    private EntityStatus _entryStatus;
+    
     public override void EnterState()
     {
         base.EnterState();
+        _entryStatus = _context.EntityStatus;
         switch (_context.EntityStatus)
         {
             case EntityStatus.Clear:
@@ -16,6 +19,7 @@ public class StandardIncapacitatedState : BaseIncapacitatedState
                 break;
             case EntityStatus.Dead:
                 _context.EntityAnimator.SetIsDead(true);
+                _context.EntityCollider.enabled = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -27,10 +31,11 @@ public class StandardIncapacitatedState : BaseIncapacitatedState
     {
         base.ExitState();
         _context.NavMeshAgent.updateRotation = true;
+        _context.EntityCollider.enabled = true;
     }
 
     public override bool CanBeInState()
     {
-        return _context.EntityStatus != EntityStatus.Clear;
+        return _context.EntityStatus != _entryStatus;
     }
 }

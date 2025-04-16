@@ -39,14 +39,14 @@ public class CharacterAnimator : MonoBehaviour
 
     private void OnEnable()
     {
-        playerController.GetComponent<CharacterStats>().OnDeath += OnDie;
-        playerController.GetComponent<CharacterStats>().OnStagger += OnStagger;
+        playerController.GetComponent<EntityStats>().OnDeath += OnDie;
+        playerController.GetComponent<EntityStats>().OnStagger += OnStagger;
     }
 
     private void OnDisable()
     {
-        playerController.GetComponent<CharacterStats>().OnDeath -= OnDie;
-        playerController.GetComponent<CharacterStats>().OnStagger -= OnStagger;
+        playerController.GetComponent<EntityStats>().OnDeath -= OnDie;
+        playerController.GetComponent<EntityStats>().OnStagger -= OnStagger;
     }
 
     private void Update()
@@ -119,6 +119,7 @@ public class CharacterAnimator : MonoBehaviour
     public void WeaponDisable()
     {
         weapon.WeaponCollider.enabled = false;
+        weapon.SetAttackType(0);
         weapon.ClearHitTargetsList();
     }
 

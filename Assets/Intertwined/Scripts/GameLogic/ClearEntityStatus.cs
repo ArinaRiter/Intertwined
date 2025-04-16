@@ -17,7 +17,7 @@ public class ClearEntityStatus : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<AIStateMachine>().ClearStatus();
+        if (!animator.GetComponent<EntityStats>().IsDead) animator.GetComponent<AIStateMachine>().ClearStatus();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
