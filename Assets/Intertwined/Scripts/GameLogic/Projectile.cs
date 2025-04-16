@@ -4,6 +4,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed = 5;
     [SerializeField] private int durability = 1;
+    [SerializeField] private SoundType impactSound;
     
     private Rigidbody _rigidbody;
     private DamageType _damageType;
@@ -34,6 +35,7 @@ public class Projectile : MonoBehaviour
         if (other.gameObject.TryGetComponent(out CharacterStats characterStats))
         {
             characterStats.TakeDamage(_damageType, _damage, _pierce, _breach);
+            AudioManagerSO.Play(impactSound, transform.position);
         }
 
         durability--;

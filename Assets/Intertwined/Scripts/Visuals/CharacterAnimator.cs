@@ -119,6 +119,7 @@ public class CharacterAnimator : MonoBehaviour
     public void WeaponDisable()
     {
         weapon.WeaponCollider.enabled = false;
+        weapon.SetAttackType(0);
         weapon.ClearHitTargetsList();
     }
 

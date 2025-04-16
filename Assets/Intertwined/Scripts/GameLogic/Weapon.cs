@@ -120,6 +120,7 @@ public class Weapon : MonoBehaviour
             var damageBonus = _damageBonusStat?.Value ?? 0;
             targetStats.TakeDamage(damageType, power * (1 + damageBonus) * _damageMultiplier, pierce, breach);
             _hitTargets.Add(targetStats);
+            AudioManagerSO.Play(SoundType.AttackImpact, transform.position);
         }
     }
 

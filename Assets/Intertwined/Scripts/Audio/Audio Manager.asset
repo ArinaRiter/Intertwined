@@ -17,36 +17,72 @@ MonoBehaviour:
     clips: []
     volumeRange: 0.1
     pitchRange: 0.1
+  - name: Walk
+    clips:
+    - {fileID: 8300000, guid: 7b10b177bdd9425488879067557a52ac, type: 3}
+    - {fileID: 8300000, guid: 32e8c0abf8f03324ba05c817097ee168, type: 3}
+    - {fileID: 8300000, guid: d1e925b17bc6784419bc9bbbc21eb856, type: 3}
+    - {fileID: 8300000, guid: a3aaecfbf509d0c45af00d56273f9613, type: 3}
+    - {fileID: 8300000, guid: 7a64211ea764f6f4e910e7b2de0e7646, type: 3}
+    volumeRange: 0.1
+    pitchRange: 0.1
   - name: Run
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 58bc4b99b9fbb6945b92667045e09702, type: 3}
+    - {fileID: 8300000, guid: 0da7c3236fdb89042bc5a56f7a4abac6, type: 3}
+    - {fileID: 8300000, guid: 779bc49e4df605b4582fb97ac7d150b3, type: 3}
+    - {fileID: 8300000, guid: 5fa5587e8c2708846b1bf7fc487bbee5, type: 3}
+    - {fileID: 8300000, guid: 36bb0a5acda6eb6448c1972c980e61b4, type: 3}
     volumeRange: 0.1
     pitchRange: 0.1
   - name: Jump
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: ad16e783b34582e4fac00f9abeda7896, type: 3}
     volumeRange: 0.1
     pitchRange: 0.1
   - name: Land
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: e307ef86219135c4db66dfc03b5eebb2, type: 3}
+    volumeRange: 0.1
+    pitchRange: 0.1
+  - name: Sheath
+    clips:
+    - {fileID: 8300000, guid: ba844af0e5b90bf4fbd6df95303f03af, type: 3}
+    - {fileID: 8300000, guid: d783fa7ac17a68e4da14b233db3cfa48, type: 3}
+    volumeRange: 0.1
+    pitchRange: 0.1
+  - name: Unsheath
+    clips:
+    - {fileID: 8300000, guid: a8fc196a582f40947836ebf681a2bcb7, type: 3}
+    - {fileID: 8300000, guid: b56b7a2f984f47f48a43451f6208aa7c, type: 3}
     volumeRange: 0.1
     pitchRange: 0.1
   - name: Attack
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: d592cdd7782dfc44eb61719b6b1dfab9, type: 3}
+    - {fileID: 8300000, guid: 6248c6395c54d0f45a9ca3a36fd7acf2, type: 3}
+    - {fileID: 8300000, guid: a151c000bea760a499cfd20c029e91fd, type: 3}
     volumeRange: 0.1
     pitchRange: 0.1
   - name: AttackImpact
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: bb777a879ed21e84e86470c2788c06c8, type: 3}
+    - {fileID: 8300000, guid: 9d66a91b302aa494e9a31ccb9b8dca7e, type: 3}
+    - {fileID: 8300000, guid: b3c477422fb1d6b4c92241b14ac2883f, type: 3}
     volumeRange: 0.1
     pitchRange: 0.1
-  - name: Projectile
-    clips: []
+  - name: Fireball
+    clips:
+    - {fileID: 8300000, guid: cf7310d28ac08c145a5c6e44165273fa, type: 3}
+    - {fileID: 8300000, guid: be1bc2d638a3ab44ab6d22ca7dc3efba, type: 3}
+    - {fileID: 8300000, guid: a2aa0ab67a57bc04d87981ef412ab1d6, type: 3}
     volumeRange: 0.1
     pitchRange: 0.1
-  - name: ProjectileImpact
-    clips: []
-    volumeRange: 0.1
-    pitchRange: 0.1
-  - name: Ability
-    clips: []
+  - name: FireballImpact
+    clips:
+    - {fileID: 8300000, guid: 06f955cf2272c5a4998542a27892e3ca, type: 3}
+    - {fileID: 8300000, guid: 88b1cb4ab1773974fb171a98f081b9c0, type: 3}
+    - {fileID: 8300000, guid: 11324179c4e7758488ca2e660338900d, type: 3}
     volumeRange: 0.1
     pitchRange: 0.1
   - name: Hurt
@@ -54,30 +90,6 @@ MonoBehaviour:
     volumeRange: 0.1
     pitchRange: 0.1
   - name: Die
-    clips: []
-    volumeRange: 0.1
-    pitchRange: 0.1
-  - name: EnemyAttack
-    clips: []
-    volumeRange: 0.1
-    pitchRange: 0.1
-  - name: EnemyAttackImpact
-    clips: []
-    volumeRange: 0.1
-    pitchRange: 0.1
-  - name: EnemyProjectile
-    clips: []
-    volumeRange: 0.1
-    pitchRange: 0.1
-  - name: EnemyProjectileImpact
-    clips: []
-    volumeRange: 0.1
-    pitchRange: 0.1
-  - name: EnemyHurt
-    clips: []
-    volumeRange: 0.1
-    pitchRange: 0.1
-  - name: EnemyDie
     clips: []
     volumeRange: 0.1
     pitchRange: 0.1

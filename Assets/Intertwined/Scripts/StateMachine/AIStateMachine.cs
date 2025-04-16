@@ -39,6 +39,7 @@ public class AIStateMachine : MonoBehaviour
     public NavMeshAgent NavMeshAgent { get; private set; }
     public EntityAnimator EntityAnimator { get; private set; }
     public CharacterStats CharacterStats { get; private set; }
+    public Collider EntityCollider { get; private set; }
     public Collider Target { get; private set; }
     public EntityStatus EntityStatus { get; private set; }
     public bool IsTargetAttackable { get; private set; }
@@ -55,6 +56,7 @@ public class AIStateMachine : MonoBehaviour
         NavMeshAgent = GetComponent<NavMeshAgent>();
         EntityAnimator = GetComponent<EntityAnimator>();
         CharacterStats = GetComponent<CharacterStats>();
+        EntityCollider = GetComponent<Collider>();
     }
 
     private void Start()

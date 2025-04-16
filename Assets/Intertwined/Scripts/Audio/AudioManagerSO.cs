@@ -16,7 +16,8 @@ public class AudioManagerSO : ScriptableObject
     private static AudioSource _audioSource;
     private static SoundGroup[] _soundGroups;
     private static Dictionary<SoundType, SoundGroup> _soundDict;
-
+    
+#if UNITY_EDITOR
     private void Reset()
     {
         soundGroups = Enum.GetNames(typeof(SoundType)).Select(groupName => new SoundGroup(groupName, Resources.LoadAll<AudioClip>($"Audio/{groupName}"))).ToArray();
@@ -31,7 +32,6 @@ public class AudioManagerSO : ScriptableObject
             .ToDictionary(item => item.Key, item => item.Value);
     }
     
-#if UNITY_EDITOR
     [ContextMenu("Sort Resources")]
     private void SortResources()
     {
@@ -98,20 +98,16 @@ internal struct SoundGroup
 public enum SoundType
 {
     Button,
+    Walk,
     Run,
     Jump,
     Land,
+    Sheath,
+    Unsheath,
     Attack,
     AttackImpact,
-    Projectile,
-    ProjectileImpact,
-    Ability,
+    Fireball,
+    FireballImpact,
     Hurt,
     Die,
-    EnemyAttack,
-    EnemyAttackImpact,
-    EnemyProjectile,
-    EnemyProjectileImpact,
-    EnemyHurt,
-    EnemyDie
 }

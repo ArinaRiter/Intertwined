@@ -151,3 +151,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   durability: 1
+  impactSound: 10
