@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 public class Menu : MonoBehaviour
 {
     [SerializeField] private AssetReference gameSceneRef;
-    [SerializeField] private Button playButton;
+    [SerializeField] private Button _button;
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Slider loadingProgressBar;
     
@@ -21,7 +21,7 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
-        playButton?.onClick.AddListener(OnPlayButtonClicked);
+        _button?.onClick.AddListener(OnPlayButtonClicked);
 
         loadingScreen?.SetActive(false);
         loadingProgressBar?.gameObject.SetActive(false);
@@ -32,8 +32,8 @@ public class Menu : MonoBehaviour
         if (_isLoading || _isDestroyed) return;
         
         _isLoading = true;
-        if (playButton is not null)
-            playButton.interactable = false;
+        if (_button is not null)
+            _button.interactable = false;
 
         loadingScreen?.SetActive(true);
         if (loadingProgressBar != null)
@@ -88,8 +88,8 @@ public class Menu : MonoBehaviour
             if (!_isDestroyed)
             {
                 _isLoading = false;
-                if (playButton is not null)
-                    playButton.interactable = true;
+                if (_button is not null)
+                    _button.interactable = true;
                 loadingScreen?.SetActive(false);
                 if (loadingProgressBar != null)
                     loadingProgressBar.gameObject.SetActive(false);
@@ -100,7 +100,7 @@ public class Menu : MonoBehaviour
     private void OnDestroy()
     {
         _isDestroyed = true;
-        playButton?.onClick.RemoveListener(OnPlayButtonClicked);
+        _button?.onClick.RemoveListener(OnPlayButtonClicked);
 
         if (_sceneLoadHandle.IsValid())
             Addressables.Release(_sceneLoadHandle);
