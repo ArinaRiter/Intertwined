@@ -64,8 +64,11 @@ public class EntityStats : MonoBehaviour, ISaveable
         get => _isDead;
         private set
         {
-            if (value && !IsDead) OnDeath?.Invoke();
-            _isDead = value;
+            if (_isDead != value)
+            {
+                _isDead = value;
+                if (_isDead) OnDeath?.Invoke();
+            }
         }
     }
 

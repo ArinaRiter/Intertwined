@@ -3626,6 +3626,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: debugLogging
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6531164156352527234, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
       propertyPath: m_Name
       value: EntityMelee

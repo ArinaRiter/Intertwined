@@ -4,9 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StandardIncapacitatedState", menuName = "AI State Machine/Incapacitated States/StandardIncapacitatedState")]
 public class StandardIncapacitatedState : BaseIncapacitatedState
 {
+    private EntityStatus _entryStatus;
+    
     public override void EnterState()
     {
         base.EnterState();
+        _entryStatus = _context.EntityStatus;
         switch (_context.EntityStatus)
         {
             case EntityStatus.Clear:
@@ -33,6 +36,6 @@ public class StandardIncapacitatedState : BaseIncapacitatedState
 
     public override bool CanBeInState()
     {
-        return _context.EntityStatus != EntityStatus.Clear;
+        return _context.EntityStatus != _entryStatus;
     }
 }

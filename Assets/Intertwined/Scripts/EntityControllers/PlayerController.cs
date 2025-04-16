@@ -18,6 +18,8 @@ public abstract class PlayerController : BaseController
         _characterController = GetComponent<CharacterController>();
         _playerInputActions = new PlayerInputActions();
         _characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     private void OnEnable()
