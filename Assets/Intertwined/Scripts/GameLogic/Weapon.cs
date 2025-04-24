@@ -7,8 +7,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private LayerMask targetLayers;
     [SerializeField] private DamageType damageType;
     private readonly Dictionary<AttackType, float> _attacks = new();
-    private readonly List<CharacterStats> _hitTargets = new();
-    private CharacterStats _characterStats;
+    private readonly List<EntityStats> _hitTargets = new();
+    private EntityStats _entityStats;
     private Stat _powerStat;
     private Stat _pierceStat;
     private Stat _breachStat;
@@ -28,31 +28,31 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        _characterStats = GetComponentInParent<CharacterStats>();
-        _characterStats.Stats.TryGetValue(StatType.Power, out _powerStat);
-        _characterStats.Stats.TryGetValue(StatType.Pierce, out _pierceStat);
-        _characterStats.Stats.TryGetValue(StatType.Breach, out _breachStat);
+        _entityStats = GetComponentInParent<EntityStats>();
+        _entityStats.Stats.TryGetValue(StatType.Power, out _powerStat);
+        _entityStats.Stats.TryGetValue(StatType.Pierce, out _pierceStat);
+        _entityStats.Stats.TryGetValue(StatType.Breach, out _breachStat);
         switch (damageType)
         {
             case DamageType.Physical:
-                _characterStats.Stats.TryGetValue(StatType.PhysDamageBonus, out _damageBonusStat);
+                _entityStats.Stats.TryGetValue(StatType.PhysDamageBonus, out _damageBonusStat);
                 break;
             case DamageType.Fire:
-                _characterStats.Stats.TryGetValue(StatType.FireDamageBonus, out _damageBonusStat);
+                _entityStats.Stats.TryGetValue(StatType.FireDamageBonus, out _damageBonusStat);
                 break;
             case DamageType.Poison:
-                _characterStats.Stats.TryGetValue(StatType.PoisonDamageBonus, out _damageBonusStat);
+                _entityStats.Stats.TryGetValue(StatType.PoisonDamageBonus, out _damageBonusStat);
                 break;
             case DamageType.True:
-                _characterStats.Stats.TryGetValue(StatType.TrueDamageBonus, out _damageBonusStat);
+                _entityStats.Stats.TryGetValue(StatType.TrueDamageBonus, out _damageBonusStat);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
 
-        if (_characterStats.AttackSO is not null)
+        if (_entityStats.AttackSO is not null)
         {
-            var attacks = _characterStats.AttackSO.Attacks;
+            var attacks = _entityStats.AttackSO.Attacks;
             foreach (var attack in attacks)
             {
                 _attacks.Add(attack.Type, attack.Multiplier);
@@ -112,7 +112,7 @@ public class Weapon : MonoBehaviour
     {
         if (Utilities.IsLayerInMask(target.gameObject.layer, targetLayers))
         {
-            var targetStats = target.GetComponent<CharacterStats>();
+            var targetStats = target.GetComponent<EntityStats>();
             if (_hitTargets.Contains(targetStats)) return;
             var pierce = _pierceStat?.Value ?? 0;
             var breach = _breachStat?.Value ?? 0;
@@ -120,6 +120,7 @@ public class Weapon : MonoBehaviour
             var damageBonus = _damageBonusStat?.Value ?? 0;
             targetStats.TakeDamage(damageType, power * (1 + damageBonus) * _damageMultiplier, pierce, breach);
             _hitTargets.Add(targetStats);
+            AudioManagerSO.Play(SoundType.AttackImpact, transform.position);
         }
     }
 

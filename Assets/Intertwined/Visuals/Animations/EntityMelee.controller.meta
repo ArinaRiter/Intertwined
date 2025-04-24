@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Intertwined/Visuals/Animations/EntityRanged.controller.meta
+guid: 5ba59e70d19f499418c4d32486fd97a6
+========
 guid: 83357b2ae3b91244c81898a689ad7746
+>>>>>>>> f522004 (AI State Machine (#7)):Assets/Intertwined/Visuals/Animations/EntityMelee.controller.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 9100000

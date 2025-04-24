@@ -6,20 +6,20 @@ using UnityEngine.SceneManagement;
 public class DeathPanel : MonoBehaviour
 {
     [SerializeField] private GameObject deathPanel;
-    private CharacterStats _characterStats;
+    private EntityStats _entityStats;
     void Awake()
     {
-        _characterStats = FindFirstObjectByType<PlayerController>().GetComponent<CharacterStats>();
+        _entityStats = FindFirstObjectByType<PlayerController>().GetComponent<EntityStats>();
     }
 
     private void OnEnable()
     {
-        _characterStats.OnDeath += OnDie;
+        _entityStats.OnDeath += OnDie;
     }
 
     private void OnDisable()
     {
-        _characterStats.OnDeath -= OnDie;
+        _entityStats.OnDeath -= OnDie;
     }
 
     private void OnDie() 

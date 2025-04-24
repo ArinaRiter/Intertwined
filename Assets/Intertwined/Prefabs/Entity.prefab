@@ -221,6 +221,8 @@ GameObject:
   - component: {fileID: 7894119190546810964}
   - component: {fileID: -8636452529477236621}
   - component: {fileID: 7505327673116137163}
+  - component: {fileID: 7272879807085530618}
+  - component: {fileID: 2503363857965500936}
   m_Layer: 8
   m_Name: Entity
   m_TagString: Enemy
@@ -380,6 +382,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443bc58195e9c1f43849477b1fddfe67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7272879807085530618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444438355032453064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 296a20abadca0e44b8893d4b46a6f5d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 0.5
+--- !u!114 &2503363857965500936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444438355032453064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a059b409f1db6c42bc9613ccf385469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: a018fb07-c730-4744-991e-9156b17f7869
 --- !u!1 &1606638907207640974
 GameObject:
   m_ObjectHideFlags: 0
@@ -2794,6 +2822,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EntityCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3633290440757182126, guid: 850af63ac237e29488bbd07188894d43, type: 3}
+      propertyPath: entityStats
+      value: 
+      objectReference: {fileID: 7894119190546810964}
     - target: {fileID: 3633290440757182126, guid: 850af63ac237e29488bbd07188894d43, type: 3}
       propertyPath: characterStats
       value: 
