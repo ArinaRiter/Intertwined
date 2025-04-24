@@ -9,12 +9,17 @@ public enum ModType
 public enum StatType
 {
     MaxHealth,
+    Health,
     MaxStamina,
+    Stamina,
+    MaxEnergy,
+    Energy,
     StaminaReplenishCooldown,
     StaminaReplenishRate,
     CooldownReduction,
     MaxVitality,
     Armor,
+    Stability,
     Power,
     AttackSpeed,
     MovementSpeed,
@@ -41,7 +46,7 @@ public enum StatType
 
 public enum DamageType
 {
-    Phys,
+    Physical,
     Fire,
     Poison,
     True
@@ -64,4 +69,11 @@ public enum AttackType
     Charged,
     Thrust,
     Plunge
+}
+
+public enum EntityStatus
+{
+    Clear,
+    Staggered,
+    Dead
 }

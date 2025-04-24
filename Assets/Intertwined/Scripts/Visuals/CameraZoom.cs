@@ -1,13 +1,13 @@
 using System.Linq;
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] private float zoomSensitivity;
-    private CinemachineFreeLook _freeLookCamera;
-    private CinemachineFreeLook.Orbit[] _orbits;
+    private CinemachineOrbitalFollow _freeLookCamera;
+    private Cinemachine3OrbitRig.Settings _orbits;
     private PlayerInputActions _playerInputActions;
     private float _multiplier = 1;
 
@@ -26,15 +26,18 @@ public class CameraZoom : MonoBehaviour
     private void Awake()
     {
         _playerInputActions = new PlayerInputActions();
-        _freeLookCamera = GetComponent<CinemachineFreeLook>();
-        _orbits = _freeLookCamera.m_Orbits;
+        _freeLookCamera = GetComponent<CinemachineOrbitalFollow>();
+        _orbits = _freeLookCamera.Orbits;
     }
 
     private void OnCameraZoom(InputAction.CallbackContext context)
     {
         var input = _playerInputActions.Player.CameraZoom.ReadValue<float>() * zoomSensitivity;
         _multiplier = Mathf.Clamp(_multiplier - input, 0.5f, 2f);
-        var orbits = _orbits.Select(orbit => new CinemachineFreeLook.Orbit(orbit.m_Height, orbit.m_Radius * _multiplier)).ToArray();
-        _freeLookCamera.m_Orbits = orbits;
+        var orbit = _orbits;
+        orbit.Top.Radius = _orbits.Top.Radius * _multiplier;
+        orbit.Center.Radius = _orbits.Center.Radius * _multiplier;
+        orbit.Bottom.Radius = _orbits.Bottom.Radius * _multiplier;
+        _freeLookCamera.Orbits = orbit;
     }
 }

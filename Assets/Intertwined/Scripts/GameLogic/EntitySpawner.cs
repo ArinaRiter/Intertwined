@@ -1,31 +1,22 @@
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class EntitySpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> entities;
-    [SerializeField] private int dangerLevel;
+    [SerializeField] private float spawnRadius = 20;
+    [SerializeField] private float spawnInterval = 30;
     
     private void Start()
     {
-        InvokeRepeating(nameof(Spawn), 2, 2);
+        InvokeRepeating(nameof(Spawn), spawnInterval, spawnInterval);
     }
 
     private void Spawn()
     {
-        var randomPos = new Vector3(Random.Range(-5, 5f), 0, Random.Range(-5, 5f));
-        var entity = Instantiate(entities[0], transform.position + randomPos, Quaternion.identity);
-        var stats = PickEntity();
-        entity.GetComponent<CharacterStats>().UpdateStats(stats);
-        StatusEffectApplier.ApplyToEntity(entity.GetComponent<CharacterStats>());
-    }
-
-    private Dictionary<StatType,Stat> PickEntity()
-    {
-        Expression<Func<EntityItem, bool>> expression = item => item.DangerLevel == dangerLevel && !item.IsBoss;
-        return RealmManager.QueryRealmEntity(expression);
+        var randomPos = new Vector3(Random.Range(-spawnRadius, spawnRadius), 0, Random.Range(-spawnRadius, spawnRadius));
+        var entity = Instantiate(entities[Random.Range(0, entities.Count)], transform.position + randomPos, Quaternion.identity);
+        //StatusEffectApplier.ApplyToEntity(entity);
     }
 }
