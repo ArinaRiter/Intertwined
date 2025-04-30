@@ -25,6 +25,9 @@ public class AIStateMachine : MonoBehaviour
     private readonly Dictionary<Collider, int> _detectedTargets = new();
     private readonly Dictionary<Collider, int> _attackableTargets = new();
     private BaseState _currentState;
+    private BaseTargetAcquiredState _initialTargetAcquiredState;
+    private BaseTargetLostState _initialTargetLostState;
+    private BaseDangerState _initialDangerState;
     private Coroutine _loseTargetCoroutine;
     private bool _isLosingTarget;
 
@@ -54,6 +57,10 @@ public class AIStateMachine : MonoBehaviour
         dangerState = Instantiate(dangerState);
         for (var i = 0; i < attackStates.Count; i++) attackStates[i] = Instantiate(attackStates[i]);
         incapacitatedState = Instantiate(incapacitatedState);
+        
+        _initialTargetAcquiredState = targetAcquiredState;
+        _initialTargetLostState = targetLostState;
+        _initialDangerState = dangerState;
         
         NavMeshAgent = GetComponent<NavMeshAgent>();
         EntityAnimator = GetComponent<EntityAnimator>();
@@ -102,6 +109,36 @@ public class AIStateMachine : MonoBehaviour
         _currentState = state;
         _currentState.EnterState();
         _currentState.UpdateState();
+    }
+
+    public void SetPeaceful(bool peaceful)
+    {
+        if (peaceful)
+        {
+            if (targetAcquiredState is not IgnoreTargetAcquiredState)
+            {
+                targetAcquiredState = ScriptableObject.CreateInstance<IgnoreTargetAcquiredState>();
+                targetAcquiredState.Initialize(this);
+            }
+            if (targetLostState is not IgnoreTargetLostState)
+            {
+                targetLostState = ScriptableObject.CreateInstance<IgnoreTargetLostState>();
+                targetLostState.Initialize(this);
+            }
+            if (dangerState is not LowHealthDangerState)
+            {
+                dangerState = ScriptableObject.CreateInstance<LowHealthDangerState>();
+                dangerState.Initialize(this);
+            }
+        }
+        else
+        {
+            targetAcquiredState = _initialTargetAcquiredState;
+            targetLostState = _initialTargetLostState;
+            dangerState = _initialDangerState;
+        }
+
+        SwitchState(idleState);
     }
 
     private void UpdateDetectedTargets(Collider target, bool detected)
