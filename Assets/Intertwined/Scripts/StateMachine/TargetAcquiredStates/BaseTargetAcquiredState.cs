@@ -7,8 +7,15 @@ public abstract class BaseTargetAcquiredState : BaseState
         else if (_context.DangerState.CanBeInState()) _context.SwitchState(_context.DangerState);
         else if (!CanBeInState())
         {
-            if (_context.AttackState.CanBeInState()) _context.SwitchState(_context.AttackState);
-            else if (_context.TargetLostState.CanBeInState()) _context.SwitchState(_context.TargetLostState);
+            foreach (var attackState in _context.AttackStates)
+            {
+                if (attackState.CanBeInState())
+                {
+                    _context.SwitchState(attackState);
+                    return;
+                }
+            }
+            if (_context.TargetLostState.CanBeInState()) _context.SwitchState(_context.TargetLostState);
         }
     }
 }

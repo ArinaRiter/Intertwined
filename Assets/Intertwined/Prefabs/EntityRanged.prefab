@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: dangerState
       value: 
       objectReference: {fileID: 11400000, guid: e3ad1a7dbd3c9f24bb487e808221dc2e, type: 2}
+    - target: {fileID: 215717916640853939, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: 'attackStates.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 99d6c67bc90414c4cb0b92d37e9add8d, type: 2}
     - target: {fileID: 1444438355032453064, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: m_Name
       value: EntityRanged
@@ -102,7 +106,7 @@ PrefabInstance:
     - target: {fileID: 7033808144600685672, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 83357b2ae3b91244c81898a689ad7746, type: 2}
+      objectReference: {fileID: 9100000, guid: 53075793e16cc134ca02612033c8a016, type: 2}
     - target: {fileID: 7894119190546810964, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: statSO
       value: 

@@ -143,6 +143,12 @@ public class EntityStats : MonoBehaviour, ISaveable
         if (!IsDead && totalDamage >= _stability.Value) OnStagger?.Invoke();
     }
 
+    public void Heal(float amount)
+    {
+        if (Stats.TryGetValue(StatType.HealingBonus, out var healingBonus)) amount *= 1 + healingBonus.Value;
+        Health += amount;
+    }
+
     private float CalculateDamageTaken(DamageType damageType, float damage, float pierce, float breach)
     {
         float damageResistance = 0;
@@ -181,6 +187,15 @@ public class EntityStats : MonoBehaviour, ISaveable
         foreach (var statMod in statusEffect.StatMods)
         {
             if (Stats.ContainsKey(statMod.Stat)) Stats[statMod.Stat].AddModifier(statMod);
+        }
+    }
+
+    public void RemoveStatusEffect(StatusEffect statusEffect)
+    {
+        _statusEffects.Remove(statusEffect);
+        foreach (var statMod in statusEffect.StatMods)
+        {
+            if (Stats.ContainsKey(statMod.Stat)) Stats[statMod.Stat].RemoveModifier(statMod);
         }
     }
 
