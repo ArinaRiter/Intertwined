@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityAnimator : MonoBehaviour
 {
-    [SerializeField] private Weapon weapon;
+    [SerializeField] private List<Weapon> weapons;
     
     private Animator _animator;
     
@@ -42,14 +43,14 @@ public class EntityAnimator : MonoBehaviour
         _animator.SetBool(IsDead, isDead);
     }
 
-    public void SetWeaponEnabled()
+    public void SetWeaponEnabled(int index = 0)
     {
-        weapon.WeaponCollider.enabled = true;
+        weapons[index].WeaponCollider.enabled = true;
     }
 
-    public void SetWeaponDisabled()
+    public void SetWeaponDisabled(int index = 0)
     {
-        weapon.WeaponCollider.enabled = false;
-        weapon.ClearHitTargetsList();
+        weapons[index].WeaponCollider.enabled = false;
+        weapons[index].ClearHitTargetsList();
     }
 }
