@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Intertwined/Visuals/Animations/Enemy.controller.meta
+guid: 83357b2ae3b91244c81898a689ad7746
+========
+guid: 5ba59e70d19f499418c4d32486fd97a6
+>>>>>>>> f522004 (AI State Machine (#7)):Assets/Intertwined/Visuals/Animations/EntityRanged.controller.meta
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

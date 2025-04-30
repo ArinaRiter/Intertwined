@@ -2562,7 +2562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1444438355032453064, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: m_Name
-      value: EntityBear Variant
+      value: EntityBear
       objectReference: {fileID: 0}
     - target: {fileID: 3114920075869644363, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2635,7 +2635,7 @@ PrefabInstance:
     - target: {fileID: 7033808144600685672, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 6b74c0471f91af34f8e98a4d46810410, type: 2}
+      objectReference: {fileID: 9100000, guid: fb920defa0f25b749a4535de989d52b3, type: 2}
     - target: {fileID: 7482728266175296211, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
