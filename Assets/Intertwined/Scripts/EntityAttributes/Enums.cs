@@ -75,5 +75,7 @@ public enum EntityStatus
 {
     Clear,
     Staggered,
-    Dead
+    Dead,
+    Healing,
+    Buffing
 }

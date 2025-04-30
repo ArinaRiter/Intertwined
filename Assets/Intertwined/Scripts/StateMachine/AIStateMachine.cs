@@ -11,7 +11,7 @@ public class AIStateMachine : MonoBehaviour
     [SerializeField] private BaseTargetAcquiredState targetAcquiredState;
     [SerializeField] private BaseTargetLostState targetLostState;
     [SerializeField] private BaseDangerState dangerState;
-    [SerializeField] private BaseAttackState attackState;
+    [SerializeField] private List<BaseAttackState> attackStates;
     [SerializeField] private BaseIncapacitatedState incapacitatedState;
     
     [Header("Detectors")]
@@ -25,6 +25,9 @@ public class AIStateMachine : MonoBehaviour
     private readonly Dictionary<Collider, int> _detectedTargets = new();
     private readonly Dictionary<Collider, int> _attackableTargets = new();
     private BaseState _currentState;
+    private BaseTargetAcquiredState _initialTargetAcquiredState;
+    private BaseTargetLostState _initialTargetLostState;
+    private BaseDangerState _initialDangerState;
     private Coroutine _loseTargetCoroutine;
     private bool _isLosingTarget;
 
@@ -32,17 +35,19 @@ public class AIStateMachine : MonoBehaviour
     public BaseTargetAcquiredState TargetAcquiredState => targetAcquiredState;
     public BaseTargetLostState TargetLostState => targetLostState;
     public BaseDangerState DangerState => dangerState;
-    public BaseAttackState AttackState => attackState;
+    public List<BaseAttackState> AttackStates => attackStates;
     public BaseIncapacitatedState IncapacitatedState => incapacitatedState;
     public bool DebugLogging => debugLogging;
     
     public NavMeshAgent NavMeshAgent { get; private set; }
     public EntityAnimator EntityAnimator { get; private set; }
+    public Animator Animator { get; private set; }
     public EntityStats EntityStats { get; private set; }
     public Collider EntityCollider { get; private set; }
     public Collider Target { get; private set; }
-    public EntityStatus EntityStatus { get; private set; }
     public bool IsTargetAttackable { get; private set; }
+    
+    [HideInInspector] public EntityStatus EntityStatus;
     
     private void Awake()
     {
@@ -50,11 +55,16 @@ public class AIStateMachine : MonoBehaviour
         targetAcquiredState = Instantiate(targetAcquiredState);
         targetLostState = Instantiate(targetLostState);
         dangerState = Instantiate(dangerState);
-        attackState = Instantiate(attackState);
+        for (var i = 0; i < attackStates.Count; i++) attackStates[i] = Instantiate(attackStates[i]);
         incapacitatedState = Instantiate(incapacitatedState);
+        
+        _initialTargetAcquiredState = targetAcquiredState;
+        _initialTargetLostState = targetLostState;
+        _initialDangerState = dangerState;
         
         NavMeshAgent = GetComponent<NavMeshAgent>();
         EntityAnimator = GetComponent<EntityAnimator>();
+        Animator = GetComponent<Animator>();
         EntityStats = GetComponent<EntityStats>();
         EntityCollider = GetComponent<Collider>();
     }
@@ -65,7 +75,7 @@ public class AIStateMachine : MonoBehaviour
         targetAcquiredState.Initialize(this);
         targetLostState.Initialize(this);
         dangerState.Initialize(this);
-        attackState.Initialize(this);
+        foreach (var attackState in attackStates) attackState.Initialize(this);
         incapacitatedState.Initialize(this);
         
         _currentState = idleState;
@@ -99,6 +109,36 @@ public class AIStateMachine : MonoBehaviour
         _currentState = state;
         _currentState.EnterState();
         _currentState.UpdateState();
+    }
+
+    public void SetPeaceful(bool peaceful)
+    {
+        if (peaceful)
+        {
+            if (targetAcquiredState is not IgnoreTargetAcquiredState)
+            {
+                targetAcquiredState = ScriptableObject.CreateInstance<IgnoreTargetAcquiredState>();
+                targetAcquiredState.Initialize(this);
+            }
+            if (targetLostState is not IgnoreTargetLostState)
+            {
+                targetLostState = ScriptableObject.CreateInstance<IgnoreTargetLostState>();
+                targetLostState.Initialize(this);
+            }
+            if (dangerState is not LowHealthDangerState)
+            {
+                dangerState = ScriptableObject.CreateInstance<LowHealthDangerState>();
+                dangerState.Initialize(this);
+            }
+        }
+        else
+        {
+            targetAcquiredState = _initialTargetAcquiredState;
+            targetLostState = _initialTargetLostState;
+            dangerState = _initialDangerState;
+        }
+
+        SwitchState(idleState);
     }
 
     private void UpdateDetectedTargets(Collider target, bool detected)
@@ -194,10 +234,5 @@ public class AIStateMachine : MonoBehaviour
     private void OnDeath()
     {
         EntityStatus = EntityStatus.Dead;
-    }
-
-    public void ClearStatus()
-    {
-        EntityStatus = EntityStatus.Clear;
     }
 }

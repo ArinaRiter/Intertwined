@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8636452529477236621, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: weapons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8636452529477236621, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: 'weapons.Array.data[0]'
+      value: 
+      objectReference: {fileID: 3477228526884928278}
     - target: {fileID: 1444438355032453064, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: m_Name
       value: EntityMelee
@@ -64,8 +72,23 @@ PrefabInstance:
       propertyPath: m_ExcludeLayers.m_Bits
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7033808144600685672, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5ba59e70d19f499418c4d32486fd97a6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+--- !u!114 &3477228526884928278 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9144962399682162524, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+  m_PrefabInstance: {fileID: 5668050841736533066}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad66cbd4d9f9aa469062de8b866fada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

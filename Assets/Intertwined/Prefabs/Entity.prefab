@@ -334,7 +334,8 @@ MonoBehaviour:
   targetAcquiredState: {fileID: 11400000, guid: 25a6f8b0f1d4344499657ae89437f4af, type: 2}
   targetLostState: {fileID: 11400000, guid: cfa9d67db44ff0b4ebf0fd773a45da33, type: 2}
   dangerState: {fileID: 11400000, guid: 97d87f77f66af2d41b0db5dd7fdf5fdb, type: 2}
-  attackState: {fileID: 11400000, guid: 6f9f2eec015184149be9b62ffd4bc964, type: 2}
+  attackStates:
+  - {fileID: 11400000, guid: 6f9f2eec015184149be9b62ffd4bc964, type: 2}
   incapacitatedState: {fileID: 11400000, guid: 0732b477623b5f143b9c00a7cc976ac5, type: 2}
   targetDetectors:
   - {fileID: 5670033128172701561}
@@ -343,6 +344,7 @@ MonoBehaviour:
   - {fileID: 1822580139200297280}
   memoryTime: 3
   debugLogging: 0
+  EntityStatus: 0
 --- !u!114 &7894119190546810964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10994584c738c0d4ca477d9e29285e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 9144962399682162524}
+  weapons: []
 --- !u!114 &7505327673116137163
 MonoBehaviour:
   m_ObjectHideFlags: 0

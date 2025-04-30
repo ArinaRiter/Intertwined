@@ -1,14 +1,13 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Slider basicHealthSlider;
     [SerializeField] private Slider easeHealthSlider;
-    [FormerlySerializedAs("characterStats")] [SerializeField] private EntityStats entityStats;
-    
-    private readonly float _lerpSpeed = 0.1f;
+    [SerializeField] private EntityStats entityStats;
+
+    private const float LERP_SPEED = 0.1f;
 
     private void Start()
     {
@@ -35,7 +34,7 @@ public class HealthBar : MonoBehaviour
     {
         if (!Mathf.Approximately(basicHealthSlider.value, easeHealthSlider.value))
         {
-            easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, entityStats.Health, _lerpSpeed);
+            easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, entityStats.Health, LERP_SPEED);
         }
     }
 
