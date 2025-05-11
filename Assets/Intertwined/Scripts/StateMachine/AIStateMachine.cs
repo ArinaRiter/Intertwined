@@ -1,41 +1,43 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class AIStateMachine
 {
     private BaseState _currentState;
 
-    public BaseIdleState IdleState { get; private set; }
-    public BaseTargetAcquiredState TargetAcquiredState { get; private set; }
-    public BaseTargetLostState TargetLostState { get; private set; }
-    public BaseDangerState DangerState { get; private set; }
-    public List<BaseAttackState> AttackStates { get; private set; }
-    public BaseIncapacitatedState IncapacitatedState { get; private set; }
-    public AIController Context { get; private set; }
+    public List<BaseIdleState> IdleStates { get; }
+    public List<BaseTargetAcquiredState> TargetAcquiredStates { get; }
+    public List<BaseTargetLostState> TargetLostStates { get; }
+    public List<BaseDangerState> DangerStates { get; }
+    public List<BaseAttackState> AttackStates { get; }
+    public List<BaseIncapacitatedState> IncapacitatedStates { get; }
 
-    public AIStateMachine(BaseIdleState idleState, BaseTargetAcquiredState targetAcquiredState,
-        BaseTargetLostState targetLostState, BaseDangerState dangerState, List<BaseAttackState> attackStates,
-        BaseIncapacitatedState incapacitatedState)
+    public AIStateMachine(List<BaseIdleState> idleStates, List<BaseTargetAcquiredState> targetAcquiredStates, List<BaseTargetLostState> targetLostStates, List<BaseDangerState> dangerStates, List<BaseAttackState> attackStates, List<BaseIncapacitatedState> incapacitatedStates)
     {
-        IdleState = idleState;
-        TargetAcquiredState = targetAcquiredState;
-        TargetLostState = targetLostState;
-        DangerState = dangerState;
+        IdleStates = idleStates;
+        TargetAcquiredStates = targetAcquiredStates;
+        TargetLostStates = targetLostStates;
+        DangerStates = dangerStates;
         AttackStates = attackStates;
-        IncapacitatedState = incapacitatedState;
+        IncapacitatedStates = incapacitatedStates;
     }
 
-    public void Initialize(AIController aiController)
+    public void Initialize(AIController context)
     {
-        Context = aiController;
-        IdleState.Initialize(this, Context);
-        TargetAcquiredState.Initialize(this, Context);
-        TargetLostState.Initialize(this, Context);
-        DangerState.Initialize(this, Context);
-        foreach (var attackState in AttackStates) attackState.Initialize(this, Context);
-        IncapacitatedState.Initialize(this, Context);
+        InitializeStates(IdleStates, context);
+        InitializeStates(TargetAcquiredStates, context);
+        InitializeStates(TargetLostStates, context);
+        InitializeStates(DangerStates, context);
+        InitializeStates(AttackStates, context);
+        InitializeStates(IncapacitatedStates, context);
         
-        _currentState = IdleState;
+        _currentState = IdleStates[0];
         _currentState.EnterState();
+    }
+
+    private void InitializeStates<T>(List<T> states, AIController context) where T : BaseState
+    {
+        foreach (var state in states) state.Initialize(this, context);
     }
     
     public void Update()
@@ -49,5 +51,11 @@ public class AIStateMachine
         _currentState = state;
         _currentState.EnterState();
         _currentState.UpdateState();
+    }
+
+    public bool TryGetAvailableState<T>(List<T> states, out T availableState) where T : BaseState
+    {
+        availableState = states.FirstOrDefault(state => state.CanBeInState());
+        return availableState is not null;
     }
 }

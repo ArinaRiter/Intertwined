@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +7,12 @@ using UnityEngine.AI;
 public class AIController : MonoBehaviour
 {
     [Header("States")]
-    [SerializeField] private BaseIdleState idleState;
-    [SerializeField] private BaseTargetAcquiredState targetAcquiredState;
-    [SerializeField] private BaseTargetLostState targetLostState;
-    [SerializeField] private BaseDangerState dangerState;
+    [SerializeField] private List<BaseIdleState> idleStates;
+    [SerializeField] private List<BaseTargetAcquiredState> targetAcquiredStates;
+    [SerializeField] private List<BaseTargetLostState> targetLostStates;
+    [SerializeField] private List<BaseDangerState> dangerStates;
     [SerializeField] private List<BaseAttackState> attackStates;
-    [SerializeField] private BaseIncapacitatedState incapacitatedState;
+    [SerializeField] private List<BaseIncapacitatedState> incapacitatedStates;
     
     [Header("Detectors")]
     [SerializeField] private List<Detector> targetDetectors;
@@ -43,14 +42,14 @@ public class AIController : MonoBehaviour
     
     private void Awake()
     {
-        idleState = Instantiate(idleState);
-        targetAcquiredState = Instantiate(targetAcquiredState);
-        targetLostState = Instantiate(targetLostState);
-        dangerState = Instantiate(dangerState);
-        for (var i = 0; i < attackStates.Count; i++) attackStates[i] = Instantiate(attackStates[i]);
-        incapacitatedState = Instantiate(incapacitatedState);
+        InstantiateStates(idleStates);
+        InstantiateStates(targetAcquiredStates);
+        InstantiateStates(targetLostStates);
+        InstantiateStates(dangerStates);
+        InstantiateStates(attackStates);
+        InstantiateStates(incapacitatedStates);
         
-        _aiStateMachine = new AIStateMachine(idleState, targetAcquiredState, targetLostState, dangerState, attackStates, incapacitatedState);
+        _aiStateMachine = new AIStateMachine(idleStates, targetAcquiredStates, targetLostStates, dangerStates, attackStates, incapacitatedStates);
         
         NavMeshAgent = GetComponent<NavMeshAgent>();
         EntityAnimator = GetComponent<EntityAnimator>();
@@ -83,6 +82,11 @@ public class AIController : MonoBehaviour
     private void Update()
     {
         _aiStateMachine.Update();
+    }
+
+    private void InstantiateStates<T>(List<T> states) where T : BaseState
+    {
+        for (var i = 0; i < states.Count; i++) states[i] = Instantiate(states[i]);
     }
 
     private void UpdateDetectedTargets(Collider target, bool detected)

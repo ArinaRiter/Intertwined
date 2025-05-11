@@ -8,8 +8,8 @@ public abstract class BaseState: ScriptableObject
 
     public void Initialize(AIStateMachine stateMachine, AIController context)
     {
-        if (_stateMachine == null) _stateMachine = stateMachine;
-        if (_context == null) _context = context;
+        _stateMachine ??= stateMachine;
+        _context ??= context;
     }
 
     public virtual void EnterState()
