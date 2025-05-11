@@ -18,7 +18,7 @@ public class SetEntityStatusBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!animator.GetComponent<EntityStats>().IsDead) animator.GetComponent<AIStateMachine>().EntityStatus = status;
+        if (!animator.GetComponent<EntityStats>().IsDead) animator.GetComponent<AIController>().EntityStatus = status;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -1,8 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ChaseTargetAcquiredState", menuName = "AI State Machine/Target Acquired States/ChaseTargetAcquiredState")]
-public class ChaseTargetAcquiredState : BaseTargetAcquiredState
+[CreateAssetMenu(fileName = "NeutralTargetAcquireState", menuName = "AI State Machine/Target Acquired States/NeutralTargetAcquireState")]
+public class NeutralTargetAcquireState : BaseTargetAcquiredState
 {
+    private Stat _maxHealth;
+    
     public override void UpdateState()
     {
         base.UpdateState();
@@ -24,6 +26,7 @@ public class ChaseTargetAcquiredState : BaseTargetAcquiredState
 
     public override bool CanBeInState()
     {
-        return !PeaceModeManager.IsPeaceMode && _context.Target is not null && !_context.IsTargetAttackable;
+        if (_maxHealth is null && !_context.EntityStats.Stats.TryGetValue(StatType.MaxHealth, out _maxHealth)) _maxHealth = new Stat(0);
+        return PeaceModeManager.IsPeaceMode && _context.EntityStats.Health < _maxHealth.Value && _context.Target is not null && !_context.IsTargetAttackable;
     }
 }

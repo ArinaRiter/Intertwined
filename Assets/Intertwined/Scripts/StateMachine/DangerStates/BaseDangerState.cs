@@ -3,20 +3,13 @@ public abstract class BaseDangerState : BaseState
     public override void UpdateState()
     {
         base.UpdateState();
-        if (_context.IncapacitatedState.CanBeInState()) _context.SwitchState(_context.IncapacitatedState);
+        if (_stateMachine.TryGetAvailableState(_stateMachine.IncapacitatedStates, out var incapacitatedState)) _stateMachine.SwitchState(incapacitatedState);
         else if (!CanBeInState())
         {
-            foreach (var attackState in _context.AttackStates)
-            {
-                if (attackState.CanBeInState())
-                {
-                    _context.SwitchState(attackState);
-                    return;
-                }
-            }
-            if (_context.TargetAcquiredState.CanBeInState()) _context.SwitchState(_context.TargetAcquiredState);
-            else if (_context.TargetLostState.CanBeInState()) _context.SwitchState(_context.TargetLostState);
-            else _context.SwitchState(_context.IdleState);
+            if (_stateMachine.TryGetAvailableState(_stateMachine.AttackStates, out var attackState)) _stateMachine.SwitchState(attackState);
+            else if (_stateMachine.TryGetAvailableState(_stateMachine.TargetAcquiredStates, out var targetAcquiredState)) _stateMachine.SwitchState(targetAcquiredState);
+            else if (_stateMachine.TryGetAvailableState(_stateMachine.TargetLostStates, out var targetLostState)) _stateMachine.SwitchState(targetLostState);
+            else if (_stateMachine.TryGetAvailableState(_stateMachine.IdleStates, out var idleState)) _stateMachine.SwitchState(idleState);
         }
     }
 }

@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 7033808144600685672}
   - component: {fileID: 396525842892316277}
   - component: {fileID: 4933426321360420504}
-  - component: {fileID: 215717916640853939}
+  - component: {fileID: 165393869129329306}
   - component: {fileID: 7894119190546810964}
   - component: {fileID: -8636452529477236621}
   - component: {fileID: 7505327673116137163}
@@ -318,7 +318,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &215717916640853939
+--- !u!114 &165393869129329306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,22 +327,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1444438355032453064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4023f1bff20aad24ead0f71213efbec6, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e861bc450d66fa4688b6ce15c2afd5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleState: {fileID: 11400000, guid: cde32db5ec4ccb94cb0e4b8538981d84, type: 2}
-  targetAcquiredState: {fileID: 11400000, guid: 25a6f8b0f1d4344499657ae89437f4af, type: 2}
-  targetLostState: {fileID: 11400000, guid: cfa9d67db44ff0b4ebf0fd773a45da33, type: 2}
-  dangerState: {fileID: 11400000, guid: 97d87f77f66af2d41b0db5dd7fdf5fdb, type: 2}
+  idleStates:
+  - {fileID: 11400000, guid: cde32db5ec4ccb94cb0e4b8538981d84, type: 2}
+  targetAcquiredStates:
+  - {fileID: 11400000, guid: 7bd7d3f4211549a4484dcb32b0b95e50, type: 2}
+  - {fileID: 11400000, guid: 25a6f8b0f1d4344499657ae89437f4af, type: 2}
+  targetLostStates:
+  - {fileID: 11400000, guid: 662e66c5abcac714581cfb5dacd1a23f, type: 2}
+  - {fileID: 11400000, guid: cfa9d67db44ff0b4ebf0fd773a45da33, type: 2}
+  dangerStates:
+  - {fileID: 11400000, guid: 97d87f77f66af2d41b0db5dd7fdf5fdb, type: 2}
   attackStates:
   - {fileID: 11400000, guid: 6f9f2eec015184149be9b62ffd4bc964, type: 2}
-  incapacitatedState: {fileID: 11400000, guid: 0732b477623b5f143b9c00a7cc976ac5, type: 2}
+  incapacitatedStates:
+  - {fileID: 11400000, guid: 0732b477623b5f143b9c00a7cc976ac5, type: 2}
   targetDetectors:
   - {fileID: 5670033128172701561}
   - {fileID: 4744096661132086099}
   attackDetectors:
   - {fileID: 1822580139200297280}
-  memoryTime: 3
+  memoryTime: 5
   debugLogging: 0
   EntityStatus: 0
 --- !u!114 &7894119190546810964
