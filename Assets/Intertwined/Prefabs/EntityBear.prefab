@@ -2544,6 +2544,10 @@ PrefabInstance:
       propertyPath: 'attackStates.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 6f9f2eec015184149be9b62ffd4bc964, type: 2}
+    - target: {fileID: 165393869129329306, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: 'targetAcquiredStates.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 632f166e863261a40a9a9e16cc3724d1, type: 2}
     - target: {fileID: 215717916640853939, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: dangerState
       value: 
