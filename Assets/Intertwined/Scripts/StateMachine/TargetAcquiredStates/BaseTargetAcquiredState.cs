@@ -3,12 +3,12 @@ public abstract class BaseTargetAcquiredState : BaseState
     public override void UpdateState()
     {
         base.UpdateState();
-        if (_context.IncapacitatedState.CanBeInState()) _context.SwitchState(_context.IncapacitatedState);
-        else if (_context.DangerState.CanBeInState()) _context.SwitchState(_context.DangerState);
+        if (_stateMachine.TryGetAvailableState(_stateMachine.IncapacitatedStates, out var incapacitatedState)) _stateMachine.SwitchState(incapacitatedState);
+        else if (_stateMachine.TryGetAvailableState(_stateMachine.DangerStates, out var dangerState)) _stateMachine.SwitchState(dangerState);
         else if (!CanBeInState())
         {
-            if (_context.AttackState.CanBeInState()) _context.SwitchState(_context.AttackState);
-            else if (_context.TargetLostState.CanBeInState()) _context.SwitchState(_context.TargetLostState);
+            if (_stateMachine.TryGetAvailableState(_stateMachine.AttackStates, out var attackState)) _stateMachine.SwitchState(attackState);
+            else if (_stateMachine.TryGetAvailableState(_stateMachine.TargetLostStates, out var targetLostState)) _stateMachine.SwitchState(targetLostState);
         }
     }
 }

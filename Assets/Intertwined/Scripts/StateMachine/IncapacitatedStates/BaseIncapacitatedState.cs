@@ -5,11 +5,10 @@ public abstract class BaseIncapacitatedState : BaseState
         base.UpdateState();
         if (!CanBeInState())
         {
-            if (_context.DangerState.CanBeInState()) _context.SwitchState(_context.DangerState);
-            else if (_context.AttackState.CanBeInState()) _context.SwitchState(_context.AttackState);
-            else if (_context.TargetAcquiredState.CanBeInState()) _context.SwitchState(_context.TargetAcquiredState);
-            else if (_context.TargetLostState.CanBeInState()) _context.SwitchState(_context.TargetLostState);
-            else _context.SwitchState(_context.IdleState);
+            if (_stateMachine.TryGetAvailableState(_stateMachine.DangerStates, out var dangerState)) _stateMachine.SwitchState(dangerState);
+            else if (_stateMachine.TryGetAvailableState(_stateMachine.TargetAcquiredStates, out var targetAcquiredState)) _stateMachine.SwitchState(targetAcquiredState);
+            else if (_stateMachine.TryGetAvailableState(_stateMachine.TargetLostStates, out var targetLostState)) _stateMachine.SwitchState(targetLostState);
+            else if (_stateMachine.TryGetAvailableState(_stateMachine.IdleStates, out var idleState)) _stateMachine.SwitchState(idleState);
         }
     }
 }

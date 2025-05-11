@@ -67,16 +67,21 @@ public class Stat
     }
 }
 
+[Serializable]
 public struct StatMod
 {
-    public readonly StatType Stat;
-    public readonly ModType Type;
-    public readonly float Value;
+    [SerializeField] private StatType stat;
+    [SerializeField] private ModType type;
+    [SerializeField] private float value;
+    
+    public StatType Stat => stat;
+    public ModType Type => type;
+    public float Value => value;
     
     public StatMod(StatType stat, ModType type, float value)
     {
-        Stat = stat;
-        Type = type;
-        Value = value;
+        this.stat = stat;
+        this.type = type;
+        this.value = value;
     }
 }
