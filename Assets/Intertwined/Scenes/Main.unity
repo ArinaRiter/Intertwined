@@ -3702,7 +3702,111 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: idleState
+      value: 
+      objectReference: {fileID: 11400000, guid: cde32db5ec4ccb94cb0e4b8538981d84, type: 2}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: memoryTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: dangerState
+      value: 
+      objectReference: {fileID: 11400000, guid: 97d87f77f66af2d41b0db5dd7fdf5fdb, type: 2}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: EntityStatus
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
       propertyPath: debugLogging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: _currentState
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: _isLosingTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: targetLostState
+      value: 
+      objectReference: {fileID: 11400000, guid: cfa9d67db44ff0b4ebf0fd773a45da33, type: 2}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: incapacitatedState
+      value: 
+      objectReference: {fileID: 11400000, guid: 0732b477623b5f143b9c00a7cc976ac5, type: 2}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: _initialDangerState
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: targetAcquiredState
+      value: 
+      objectReference: {fileID: 11400000, guid: 25a6f8b0f1d4344499657ae89437f4af, type: 2}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: <Target>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: _initialTargetLostState
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: attackStates.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: <Animator>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: attackDetectors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: 'attackStates.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f9f2eec015184149be9b62ffd4bc964, type: 2}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: targetDetectors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: _initialTargetAcquiredState
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: <EntityStats>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: <NavMeshAgent>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: 'attackDetectors.Array.data[0]'
+      value: 
+      objectReference: {fileID: 310348977}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: 'targetDetectors.Array.data[0]'
+      value: 
+      objectReference: {fileID: 310348979}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: 'targetDetectors.Array.data[1]'
+      value: 
+      objectReference: {fileID: 310348978}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: <EntityAnimator>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: <EntityCollider>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500747241748425721, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+      propertyPath: <IsTargetAttackable>k__BackingField
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6531164156352527234, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
@@ -3767,6 +3871,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7319085498444427777, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
   m_PrefabInstance: {fileID: 310348975}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &310348977 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6333165876245196042, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+  m_PrefabInstance: {fileID: 310348975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9afc8108412f84da9aebe47bf29cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &310348978 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1116502323320479513, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+  m_PrefabInstance: {fileID: 310348975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9afc8108412f84da9aebe47bf29cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &310348979 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7027131215319859, guid: 7077803508a9f3f4d9476ccac803bcab, type: 3}
+  m_PrefabInstance: {fileID: 310348975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9afc8108412f84da9aebe47bf29cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &311901799
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29396,6 +29533,114 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: idleState
+      value: 
+      objectReference: {fileID: 11400000, guid: cde32db5ec4ccb94cb0e4b8538981d84, type: 2}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: memoryTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: dangerState
+      value: 
+      objectReference: {fileID: 11400000, guid: e3ad1a7dbd3c9f24bb487e808221dc2e, type: 2}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: EntityStatus
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: debugLogging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: _currentState
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: _isLosingTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: targetLostState
+      value: 
+      objectReference: {fileID: 11400000, guid: cfa9d67db44ff0b4ebf0fd773a45da33, type: 2}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: incapacitatedState
+      value: 
+      objectReference: {fileID: 11400000, guid: 0732b477623b5f143b9c00a7cc976ac5, type: 2}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: _initialDangerState
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: targetAcquiredState
+      value: 
+      objectReference: {fileID: 11400000, guid: 25a6f8b0f1d4344499657ae89437f4af, type: 2}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: <Target>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: _initialTargetLostState
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: attackStates.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: <Animator>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: attackDetectors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: 'attackStates.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 99d6c67bc90414c4cb0b92d37e9add8d, type: 2}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: targetDetectors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: _initialTargetAcquiredState
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: <EntityStats>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: <NavMeshAgent>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: 'attackDetectors.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2049756437}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: 'targetDetectors.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2049756439}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: 'targetDetectors.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2049756438}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: <EntityAnimator>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: <EntityCollider>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940940923171789458, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+      propertyPath: <IsTargetAttackable>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4478158554446449385, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
       propertyPath: m_Name
       value: EntityRanged
@@ -29422,6 +29667,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 77787369380610922, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
   m_PrefabInstance: {fileID: 2049756435}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2049756437 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3703413030537124961, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+  m_PrefabInstance: {fileID: 2049756435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9afc8108412f84da9aebe47bf29cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2049756438 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7780068112751521394, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+  m_PrefabInstance: {fileID: 2049756435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9afc8108412f84da9aebe47bf29cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2049756439 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7250286788754711128, guid: b923aa4fd710f904aa6ca7eb9e4288df, type: 3}
+  m_PrefabInstance: {fileID: 2049756435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9afc8108412f84da9aebe47bf29cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2051344268
 PrefabInstance:
   m_ObjectHideFlags: 0

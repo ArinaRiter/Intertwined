@@ -2,11 +2,13 @@ using UnityEngine;
 
 public abstract class BaseState: ScriptableObject
 {
-    private protected AIStateMachine _context;
+    private protected AIStateMachine _stateMachine;
+    private protected AIController _context;
     private protected bool _exitedState;
 
-    public void Initialize(AIStateMachine context)
+    public void Initialize(AIStateMachine stateMachine, AIController context)
     {
+        if (_stateMachine == null) _stateMachine = stateMachine;
         if (_context == null) _context = context;
     }
 

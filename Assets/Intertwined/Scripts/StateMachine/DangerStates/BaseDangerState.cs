@@ -3,20 +3,20 @@ public abstract class BaseDangerState : BaseState
     public override void UpdateState()
     {
         base.UpdateState();
-        if (_context.IncapacitatedState.CanBeInState()) _context.SwitchState(_context.IncapacitatedState);
+        if (_stateMachine.IncapacitatedState.CanBeInState()) _stateMachine.SwitchState(_stateMachine.IncapacitatedState);
         else if (!CanBeInState())
         {
-            foreach (var attackState in _context.AttackStates)
+            foreach (var attackState in _stateMachine.AttackStates)
             {
                 if (attackState.CanBeInState())
                 {
-                    _context.SwitchState(attackState);
+                    _stateMachine.SwitchState(attackState);
                     return;
                 }
             }
-            if (_context.TargetAcquiredState.CanBeInState()) _context.SwitchState(_context.TargetAcquiredState);
-            else if (_context.TargetLostState.CanBeInState()) _context.SwitchState(_context.TargetLostState);
-            else _context.SwitchState(_context.IdleState);
+            if (_stateMachine.TargetAcquiredState.CanBeInState()) _stateMachine.SwitchState(_stateMachine.TargetAcquiredState);
+            else if (_stateMachine.TargetLostState.CanBeInState()) _stateMachine.SwitchState(_stateMachine.TargetLostState);
+            else _stateMachine.SwitchState(_stateMachine.IdleState);
         }
     }
 }
