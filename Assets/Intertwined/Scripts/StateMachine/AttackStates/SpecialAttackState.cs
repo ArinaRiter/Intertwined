@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpecialAttackState", menuName = "AI State Machine/Attack States/SpecialAttackState")]
 public class SpecialAttackState : BaseAttackState
 {
-    [SerializeField] private float attackAngle = 90;
     [SerializeField] private float attackCooldown = 10;
     [SerializeField] private string animationTrigger = "SpecialAttack";
 

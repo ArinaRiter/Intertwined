@@ -128,4 +128,9 @@ public class Weapon : MonoBehaviour
     {
         _hitTargets.Clear();
     }
+
+    public void SetDamageType(DamageType type)
+    {
+        damageType = type;
+    }
 }
