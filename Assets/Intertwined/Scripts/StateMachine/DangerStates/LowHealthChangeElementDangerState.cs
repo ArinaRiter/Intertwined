@@ -10,6 +10,9 @@ public class LowHealthChangeElementDangerState : BaseDangerState
     [SerializeField] private float stateCooldown;
     [SerializeField] private List<DamageType> damageTypes;
     [SerializeField] private string animationTrigger;
+    [SerializeField] private string animationBool;
+    [SerializeField] private Color dangerColor;
+    [SerializeField] private ParticleSystem dangerParticles;
     
     private Stat _maxHealth;
     private float _lastStateTime;
@@ -17,9 +20,12 @@ public class LowHealthChangeElementDangerState : BaseDangerState
     public override void EnterState()
     {
         base.EnterState();
-        _context.Animator.SetTrigger(animationTrigger);
         var type = damageTypes[Random.Range(0, damageTypes.Count)];
+        _context.Animator.SetTrigger(animationTrigger);
+        _context.Animator.SetBool(string.Concat(animationBool, type), true);
         _context.EntityAnimator.Weapons.ToList().ForEach(weapon => weapon.SetDamageType(type));
+        if (dangerParticles is not null && type == DamageType.True) Instantiate(dangerParticles, _context.transform);
+        if (dangerColor != Color.clear && type == DamageType.Fire) _context.GetComponentsInChildren<Renderer>().ToList().ForEach(renderer => renderer.material.color = dangerColor);
         _lastStateTime = Time.timeSinceLevelLoad;
         stateAttempts--;
     }

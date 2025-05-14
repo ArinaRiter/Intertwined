@@ -16,4 +16,7 @@ MonoBehaviour:
   stateAttempts: 1
   stateCooldown: 0
   damageTypes: 0100000002000000
-  animationTrigger: 
+  animationTrigger: Buff
+  animationBool: Phase
+  dangerColor: {r: 1, g: 0, b: 0, a: 1}
+  dangerParticles: {fileID: 0}
