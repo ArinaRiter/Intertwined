@@ -93,3 +93,9 @@ MonoBehaviour:
     clips: []
     volumeRange: 0.1
     pitchRange: 0.1
+  - name: PoisonAttack
+    clips:
+    - {fileID: 8300000, guid: a872bda7b0120224fa4bbee94132c73c, type: 3}
+    - {fileID: 8300000, guid: 0ee944d2003f23141afb8bc2fa0ddf7a, type: 3}
+    volumeRange: 0.1
+    pitchRange: 0.1

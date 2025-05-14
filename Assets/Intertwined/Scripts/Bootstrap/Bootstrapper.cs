@@ -14,7 +14,7 @@ public static class Bootstrapper
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void Bootstrap()
     {
-        InitializeAsync();
+        //InitializeAsync();
     }
     
     private static async void InitializeAsync()

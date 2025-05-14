@@ -2537,6 +2537,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 165393869129329306, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: dangerStates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 165393869129329306, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: 'attackStates.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 0c39851f77d42024892da25b610bedab, type: 2}
@@ -2544,6 +2548,14 @@ PrefabInstance:
       propertyPath: 'attackStates.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 6f9f2eec015184149be9b62ffd4bc964, type: 2}
+    - target: {fileID: 165393869129329306, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: 'dangerStates.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 235b591981a503344b22867d02c953dc, type: 2}
+    - target: {fileID: 165393869129329306, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
+      propertyPath: 'dangerStates.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 194c1b1cd1ce9d04fb02c00d7b3c66d1, type: 2}
     - target: {fileID: 165393869129329306, guid: 9d89b5ac9ff4a184aa3bfe30a984bf32, type: 3}
       propertyPath: 'targetAcquiredStates.Array.data[0]'
       value: 

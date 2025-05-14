@@ -8,13 +8,22 @@ public class ProjectileLauncher : MonoBehaviour
     [SerializeField] private DamageType damageType;
     
     private EntityStats _entityStats;
+    private Projectile _currentProjectile;
+    private AIController _aiController;
 
     private void Awake()
     {
         _entityStats = GetComponent<EntityStats>();
+        _aiController = GetComponent<AIController>();
     }
 
-    public void LaunchProjectile()
+    public virtual void FireProjectile()
+    {
+        LaunchProjectile();
+        SetupProjectile();
+    }
+
+    private void SetupProjectile()
     {
         var power = _entityStats.Stats.TryGetValue(StatType.Power, out var powerStat) ? powerStat.Value : 1;
         var pierce = _entityStats.Stats.TryGetValue(StatType.Pierce, out var pierceStat) ? pierceStat.Value : 0;
@@ -39,8 +48,11 @@ public class ProjectileLauncher : MonoBehaviour
         }
         var damageBonus = damageBonusStat?.Value ?? 0;
         var damage = power * (1 + damageBonus);
-        
-        var currentProjectile = Instantiate(projectile, launcherPoint.position, launcherPoint.rotation);
-        currentProjectile.SetupProjectile(damageType, damage, pierce, breach);
+        _currentProjectile.SetupProjectile(damageType, damage, pierce, breach, _aiController.Target);
+    }
+
+    private void LaunchProjectile()
+    {
+        _currentProjectile = Instantiate(projectile, launcherPoint.position, Quaternion.LookRotation(_aiController.Target.transform.position - transform.position));
     }
 }

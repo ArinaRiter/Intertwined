@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 public class EntityAnimator : MonoBehaviour
@@ -12,6 +13,8 @@ public class EntityAnimator : MonoBehaviour
     private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
     private static readonly int IsDead = Animator.StringToHash("IsDead");
     private static readonly int Stagger = Animator.StringToHash("Stagger");
+    
+    public ReadOnlyCollection<Weapon> Weapons => weapons.AsReadOnly();
 
     private void Awake()
     {

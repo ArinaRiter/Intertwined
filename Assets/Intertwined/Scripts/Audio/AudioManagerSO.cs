@@ -110,4 +110,5 @@ public enum SoundType
     FireballImpact,
     Hurt,
     Die,
+    PoisonAttack,
 }
