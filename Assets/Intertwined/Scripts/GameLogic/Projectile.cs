@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     private float _damage;
     private float _pierce;
     private float _breach;
+    private Collider _targetCollider;
 
     private void Awake()
     {
@@ -19,15 +20,17 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        _rigidbody.linearVelocity = transform.forward * speed;
+        var targetDirection = (_targetCollider.transform.position - transform.position).normalized;
+        _rigidbody.linearVelocity = targetDirection * speed;
     }
 
-    public void SetupProjectile(DamageType damageType, float damage, float pierce, float breach)
+    public void SetupProjectile(DamageType damageType, float damage, float pierce, float breach, Collider targetCollider)
     {
         _damageType = damageType;
         _damage = damage;
         _pierce = pierce;
         _breach = breach;
+        _targetCollider = targetCollider;
     }
 
     private void OnCollisionEnter(Collision other)
