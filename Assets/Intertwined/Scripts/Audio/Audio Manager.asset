@@ -99,3 +99,8 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 0ee944d2003f23141afb8bc2fa0ddf7a, type: 3}
     volumeRange: 0.1
     pitchRange: 0.1
+  - name: Victory
+    clips:
+    - {fileID: 8300000, guid: 01fb22f2b4d5c0d45a4ba07346d99b0f, type: 3}
+    volumeRange: 0.1
+    pitchRange: 0.1

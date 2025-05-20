@@ -111,4 +111,5 @@ public enum SoundType
     Hurt,
     Die,
     PoisonAttack,
+    Victory
 }
